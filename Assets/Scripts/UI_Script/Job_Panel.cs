@@ -28,19 +28,19 @@ public class Job_Panel : MonoBehaviour
             switch (account.Game_account_type)
             {
                 case AccountType.Income:
-                    Content_Incomes.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": $" + account.Game_account_value + '\n';
+                    Content_Incomes.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + account.Game_account_value + ": $ " + '\n';
                     total_income += account.Game_account_value;
                     break;
                 case AccountType.Asset:
-                    Content_Assets.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": $" + account.Game_account_value + '\n';
+                    Content_Assets.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + account.Game_account_value + ": $ " + '\n';
                     total_asset += account.Game_account_value;
                     break;
                 case AccountType.Expense:
-                    Content_Expenses.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": $" + account.Game_account_value + '\n';
+                    Content_Expenses.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name +  account.Game_account_value + ": $ " + '\n';
                     total_expense += account.Game_account_value;
                     break;
                 case AccountType.Liability:
-                    Content_Liabilities.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": $" + account.Game_account_value + '\n';
+                    Content_Liabilities.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + account.Game_account_value + ": $ " + '\n';
                     total_liability += account.Game_account_value;
                     break;
                 default:
@@ -48,9 +48,9 @@ public class Job_Panel : MonoBehaviour
             }
         }
         this.job = job;
-        total_Income.text = "Tổng Thu nhập: " + total_income;
-        total_Asset.text = "Tổng tài sản: " + total_asset;
-        total_Expense.text = "Tổng chi phí: " + total_expense;
-        total_Liabilities.text = "Tổng Nợ: " + total_liability;
+        total_Income.text = "Total Incomes : " + total_income;
+        total_Asset.text = "Total Assets : " + total_asset;
+        total_Expense.text = "Total Expense: " + total_expense;
+        total_Liabilities.text = "Total Liabilities: " + total_liability;
     }
 }
