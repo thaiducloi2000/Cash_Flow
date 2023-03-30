@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9713b92966d53e47bd4f4e7b10053a7, type: 3}
+  m_Name: Item_Tile_Default
+  m_EditorClassIdentifier: 
+  item: 0
+  id: Tile_Default
+  oppotunity_material: {fileID: 2100000, guid: cd57f165f865f394ea247199581683ae, type: 2}
+  charity_material: {fileID: 2100000, guid: f078570d1647f364fb1ea0eb5a2e9336, type: 2}
+  paycheck_material: {fileID: 2100000, guid: 45f08577203562f459edd5313f1bb453, type: 2}
+  offer_material: {fileID: 2100000, guid: 2de177444e08da34e8b7231a148e875a, type: 2}
+  downsize_material: {fileID: 2100000, guid: c5d1b23129531c446a28463a40a00141, type: 2}
+  doodads_material: {fileID: 2100000, guid: 9fe4b0c95afac554289165440515fb79, type: 2}
+  baby_material: {fileID: 2100000, guid: 1f5a82e9e6f8dbd45b527fb5e2c33c48, type: 2}
+  default_material: {fileID: 2100000, guid: b735010420ee591449a75a4dcde68939, type: 2}
+  oppotunity_material_img: {fileID: 2100000, guid: 8e11a24334e3d1744ac0db4023ce5a38, type: 2}
+  charity_material_img: {fileID: 2100000, guid: 671fa97c753a2da4ab13d9825bc700e0, type: 2}
+  paycheck_material_img: {fileID: 2100000, guid: dfd7d86c93090844eb905f619855b63d, type: 2}
+  offer_material_img: {fileID: 2100000, guid: 34b80a698b09bb041974fcac7beac19d, type: 2}
+  downsize_material_img: {fileID: 2100000, guid: 33c0a0fd65628d346876bbc550f1437f, type: 2}
+  doodads_material_img: {fileID: 2100000, guid: 7a11c0d7db9a18844a5c5104bd48d0a6, type: 2}
+  baby_material_img: {fileID: 2100000, guid: a2443d9e95250294eadb81dca2eb5619, type: 2}
