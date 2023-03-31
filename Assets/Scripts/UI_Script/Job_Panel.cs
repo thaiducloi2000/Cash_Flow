@@ -28,19 +28,19 @@ public class Job_Panel : MonoBehaviour
             switch (account.Game_account_type)
             {
                 case AccountType.Income:
-                    Content_Incomes.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + account.Game_account_value + ": $ " + '\n';
+                    Content_Incomes.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": " + account.Game_account_value + " $" + '\n';
                     total_income += account.Game_account_value;
                     break;
                 case AccountType.Asset:
-                    Content_Assets.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + account.Game_account_value + ": $ " + '\n';
+                    Content_Assets.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": " + account.Game_account_value + " $" + '\n';
                     total_asset += account.Game_account_value;
                     break;
                 case AccountType.Expense:
-                    Content_Expenses.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name +  account.Game_account_value + ": $ " + '\n';
+                    Content_Expenses.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": "+  account.Game_account_value + " $" + '\n';
                     total_expense += account.Game_account_value;
                     break;
                 case AccountType.Liability:
-                    Content_Liabilities.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + account.Game_account_value + ": $ " + '\n';
+                    Content_Liabilities.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": " + account.Game_account_value + " $" + '\n';
                     total_liability += account.Game_account_value;
                     break;
                 default:

@@ -1,4 +1,7 @@
 
+using UnityEngine;
+using UnityEngine.UI;
+
 public class Big_Deal : Deal
 {
     private float downpay;
@@ -6,9 +9,10 @@ public class Big_Deal : Deal
     private float dept;
     private float cash_flow;
 
-    public Big_Deal(string title,string Account_name,string description,float cost,float downpay, string tradingRange, float dept, float cash_flow,int Action)
+    public Big_Deal(Sprite image_url,string title,string Account_name,string description,float cost,float downpay, string tradingRange, float dept, float cash_flow,int Action)
     {
         this.Type = Deal_Type.Big;
+        this.Image= image_url;
         this.Title = title;
         this.Account_Name = Account_name;
         this.Description = description;

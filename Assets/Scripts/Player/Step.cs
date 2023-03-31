@@ -91,8 +91,6 @@ public class Step : MonoBehaviour
 
     void PopupPanel(Tile tile)
     {
-
-        UI_Manager ui = GetComponentInChildren<UI_Manager>();
         // Compare cuurent position to popup panel 
         // Oppotunity, Charity, PayCheck, Offer,DownSize,Doodads
         switch (tile.Type)
@@ -121,6 +119,18 @@ public class Step : MonoBehaviour
                 Doodad doodad = EvenCard_Data.instance.Doodads[Random.Range(0, EvenCard_Data.instance.Doodads.Count-1)];
                 UI_Manager.instance.Popup_Doodad_Panel(doodad);
                 Doodads(doodad);
+                break;
+            case TileType.Divorce:
+                Debug.Log("Divorce");
+                break;
+            case TileType.CashFlowDay:
+                Debug.Log("CashFlowDay");
+                break;
+            case TileType.Accused:
+                Debug.Log("Accused");
+                break;
+            case TileType.Taxes:
+                Debug.Log("Taxes");
                 break;
             default:
                 break;

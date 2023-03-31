@@ -1,9 +1,13 @@
 
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Market_Panel : MonoBehaviour
 {
+    [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI Title;
     [SerializeField] private TextMeshProUGUI Description;
     [SerializeField] private TextMeshProUGUI Cost_Txt;
@@ -12,6 +16,7 @@ public class Market_Panel : MonoBehaviour
 
     public void SetMarketPanel(Market market)
     {
+        this._image.sprite = market.Image;
         this.market = market;
         this.Title.text = market.Title;
         this.Description.text = market.Description;
@@ -54,6 +59,4 @@ public class Market_Panel : MonoBehaviour
         }
         this.gameObject.SetActive(false);
     }
-
-
 }
