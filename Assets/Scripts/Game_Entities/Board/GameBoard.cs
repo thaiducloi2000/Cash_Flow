@@ -176,6 +176,9 @@ public class GameBoard : MonoBehaviour
             case "accused":
                 type = TileType.Accused;
                 break;
+            case "Pay taxes":
+                type = TileType.Taxes;
+                break;
             default:
                 type = TileType.Oppotunity;
                 break;

@@ -7108,7 +7108,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8285309846930336966}
   m_RootOrder: 1
@@ -9114,7 +9114,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7332821733042644757}
   m_RootOrder: 1
@@ -15411,6 +15411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6290b112ec8d440b0d8a7277c20588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 7292144012639294407}
   Title: {fileID: 7413012435443589976}
   Description: {fileID: 1428075252607916191}
   Cost_Txt: {fileID: 564357504612712658}
@@ -16899,6 +16900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2954f6f1a3e49d449cb8c31145a1aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 8156758850154594903}
   Description: {fileID: 273943740246792260}
   Cost_Txt: {fileID: 6725322604210063103}
 --- !u!114 &5283196870810951346
@@ -18868,7 +18870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &6548701012668229904
 GameObject:
   m_ObjectHideFlags: 0
@@ -20384,7 +20386,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8476152525283790542}
   m_RootOrder: 1
@@ -22298,6 +22300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c078a2b5055dddb42ada8bfc396a5b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 4745178226976251457}
   Title: {fileID: 767903210315884819}
   Description: {fileID: 5283196870810951346}
   Cost_Txt: {fileID: 8285309848208636307}
