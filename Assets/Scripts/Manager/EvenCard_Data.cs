@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using static Event_card_Entity;
 
 public class EvenCard_Data : MonoBehaviour
 {
@@ -48,47 +47,72 @@ public class EvenCard_Data : MonoBehaviour
             //Debug.Log(string.Format("Downloaded Event Card Process {0:P1}", process * 100f + "%"));
             foreach (Event_card_Entity card in event_card)
             {
-                switch (card.Event_type_id)
+
+                StartCoroutine(helper.DownloadImage(card.Image_url, (Sprite) =>
                 {
-                    case 1:
-                        LoadBigDeal(card);
-                        break;
-                    case 2:
-                        LoadSmallDeal(card);
-                        break;
-                    case 3:
-                        LoadDoodad(card);
-                        break;
-                    case 4:
-                        LoadMarket(card);
-                        break;
-                    default:
-                        break;
+
+                    Debug.Log(1);
+                    switch (card.Event_type_id)
+                    {
+                        case 1:
+                            LoadBigDeal(card,Sprite);
+                            break;
+                        case 2:
+                            LoadSmallDeal(card,Sprite);
+                            break;
+                        case 3:
+                            LoadDoodad(card,Sprite);
+                            break;
+                        case 4:
+                            LoadMarket(card,Sprite);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                ));
+                //Debug.Log(card.Image_url);
+                //switch (card.Event_type_id)
+                //{
+                //    case 1:
+                //        LoadBigDeal(card);
+                //        break;
+                //    case 2:
+                //        LoadSmallDeal(card);
+                //        break;
+                //    case 3:
+                //        LoadDoodad(card);
+                //        break;
+                //    case 4:
+                //        LoadMarket(card);
+                //        break;
+                //    default:
+                //        break;
+                //}
             }
         }
         ));
 
     }
 
-    private void LoadDoodad(Event_card_Entity card)
+    private void LoadDoodad(Event_card_Entity card,Sprite image)
     {
-        Doodads.Add(new Doodad(card.Event_name, card.Account_Name,card.Event_description, card.Cost,card.Action));
+        Doodads.Add(new Doodad(image, card.Event_name, card.Account_name,card.Event_description, card.Cost,card.Action));
     }
 
 
-    private void LoadMarket(Event_card_Entity card)
+    private void LoadMarket(Event_card_Entity card, Sprite image)
     {
-        Markets.Add(new Market(card.Event_name, card.Account_Name,card.Event_description, card.Cost,card.Action));
+        Markets.Add(new Market(image, card.Event_name, card.Account_name,card.Event_description, card.Cost,card.Action));
     }
 
-    private void LoadBigDeal(Event_card_Entity card)
+    private void LoadBigDeal(Event_card_Entity card, Sprite image)
     {
-        Big_Deal_List.Add(new Big_Deal(card.Event_name,card.Account_Name,card.Event_description, card.Cost, card.Down_pay, card.Trading_range,card.Dept, card.Cash_flow,card.Action));
+        Big_Deal_List.Add(new Big_Deal(image, card.Event_name,card.Account_name,card.Event_description, card.Cost, card.Down_pay, card.Trading_range,card.Dept, card.Cash_flow,card.Action));
     }
 
-    private void LoadSmallDeal(Event_card_Entity card)
+    private void LoadSmallDeal(Event_card_Entity card, Sprite image)
     {   
-        Small_Deal_List.Add(new Small_Deal(card.Event_name, card.Account_Name,card.Event_description, card.Cost, card.Dept, card.Cash_flow, card.Down_pay,card.Trading_range,card.Action));
+        Small_Deal_List.Add(new Small_Deal(image, card.Event_name, card.Account_name,card.Event_description, card.Cost, card.Dept, card.Cash_flow, card.Down_pay,card.Trading_range,card.Action));
     }
 }

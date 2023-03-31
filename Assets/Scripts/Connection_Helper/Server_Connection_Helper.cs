@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 public class Server_Connection_Helper : MonoBehaviour 
 {
@@ -53,6 +55,23 @@ public class Server_Connection_Helper : MonoBehaviour
                 break;
         }
         return list;
+    }
+
+    public IEnumerator DownloadImage(string url, Action<Sprite> callback)
+    {
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
+        {
+            yield return request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(request);
+                if (texture != null)
+                {
+                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    callback(sprite);
+                }
+            }
+        }
     }
 }
 

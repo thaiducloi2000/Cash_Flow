@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 
-public enum TileType { Oppotunity, Charity, PayCheck, Baby,DownSize,Doodads,Market,CashFlowDay,Divorce,Dream,Accused };
+public enum TileType { Oppotunity, Charity, PayCheck, Baby,DownSize,Doodads,Market,CashFlowDay,Divorce, Dream,Accused,Taxes };
 
 public class Tile : MonoBehaviour
 {
@@ -64,6 +64,7 @@ public class Tile : MonoBehaviour
                 //titles.text = "DownSize";
                 break;
             case TileType.Accused:
+            case TileType.Taxes:
             case TileType.Doodads:
                 this.gameObject.GetComponent<Renderer>().material = material.doodads_material;
                 this.image.gameObject.GetComponent<Renderer>().material = material.doodads_material_img;

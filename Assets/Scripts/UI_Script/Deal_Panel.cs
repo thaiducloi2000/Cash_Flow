@@ -1,9 +1,12 @@
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class Deal_Panel : MonoBehaviour
 {
+    [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI Title;
     [SerializeField] private TextMeshProUGUI Description;
     [SerializeField] private TextMeshProUGUI Cost_Txt;
@@ -11,10 +14,13 @@ public class Deal_Panel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CashFlow_TradingRange_Txt;
     [SerializeField] private TextMeshProUGUI DownSize_Share_Owned_Txt;
 
-
     public void SetBigDeal(Big_Deal deal)
     {
         resetPanel();
+        if (deal.Image != null)
+        {
+            this._image.sprite = deal.Image;
+        }
         this.Title.text = deal.Title;
         this.Description.text = deal.Description;
         if (deal.Cost > 0)
@@ -38,6 +44,10 @@ public class Deal_Panel : MonoBehaviour
     public void SetSmallDeal(Small_Deal deal)
     {
         resetPanel();
+        if (deal.Image != null)
+        {
+            this._image.sprite = deal.Image;
+        }
         this.Title.text = deal.Title;
         this.Description.text = deal.Description;
         if (deal.Cost > 0)
