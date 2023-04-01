@@ -12,11 +12,23 @@ public class Rental_Panel : MonoBehaviour
     public bool showPenel = false;
     private const float default_rent_money = 1000;
     private float tmp_rent_money;
+    public GameObject Repayment_panel;
 
 
     private void Start()
     {
         showPenel = false;
+    }
+    public void openRepayment()
+    {
+        Repayment_panel.SetActive(true);
+        Loan_Panel.SetActive(false);
+    }
+    public void backtoLoan()
+    {
+        Repayment_panel.SetActive(false);
+        Reset_Rent_Value();
+        this.Loan_Panel.SetActive(showPenel);
     }
     public void Show_Penel()
     {
