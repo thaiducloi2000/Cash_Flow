@@ -9,7 +9,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
 
-public class Server_Connection_Helper : MonoBehaviour 
+
+public class BypassCertificate : CertificateHandler
+{
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
+        //Simply return true no matter what
+        return true;
+    }
+}
+
+public class Server_Connection_Helper : MonoBehaviour
 {
     private const string BASE_URL = "https://mobilebasedcashflowapi.herokuapp.com/api/";
 
@@ -30,6 +40,7 @@ public class Server_Connection_Helper : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint))
         {
+            request.certificateHandler = new BypassCertificate();
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }
@@ -61,6 +72,8 @@ public class Server_Connection_Helper : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
         {
+            request.certificateHandler = new BypassCertificate();
+
             yield return request.SendWebRequest();
             if (request.result == UnityWebRequest.Result.Success)
             {

@@ -47,31 +47,33 @@ public class EvenCard_Data : MonoBehaviour
             //Debug.Log(string.Format("Downloaded Event Card Process {0:P1}", process * 100f + "%"));
             foreach (Event_card_Entity card in event_card)
             {
-
-                StartCoroutine(helper.DownloadImage(card.Image_url, (Sprite) =>
+                if (card.Image_url != null && card.Image_url != "")
                 {
-
-                    Debug.Log(1);
-                    switch (card.Event_type_id)
+                    StartCoroutine(helper.DownloadImage(card.Image_url, (Sprite) =>
                     {
-                        case 1:
-                            LoadBigDeal(card,Sprite);
-                            break;
-                        case 2:
-                            LoadSmallDeal(card,Sprite);
-                            break;
-                        case 3:
-                            LoadDoodad(card,Sprite);
-                            break;
-                        case 4:
-                            LoadMarket(card,Sprite);
-                            break;
-                        default:
-                            break;
+
+                        Debug.Log(1);
+                        switch (card.Event_type_id)
+                        {
+                            case 1:
+                                LoadBigDeal(card, Sprite);
+                                break;
+                            case 2:
+                                LoadSmallDeal(card, Sprite);
+                                break;
+                            case 3:
+                                LoadDoodad(card, Sprite);
+                                break;
+                            case 4:
+                                LoadMarket(card, Sprite);
+                                break;
+                            default:
+                                break;
+                        }
                     }
+                    ));
                 }
-                ));
-                //Debug.Log(card.Image_url);
+                //Debug.Log(card.Event_type_id + " - " + card.Image_url);
                 //switch (card.Event_type_id)
                 //{
                 //    case 1:
