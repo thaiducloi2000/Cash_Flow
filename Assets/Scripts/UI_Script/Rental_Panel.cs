@@ -22,10 +22,12 @@ public class Rental_Panel : MonoBehaviour
     public void openRepayment()
     {
         Repayment_panel.SetActive(true);
+        Repayment_panel.gameObject.GetComponent<Repay_Panel>().Load_Game_Account_To_ListView(Player.Instance.financial_rp.game_accounts);
         Loan_Panel.SetActive(false);
     }
     public void backtoLoan()
     {
+        Repayment_panel.gameObject.GetComponent<Repay_Panel>().Clear();
         Repayment_panel.SetActive(false);
         Reset_Rent_Value();
         this.Loan_Panel.SetActive(showPenel);
