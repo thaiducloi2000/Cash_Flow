@@ -29,11 +29,6 @@ public class EvenCard_Data : MonoBehaviour
         //LoadAllJob();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void LoadAllDeal()
     {
         // load all Deal from db
