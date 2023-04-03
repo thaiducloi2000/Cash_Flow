@@ -54,6 +54,7 @@ public class GameBoard : MonoBehaviour
         Spawn_Rat_Race(NumberTiles_Rat_Race);
         // Spawn Fat Race with Square
         Spawn_Fat_Race(NumberTiles_Fat_Race);
+
         Load_Dream();
     }
 
@@ -90,9 +91,8 @@ public class GameBoard : MonoBehaviour
         {
             float x = Mathf.Cos(angle) * radius;
             float z = Mathf.Sin(angle) * radius;
-            GameObject tile = Instantiate(Tile_Rat_Race, new Vector3(-x*size, 0f, z*size), Quaternion.identity);
+            GameObject tile = Instantiate(Tile_Rat_Race, new Vector3(-x*size, 0f, z*size), Quaternion.identity,this.transform);
             tile.transform.rotation = Quaternion.EulerAngles(0f, angle, 0f);
-            tile.transform.parent = this.gameObject.transform;
             Tiles_Rat_Race.Add(tile);
             angle += nextAngle;
         }
@@ -208,22 +208,20 @@ public class GameBoard : MonoBehaviour
             GameObject tile;
             if (i <= nextQuare)
             {
-                tile = Instantiate(Tile_Fat_Race, new Vector3(size * (quare  - i), 0f,-size * quare), Quaternion.identity);
+                tile = Instantiate(Tile_Fat_Race, new Vector3(size * (quare  - i), 0f,-size * quare), Quaternion.identity, this.transform);
             }
             else if (i > nextQuare && i <= nextQuare * 2)
             {
-                tile = Instantiate(Tile_Fat_Race, new Vector3(size * (quare-nextQuare), 0f, size * (i-nextQuare-quare)), Quaternion.Euler(0,90f,0));
+                tile = Instantiate(Tile_Fat_Race, new Vector3(size * (quare-nextQuare), 0f, size * (i-nextQuare-quare)), Quaternion.Euler(0,90f,0), this.transform);
             }
             else if (i > (nextQuare * 2) && i <= (nextQuare * 3))
             {
-                tile = Instantiate(Tile_Fat_Race, new Vector3(size * (i-(nextQuare*2+quare)), 0f, size * (nextQuare - quare)), Quaternion.Euler(0f, 180f, 0f));
+                tile = Instantiate(Tile_Fat_Race, new Vector3(size * (i-(nextQuare*2+quare)), 0f, size * (nextQuare - quare)), Quaternion.Euler(0f, 180f, 0f), this.transform);
             }
             else
             {
-                tile = Instantiate(Tile_Fat_Race, new Vector3(size * quare, 0f, size * (4 * nextQuare - i-quare)), Quaternion.Euler(0f, -90f, 0f));
+                tile = Instantiate(Tile_Fat_Race, new Vector3(size * quare, 0f, size * (4 * nextQuare - i-quare)), Quaternion.Euler(0f, -90f, 0f),this.transform);
             }
-
-            tile.transform.parent = this.transform;
             Tiles_Fat_Race.Add(tile);
         }
     }

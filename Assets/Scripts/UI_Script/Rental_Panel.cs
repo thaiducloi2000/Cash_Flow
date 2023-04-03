@@ -22,7 +22,7 @@ public class Rental_Panel : MonoBehaviour
     public void openRepayment()
     {
         Repayment_panel.SetActive(true);
-        Repayment_panel.gameObject.GetComponent<Repay_Panel>().Load_Game_Account_To_ListView(Player.Instance.financial_rp.game_accounts);
+        Repayment_panel.gameObject.GetComponent<Repay_Panel>().Load_Game_Account_To_ListView();
         Loan_Panel.SetActive(false);
     }
     public void backtoLoan()
