@@ -25,6 +25,8 @@ public class EvenCard_Data : MonoBehaviour
         {
             helper = GetComponent<Server_Connection_Helper>();
         }
+
+
         LoadAllDeal();
         //LoadAllJob();
     }
