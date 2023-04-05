@@ -59,4 +59,5 @@ public class Financial
         }
         return passiveIncome;
     }
+
 }

@@ -32,7 +32,7 @@ public class Step : MonoBehaviour
             {
                 Paycheck();
             }
-            nextPos.y = 0.05f;
+            nextPos.y = 0.25f;
             while (MoveToNextTiles(nextPos, player)) { yield return null; }
             yield return new WaitForSeconds(.2f);
             step--;
@@ -81,30 +81,12 @@ public class Step : MonoBehaviour
 
     bool MoveToNextTiles(Vector3 nextTiles,Player player)
     {
-        //Vector3 newPos = player.Avatar.transform.position; // Store the current position of the game object
-        //newPos.y += Mathf.Sin(Time.deltaTime * .5f * Mathf.PI) * .5f; // Calculate the new y-coordinate using a sine wave
-        //return nextTiles != (player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, 2f * Time.deltaTime));
-        ////-------------------------------------------------------------------------------------
-        float speed = 2f;
-        float rotationSpeed = 10f;
 
-        Vector3 newPos = player.Avatar.transform.position;
-        newPos.y += Mathf.Sin(Time.deltaTime * .5f * Mathf.PI) * .5f;
-
-        Vector3 targetDirection = nextTiles - player.Avatar.transform.position;
-        targetDirection.y = 0; // Set the Y component of the direction to 0
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-        // Interpolate between the current rotation and the target rotation
-        player.Avatar.transform.rotation = Quaternion.Lerp(player.Avatar.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-        // Move the player towards the nextTiles position
-        player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, speed * Time.deltaTime);
-
-
-        // Return true if the player has reached the nextTiles position
-        return player.Avatar.transform.position != nextTiles;
-
+        Vector3 newPos = player.Avatar.transform.position; // Store the current position of the game object
+        newPos.y += Mathf.Sin(Time.deltaTime * .5f * Mathf.PI) * .5f; // Calculate the new y-coordinate using a sine wave
+        //player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, Time.deltaTime); // Move the game object towards the next position using MoveTowards()
+        //return Vector3.Distance(player.Avatar.transform.position, nextTiles) > Mathf.Epsilon;
+        return nextTiles != (player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, 2f * Time.deltaTime));
     }
 
     void PopupPanel(Tile tile)
@@ -139,56 +121,20 @@ public class Step : MonoBehaviour
                 Doodads(doodad);
                 break;
             case TileType.Divorce:
-                Divorce();
                 Debug.Log("Divorce");
                 break;
             case TileType.CashFlowDay:
-                CashFlowDay();
                 Debug.Log("CashFlowDay");
                 break;
             case TileType.Accused:
-                Accused();
                 Debug.Log("Accused");
                 break;
             case TileType.Taxes:
-                Taxes();
                 Debug.Log("Taxes");
                 break;
             default:
                 break;
         }
-    }
-
-    private void Divorce()
-    {
-        // -50% cash
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash()/2));
-    }
-
-    private void CashFlowDay()
-    {
-        // get cash
-        float total_income = 0;
-        foreach (Game_accounts account in player.financial_rp.game_accounts)
-        {
-            if (account.Game_account_type == AccountType.Income)
-            {
-                total_income += account.Game_account_value;
-            }
-        }
-        player.financial_rp.SetCash(player.financial_rp.GetCash() + total_income);
-    }
-
-    private void Accused()
-    {
-        // -25%
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 4));
-    }
-
-    private void Taxes()
-    {
-        // -10%
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 10));
     }
 
     private void Paycheck()

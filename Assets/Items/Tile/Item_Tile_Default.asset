@@ -29,5 +29,3 @@ MonoBehaviour:
   downsize_material_img: {fileID: 2100000, guid: 33c0a0fd65628d346876bbc550f1437f, type: 2}
   doodads_material_img: {fileID: 2100000, guid: 7a11c0d7db9a18844a5c5104bd48d0a6, type: 2}
   baby_material_img: {fileID: 2100000, guid: a2443d9e95250294eadb81dca2eb5619, type: 2}
-  dream_Items:
-  - {fileID: 11400000, guid: 15d8949b5ed51c14a892a2c0340fbc89, type: 2}
