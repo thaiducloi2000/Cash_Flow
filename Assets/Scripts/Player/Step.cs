@@ -40,10 +40,6 @@ public class Step : MonoBehaviour
         GameManager.Instance.isPlayerMoving = false;
 
 
-        if (isDreamTile(race[this.currentPos].GetComponent<Tile>()))
-        {
-            GameManager.Instance.EndGame = true;
-        }
         // popup panel when player stop moving 
         PopupPanel(race[this.currentPos].GetComponent<Tile>());
     }
@@ -81,12 +77,25 @@ public class Step : MonoBehaviour
 
     bool MoveToNextTiles(Vector3 nextTiles,Player player)
     {
+        float speed = 2f;
+        float rotationSpeed = 10f;
 
-        Vector3 newPos = player.Avatar.transform.position; // Store the current position of the game object
-        newPos.y += Mathf.Sin(Time.deltaTime * .5f * Mathf.PI) * .5f; // Calculate the new y-coordinate using a sine wave
-        //player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, Time.deltaTime); // Move the game object towards the next position using MoveTowards()
-        //return Vector3.Distance(player.Avatar.transform.position, nextTiles) > Mathf.Epsilon;
-        return nextTiles != (player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, 2f * Time.deltaTime));
+        Vector3 newPos = player.Avatar.transform.position;
+        newPos.y += Mathf.Sin(Time.deltaTime * .5f * Mathf.PI) * .5f;
+
+        Vector3 targetDirection = nextTiles - player.Avatar.transform.position;
+        targetDirection.y = 0; // Set the Y component of the direction to 0
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        // Interpolate between the current rotation and the target rotation
+        player.Avatar.transform.rotation = Quaternion.Lerp(player.Avatar.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // Move the player towards the nextTiles position
+        player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, speed * Time.deltaTime);
+
+
+        // Return true if the player has reached the nextTiles position
+        return player.Avatar.transform.position != nextTiles;
     }
 
     void PopupPanel(Tile tile)
@@ -96,7 +105,14 @@ public class Step : MonoBehaviour
         switch (tile.Type)
         {
             case TileType.Oppotunity:
-                UI_Manager.instance.PopUpDeal_UI();
+                if (Player.Instance.isInFatRace)
+                {
+                    Debug.Log("Oppotunity : Fat Race");
+                }
+                else
+                {
+                    UI_Manager.instance.PopUpDeal_UI();
+                }
                 break;
             case TileType.Market:
                 //UI_Manager.Instance.PopUpDeal_UI();
@@ -121,20 +137,70 @@ public class Step : MonoBehaviour
                 Doodads(doodad);
                 break;
             case TileType.Divorce:
+                Divorce();
                 Debug.Log("Divorce");
                 break;
             case TileType.CashFlowDay:
+                CashFlowDay();
                 Debug.Log("CashFlowDay");
                 break;
             case TileType.Accused:
+                Accused();
                 Debug.Log("Accused");
                 break;
             case TileType.Taxes:
+                Taxes();
                 Debug.Log("Taxes");
+                break;
+            case TileType.Dream:
+                Dream(currentPos);
                 break;
             default:
                 break;
         }
+    }
+
+    private void Dream(int pos)
+    {
+        if (isDreamTile(GameBoard.Instance.Tiles_Fat_Race[pos].GetComponent<Tile>()))
+        {
+            GameManager.Instance.EndGame = true;
+        }
+    }
+
+    private void Divorce()
+    {
+        // -50% cash
+        UI_Manager.instance.ProblemContainer_Panel.GetComponent<ProblemContainer_Panel>().Popup_Divorce_Panel();
+        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 2));
+    }
+
+    private void CashFlowDay()
+    {
+        // get cash
+        float total_income = 0;
+        foreach (Game_accounts account in player.financial_rp.game_accounts)
+        {
+            if (account.Game_account_type == AccountType.Income)
+            {
+                total_income += account.Game_account_value;
+            }
+        }
+        player.financial_rp.SetCash(player.financial_rp.GetCash() + total_income);
+    }
+
+    private void Accused()
+    {
+        // -25%
+        UI_Manager.instance.ProblemContainer_Panel.GetComponent<ProblemContainer_Panel>().Popup_Litigation_Panel();
+        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 4));
+    }
+
+    private void Taxes()
+    {
+        // -10%
+        UI_Manager.instance.ProblemContainer_Panel.GetComponent<ProblemContainer_Panel>().Popup_Taxes_Panel();
+        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 10));
     }
 
     private void Paycheck()

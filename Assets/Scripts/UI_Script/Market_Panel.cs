@@ -22,7 +22,7 @@ public class Market_Panel : MonoBehaviour
         this.Description.text = market.Description;
         if(market.Cost > 0)
         {
-            this.Cost_Txt.text = "Cost : " + market.Cost + "$ / 1 Unit";
+            this.Cost_Txt.text = "Cost : " + market.Cost + " $/ 1 Unit";
         }
 
     }

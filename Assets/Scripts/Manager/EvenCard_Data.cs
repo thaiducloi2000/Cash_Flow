@@ -44,7 +44,7 @@ public class EvenCard_Data : MonoBehaviour
             {
                 if (card.Image_url != null && card.Image_url != "")
                 {
-                    StartCoroutine(helper.DownloadImage(card.Image_url, (Sprite) =>
+                    StartCoroutine(helper.DownloadImage(card.Image_url.ToString(), (Sprite) =>
                     {
 
                         Debug.Log(1);

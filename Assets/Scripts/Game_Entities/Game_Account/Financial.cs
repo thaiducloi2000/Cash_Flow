@@ -46,18 +46,19 @@ public class Financial
     public float GetPassiveIncome()
     {
         float passiveIncome = 0;
+        float expense = 0;
         foreach(Game_accounts account in game_accounts)
         {
             if(account.Game_account_type == AccountType.Expense)
             {
-                passiveIncome -= account.Game_account_value;
+                expense += account.Game_account_value;
             }
             if(account.Game_account_type == AccountType.Income && account.Game_account_name != "Salary")
             {
                 passiveIncome += account.Game_account_value;
             }
         }
-        return passiveIncome;
+        return passiveIncome - expense;
     }
 
 }
