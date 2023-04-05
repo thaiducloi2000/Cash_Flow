@@ -23,7 +23,6 @@ public class Tile : MonoBehaviour
 
     public void SetDreamTile(Dream dream)
     {
-        Debug.Log(dream.id);
         this.dream = dream;
     }
 
@@ -59,14 +58,6 @@ public class Tile : MonoBehaviour
                 //titles.text = "Have Baby";
                 break;
             case TileType.Dream:
-                foreach(Dream_Item dream in material.dream_Items)
-                {
-                    if(dream.ID == this.dream.id)
-                    {
-                       Instantiate(dream.Dream_Model, this.transform);
-                    }
-                }
-                break;
             case TileType.DownSize:
                 this.gameObject.GetComponent<Renderer>().material = material.downsize_material;
                 this.image.gameObject.GetComponent<Renderer>().material = material.downsize_material_img;
