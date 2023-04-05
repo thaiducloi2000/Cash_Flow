@@ -21,7 +21,7 @@ public class Financial_Panel_Manager : MonoBehaviour
         if (Player.Instance.isInFatRace)
         {
             this.financial_fat_race.SetActive(isOpen);
-            //this.financial_fat_race.GetComponent<Financial_Panel>().loadFinInformation(this.financial_rp_fat_race);
+            this.financial_fat_race.GetComponent<Financial_Panel>().loadFinInformation(this.financial_rp_fat_race);
         }
         else
         {
