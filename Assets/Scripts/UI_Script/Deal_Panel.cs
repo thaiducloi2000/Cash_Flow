@@ -25,18 +25,18 @@ public class Deal_Panel : MonoBehaviour
         this.Description.text = deal.Description;
         if (deal.Cost > 0)
         {
-            this.Cost_Txt.text = "Cost : " + deal.Cost;
+            this.Cost_Txt.text = "Cost : " + deal.Cost + " $";
         }
         if (deal.Downpay > 0)
         {
-            this.Mortgage_Divined_Txt.text = "Down pay : " + deal.Downpay;
+            this.Mortgage_Divined_Txt.text = "Down pay : " + deal.Downpay + " $";
         }
         if (deal.TradingRange != "0")
         {
-            this.CashFlow_TradingRange_Txt.text = "Trading Range : " + deal.TradingRange;
+            this.CashFlow_TradingRange_Txt.text = "Trading Range : " + deal.TradingRange + " $";
         }if(deal.Dept > 0)
         {
-            this.DownSize_Share_Owned_Txt.text = "Share Owned : " + deal.Dept;
+            this.DownSize_Share_Owned_Txt.text = "Share Owned : " + deal.Dept + " $";
         }
 
     }
@@ -52,18 +52,18 @@ public class Deal_Panel : MonoBehaviour
         this.Description.text = deal.Description;
         if (deal.Cost > 0)
         {
-            this.Cost_Txt.text = "Cost : " + deal.Cost.ToString();
+            this.Cost_Txt.text = "Cost : " + deal.Cost.ToString() + " $";
         }
         if(deal.Dept > 0)
         {
-            this.Mortgage_Divined_Txt.text = "Dept : " + deal.Dept;
+            this.Mortgage_Divined_Txt.text = "Dept : " + deal.Dept + " $";
         }
         if (deal.Trading_Range != "0")
         {
-            this.CashFlow_TradingRange_Txt.text = "Trading Range : " + deal.Trading_Range;
+            this.CashFlow_TradingRange_Txt.text = "Trading Range : " + deal.Trading_Range + " $";
         }if (deal.Downsize > 0)
         {
-            this.DownSize_Share_Owned_Txt.text = "Down Pay : " + deal.Downsize;
+            this.DownSize_Share_Owned_Txt.text = "Down Pay : " + deal.Downsize + " $";
         }
     }
     

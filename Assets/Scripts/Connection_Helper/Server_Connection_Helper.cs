@@ -6,18 +6,7 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Reflection;
 
-
-public class BypassCertificate : CertificateHandler
-{
-    protected override bool ValidateCertificate(byte[] certificateData)
-    {
-        //Simply return true no matter what
-        return true;
-    }
-}
 
 public class Server_Connection_Helper : MonoBehaviour
 {
@@ -40,7 +29,6 @@ public class Server_Connection_Helper : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint))
         {
-            request.certificateHandler = new BypassCertificate();
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }
@@ -70,21 +58,42 @@ public class Server_Connection_Helper : MonoBehaviour
 
     public IEnumerator DownloadImage(string url, Action<Sprite> callback)
     {
+        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
         {
-            request.certificateHandler = new BypassCertificate();
-
             yield return request.SendWebRequest();
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Texture2D texture = DownloadHandlerTexture.GetContent(request);
+                Texture2D texture = ResizeTexture(DownloadHandlerTexture.GetContent(request), 1024, 756);
                 if (texture != null)
                 {
-                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0,256, 128), new Vector2(0.5f, 0.5f));
+                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0,texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     callback(sprite);
                 }
             }
         }
+    }
+
+    private Texture2D ResizeTexture(Texture2D originalTexture, int newWidth, int newHeight)
+    {
+        Texture2D resizedTexture = new Texture2D(newWidth, newHeight);
+        Color[] pixels = new Color[newWidth * newHeight];
+        float xRatio = (float)originalTexture.width / newWidth;
+        float yRatio = (float)originalTexture.height / newHeight;
+
+        for (int y = 0; y < newHeight; y++)
+        {
+            for (int x = 0; x < newWidth; x++)
+            {
+                int index = (int)(y * xRatio) * originalTexture.width + (int)(x * yRatio);
+                pixels[y * newWidth + x] = originalTexture.GetPixel(index % originalTexture.width, index / originalTexture.width);
+            }
+        }
+
+        resizedTexture.SetPixels(pixels);
+        resizedTexture.Apply();
+
+        return resizedTexture;
     }
 }
 

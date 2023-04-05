@@ -17,7 +17,7 @@ public class Doodad_Panel : MonoBehaviour
         _image.sprite = doodad.Image;
         this.doodad = doodad;
         this.Description.text = doodad.Description;
-        this.Cost_Txt.text = "Cost : " + doodad.Cost;
+        this.Cost_Txt.text = "Cost : " + doodad.Cost + " $";
 
     }
 

@@ -420,6 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 31090321}
   - component: {fileID: 31090322}
+  - component: {fileID: 31090323}
   m_Layer: 5
   m_Name: ProblemContainer
   m_TagString: Untagged
@@ -458,6 +459,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31090320}
   m_CullTransparentMesh: 1
+--- !u!114 &31090323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31090320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 310f1b01ec71c3e48a80c64d9591512d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Divorce_Panel: {fileID: 1400871649}
+  Litigation_Panel: {fileID: 1742611386}
+  Taxes_Panel: {fileID: 1532393550}
 --- !u!1 &31947289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,7 +1694,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 163281314}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 31090323}
+        m_TargetAssemblyTypeName: ProblemContainer_Panel, Assembly-CSharp
+        m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &163281314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10588,7 +10616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1059285457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17731,7 +17759,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1864440386}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 31090323}
+        m_TargetAssemblyTypeName: ProblemContainer_Panel, Assembly-CSharp
+        m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1864440386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18872,7 +18912,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1983721437}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 31090323}
+        m_TargetAssemblyTypeName: ProblemContainer_Panel, Assembly-CSharp
+        m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1983721437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30573,7 +30625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9999
+  m_text: 50000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -31618,7 +31670,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_HandleRect: {fileID: 811190575253455575}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -34940,6 +34992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 946812598171194057}
   - component: {fileID: 132276566284296439}
+  - component: {fileID: 7944904058502841562}
   m_Layer: 5
   m_Name: FinancialFastTrack_Panel
   m_TagString: Untagged
@@ -34947,6 +35000,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &7944904058502841562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944904058502841561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04864686c443a94fbf82427f07cde5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Content_Incomes: {fileID: 3031247198920460630}
+  Cash_Flow_Day: {fileID: 7672374390347203575}
+  Cash: {fileID: 3967101172036156549}
+  Income: {fileID: 2476866693515601908}
+  Goal_Percent: {fileID: 9109255056602107844}
 --- !u!224 &7986687319333274248
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39697,6 +39767,7 @@ MonoBehaviour:
   Doodad_Panel: {fileID: 8187752221489781388}
   Roll_Button: {fileID: 7878354628648601973}
   Rental_Panel: {fileID: 3780502570132561983}
+  ProblemContainer_Panel: {fileID: 31090320}
 --- !u!1 &8285309848734210884
 GameObject:
   m_ObjectHideFlags: 0

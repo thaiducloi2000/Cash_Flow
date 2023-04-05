@@ -16,6 +16,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject Doodad_Panel;
     public GameObject Roll_Button;
     public GameObject Rental_Panel;
+    public GameObject ProblemContainer_Panel;
     private int b_deal = -1;
     private int s_deal = -1;
     //[SerializeField] Player player;
@@ -53,11 +54,6 @@ public class UI_Manager : MonoBehaviour
         Select_Deal_Type_Panel.SetActive(true);
 
     }
-
-    //public void AcceptJob()
-    //{
-    //    this.Job_Panel.SetActive(false);
-    //}
 
     public void Denine_Deal_Btn()
     {
@@ -98,7 +94,7 @@ public class UI_Manager : MonoBehaviour
             else
             {
                 ApplySmallDeal(EvenCard_Data.instance.Small_Deal_List[s_deal], 1);
-                if (Player.Instance.financial_rp.GetPassiveIncome() >=0 && Player.Instance.isInFatRace == false)
+                if (Player.Instance.financial_rp.GetPassiveIncome() >= 0 && Player.Instance.isInFatRace == false)
                 {
 
                     Player.Instance.isInFatRace = Player.Instance.financial_rp.GetPassiveIncome() >= 0;
@@ -176,13 +172,13 @@ public class UI_Manager : MonoBehaviour
                 }
                 break;
             case 3:
-                //foreach (Game_accounts game_accounts in player.financial_rp.game_accounts)
-                //{
-                //    if (game_accounts.Game_account_name.Contains(deal.Account_Name))
-                //    {
-                Player.Instance.financial_rp.SetCash(Player.Instance.financial_rp.GetCash() - deal.Cost);
-                //    }
-                //}
+                foreach (Game_accounts game_accounts in Player.Instance.financial_rp.game_accounts)
+                {
+                    if (game_accounts.Game_account_name.Contains(deal.Account_Name))
+                    {
+                        Player.Instance.financial_rp.SetCash(Player.Instance.financial_rp.GetCash() - deal.Cost);
+                    }
+                }
                 break;
             case 4:
                 foreach (Game_accounts game_accounts in Player.Instance.financial_rp.game_accounts)
@@ -336,7 +332,6 @@ public class UI_Manager : MonoBehaviour
         s_deal = deal_num;
 
     }
-
 
     private void Reset_Deal()
     {

@@ -108,7 +108,6 @@ public class GameBoard : MonoBehaviour
                 dreams = new List<Dream>();
             }
             dreams = EvenCard_Data.instance.helper.ParseToList<Dream>(request);
-            Debug.Log(string.Format("Downloaded Tiles Process {0:P1}", process * 100f + "%"));
 
             // Set Event Type to All Race , TMP is RAT RACE
             Set_Tiles_Type();
@@ -190,7 +189,7 @@ public class GameBoard : MonoBehaviour
             Tiles_Fat_Race[i].GetComponent<Tile>().Type = type;
             if(type == TileType.Dream)
             {
-                Tiles_Fat_Race[i].GetComponent<Tile>().SetDreamTile(dream[dream.Count - 1]);
+                Tiles_Fat_Race[i].GetComponent<Tile>().SetDreamTile(dream[dream.Count - dream_amount]);
                 dream_amount--;
             }
             Tiles_Fat_Race[i].GetComponent<Tile>().SetMaterialTile(type,tile_avatar);
