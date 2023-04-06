@@ -29,3 +29,15 @@ MonoBehaviour:
   downsize_material_img: {fileID: 2100000, guid: 33c0a0fd65628d346876bbc550f1437f, type: 2}
   doodads_material_img: {fileID: 2100000, guid: 7a11c0d7db9a18844a5c5104bd48d0a6, type: 2}
   baby_material_img: {fileID: 2100000, guid: a2443d9e95250294eadb81dca2eb5619, type: 2}
+  dream_Items:
+  - {fileID: 11400000, guid: 856559c5f17547948a2bb4d153904dbb, type: 2}
+  - {fileID: 11400000, guid: 7c615007896e66c4f9ef23ac30db5dab, type: 2}
+  - {fileID: 11400000, guid: f81e2f4b3a5df8e4288b60cb3b81f163, type: 2}
+  - {fileID: 11400000, guid: 56c45915373f1794f8499022c575d8b5, type: 2}
+  - {fileID: 11400000, guid: 7a15ed0f9318ad4448a85d3c64dc51db, type: 2}
+  - {fileID: 11400000, guid: 47abc0bc97bd8564988fbdd3f3494354, type: 2}
+  - {fileID: 11400000, guid: ec94039e67be0a843a6bebeda9878764, type: 2}
+  - {fileID: 11400000, guid: b431ad734d1e4df44b190b87718e8e2e, type: 2}
+  Taxes_Model: {fileID: 406915712224330264, guid: 1b5f281d4f8fd6842b859e7d57566c48, type: 3}
+  Divorce: {fileID: 3015900214142004345, guid: 4121e4b93fcec184bb7fcc885a2818be, type: 3}
+  Accused: {fileID: 983624894560441085, guid: 1d2eda23653e22d46b083fe44f5b2f9e, type: 3}

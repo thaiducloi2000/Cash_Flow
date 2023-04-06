@@ -32,7 +32,7 @@ public class Step : MonoBehaviour
             {
                 Paycheck();
             }
-            nextPos.y = 0.25f;
+            nextPos.y = 0.05f;
             while (MoveToNextTiles(nextPos, player)) { yield return null; }
             yield return new WaitForSeconds(.2f);
             step--;
@@ -66,7 +66,7 @@ public class Step : MonoBehaviour
         //currentPos++;
         currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
         Vector3 nextPos = GameBoard.Instance.Tiles_Fat_Race[0].transform.position;
-        nextPos.y = 0.25f;
+        nextPos.y = 0.05f;
         while (MoveToNextTiles(nextPos, player)) { yield return null; }
         yield return new WaitForSeconds(.2f);
             
