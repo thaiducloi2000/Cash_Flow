@@ -12,6 +12,7 @@ public class Server_Connection_Helper : MonoBehaviour
 {
     private const string BASE_URL = "https://mobilebasedcashflowapi.herokuapp.com/api/";
 
+
     public IEnumerator Post(string endpoint, WWWForm form,string bodydata, Action<UnityWebRequest,float> callback)
     {
 
@@ -58,18 +59,23 @@ public class Server_Connection_Helper : MonoBehaviour
 
     public IEnumerator DownloadImage(string url, Action<Sprite> callback)
     {
-        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+        ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
         {
             yield return request.SendWebRequest();
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Texture2D texture = ResizeTexture(DownloadHandlerTexture.GetContent(request), 1024, 756);
+                Texture2D texture = DownloadHandlerTexture.GetContent(request);
                 if (texture != null)
                 {
-                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0,texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                    Texture2D resize = ResizeTexture(texture, 1024, 756);
+                    Sprite sprite = Sprite.Create(resize, new Rect(0, 0, resize.width, resize.height), new Vector2(0f, 0f));
                     callback(sprite);
                 }
+            }
+            else
+            {
+                Debug.LogError(request.error);
             }
         }
     }

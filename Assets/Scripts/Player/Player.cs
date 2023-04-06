@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         //setting camera 
         this.transform.position = Vector3.zero;
         root = GameBoard.Instance.Root.transform;
-        offset = new Vector3(-GameBoard.Instance.size * 9f, GameBoard.Instance.size * 8f, 0f);
+        offset = new Vector3(GameBoard.Instance.size * 0f, GameBoard.Instance.size * 3f, -10f);
         //offset = new Vector3(0, 7, -9f);
         Camera.main.transform.position = offset;
         //Camera.main.transform.LookAt(root);

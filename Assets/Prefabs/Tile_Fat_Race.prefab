@@ -217,3 +217,4 @@ MonoBehaviour:
   Type: 0
   default_material: {fileID: 11400000, guid: 7e7890eaa5311674da1844ff8b9ea6f6, type: 2}
   image: {fileID: 1489691503}
+  dream: {fileID: 0}

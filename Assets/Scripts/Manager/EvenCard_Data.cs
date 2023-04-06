@@ -1,9 +1,7 @@
-using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class EvenCard_Data : MonoBehaviour
 {
@@ -44,48 +42,64 @@ public class EvenCard_Data : MonoBehaviour
             {
                 if (card.Image_url != null && card.Image_url != "")
                 {
-                    StartCoroutine(helper.DownloadImage(card.Image_url.ToString(), (Sprite) =>
-                    {
-
-                        Debug.Log(1);
-                        switch (card.Event_type_id)
-                        {
-                            case 1:
-                                LoadBigDeal(card, Sprite);
-                                break;
-                            case 2:
-                                LoadSmallDeal(card, Sprite);
-                                break;
-                            case 3:
-                                LoadDoodad(card, Sprite);
-                                break;
-                            case 4:
-                                LoadMarket(card, Sprite);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    ));
+                    //string catchFile = Path.Combine(Application.temporaryCachePath, card.id+".png");
+                    //if (File.Exists(catchFile))
+                    //{
+                    //    byte[] imageData = File.ReadAllBytes(catchFile);
+                    //    Texture2D texture = new Texture2D(1024, 756);
+                    //    texture.LoadImage(imageData);
+                    //    Sprite image_card = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0f, 0f));
+                    //    switch (card.Event_type_id)
+                    //    {
+                    //        case 1:
+                    //            LoadBigDeal(card, image_card);
+                    //            break;
+                    //        case 2:
+                    //            LoadSmallDeal(card, image_card);
+                    //            break;
+                    //        case 3:
+                    //            LoadDoodad(card, image_card);
+                    //            break;
+                    //        case 4:
+                    //            LoadMarket(card, image_card);
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //try
+                    //{
+                    //    StartCoroutine(helper.DownloadImage(card.Image_url.ToString(), (Sprite) =>
+                    //    {
+                                Sprite sprite = Sprite.Create(new Texture2D(512, 382), new Rect(0, 0, 512, 382), new Vector2(0f, 0f));
+                                switch (card.Event_type_id)
+                                {
+                                    case 1:
+                                        LoadBigDeal(card, sprite);
+                                        break;
+                                    case 2:
+                                        LoadSmallDeal(card, sprite);
+                                        break;
+                                    case 3:
+                                        LoadDoodad(card, sprite);
+                                        break;
+                                    case 4:
+                                        LoadMarket(card, sprite);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            //}
+                    //    ));
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    Debug.LogError(e.Message);
+                    //}
+                    //}
                 }
-                //Debug.Log(card.Event_type_id + " - " + card.Image_url);
-                //switch (card.Event_type_id)
-                //{
-                //    case 1:
-                //        LoadBigDeal(card);
-                //        break;
-                //    case 2:
-                //        LoadSmallDeal(card);
-                //        break;
-                //    case 3:
-                //        LoadDoodad(card);
-                //        break;
-                //    case 4:
-                //        LoadMarket(card);
-                //        break;
-                //    default:
-                //        break;
-                //}
             }
         }
         ));
