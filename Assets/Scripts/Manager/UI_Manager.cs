@@ -86,14 +86,14 @@ public class UI_Manager : MonoBehaviour
         }
         else if (s_deal >= 0)
         {
-            if (Player.Instance.financial_rp.GetCash() < EvenCard_Data.instance.Small_Deal_List[s_deal].Cost && Player.Instance.financial_rp.GetCash() < EvenCard_Data.instance.Small_Deal_List[s_deal].Downsize)
+            if (Player.Instance.financial_rp.GetCash() < (EvenCard_Data.instance.Small_Deal_List[s_deal].Cost * 100) && Player.Instance.financial_rp.GetCash() < EvenCard_Data.instance.Small_Deal_List[s_deal].Downsize * 100)
             {
                 Rental_Panel rent_panel = this.Rental_Panel.GetComponent<Rental_Panel>();
                 rent_panel.Show_Penel();
             }
             else
             {
-                ApplySmallDeal(EvenCard_Data.instance.Small_Deal_List[s_deal], 1);
+                ApplySmallDeal(EvenCard_Data.instance.Small_Deal_List[s_deal], 100);
                 if (Player.Instance.financial_rp.GetPassiveIncome() >= 0 && Player.Instance.isInFatRace == false)
                 {
 
@@ -110,31 +110,46 @@ public class UI_Manager : MonoBehaviour
 
     public void Popup_Market_Panel(Market market)
     {
-        Market_Panel.SetActive(true);
+        if (market.Image != null)
+        {
+            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(market.Image, (Sprite) => {
+                Market_Panel.SetActive(true);
 
-        Market_Panel panel = Market_Panel.GetComponent<Market_Panel>();
-        panel.SetMarketPanel(market);
+                Market_Panel panel = Market_Panel.GetComponent<Market_Panel>();
+                panel.SetMarketPanel(market,Sprite);
+            }));
+        }
     }
 
     public void Popup_Doodad_Panel(Doodad doodad)
     {
-        Doodad_Panel.SetActive(true);
+        if (doodad.Image != null)
+        {
+            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(doodad.Image, (Sprite) => {
+                Doodad_Panel.SetActive(true);
 
-        Doodad_Panel panel = Doodad_Panel.GetComponent<Doodad_Panel>();
-        panel.SetDoodadPanel(doodad);
+                Doodad_Panel panel = Doodad_Panel.GetComponent<Doodad_Panel>();
+                panel.SetDoodadPanel(doodad,Sprite);
+            }));
+        }
     }
 
 
     public void Big_Deal_Btn()
     {
         Select_Deal_Type_Panel.SetActive(false);
-        Deal_Panel.SetActive(true);
-
-        // Get BIg Deal From Instance
-        Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
         int deal_num = Random.Range(0, EvenCard_Data.instance.Big_Deal_List.Count - 1);
         Big_Deal deal = EvenCard_Data.instance.Big_Deal_List[deal_num];
-        panel.SetBigDeal(deal);
+        if (deal.Image != null)
+        {
+            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
+                Deal_Panel.SetActive(true);
+
+                // Get BIg Deal From Instance
+                Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
+                panel.SetBigDeal(deal,Sprite);
+            }));
+        }
         b_deal = deal_num;
     }
 
@@ -256,8 +271,6 @@ public class UI_Manager : MonoBehaviour
         switch (deal.Action)
         {
             case 1:
-
-                // check Down Pay - > Cost
                 if (deal.Downsize > 0)
                 {
                     Player.Instance.financial_rp.SetCash(Player.Instance.financial_rp.GetCash() - deal.Downsize * amount);
@@ -321,14 +334,20 @@ public class UI_Manager : MonoBehaviour
     public void Small_Deal_Btn()
     {
         Select_Deal_Type_Panel.SetActive(false);
-        Deal_Panel.SetActive(true);
-
-
-        // Get Small Deal From Instance
-        Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
+        
         int deal_num = Random.Range(0, EvenCard_Data.instance.Small_Deal_List.Count - 1);
         Small_Deal deal = EvenCard_Data.instance.Small_Deal_List[deal_num];
-        panel.SetSmallDeal(deal);
+        if (deal.Image != null)
+        {
+            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
+                Deal_Panel.SetActive(true);
+
+
+                // Get Small Deal From Instance
+                Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
+                panel.SetSmallDeal(deal, Sprite);
+            }));
+        }
         s_deal = deal_num;
 
     }

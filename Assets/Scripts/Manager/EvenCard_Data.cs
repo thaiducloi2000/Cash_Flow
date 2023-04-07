@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EvenCard_Data : MonoBehaviour
 {
@@ -37,68 +38,28 @@ public class EvenCard_Data : MonoBehaviour
         StartCoroutine(helper.Get("eventcards/all", (request,process) =>
         {
             List<Event_card_Entity> event_card = helper.ParseToList<Event_card_Entity>(request);
-            //Debug.Log(string.Format("Downloaded Event Card Process {0:P1}", process * 100f + "%"));
+            Debug.Log(request.downloadProgress);
             foreach (Event_card_Entity card in event_card)
             {
                 if (card.Image_url != null && card.Image_url != "")
                 {
-                    //string catchFile = Path.Combine(Application.temporaryCachePath, card.id+".png");
-                    //if (File.Exists(catchFile))
-                    //{
-                    //    byte[] imageData = File.ReadAllBytes(catchFile);
-                    //    Texture2D texture = new Texture2D(1024, 756);
-                    //    texture.LoadImage(imageData);
-                    //    Sprite image_card = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0f, 0f));
-                    //    switch (card.Event_type_id)
-                    //    {
-                    //        case 1:
-                    //            LoadBigDeal(card, image_card);
-                    //            break;
-                    //        case 2:
-                    //            LoadSmallDeal(card, image_card);
-                    //            break;
-                    //        case 3:
-                    //            LoadDoodad(card, image_card);
-                    //            break;
-                    //        case 4:
-                    //            LoadMarket(card, image_card);
-                    //            break;
-                    //        default:
-                    //            break;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //try
-                    //{
-                    //    StartCoroutine(helper.DownloadImage(card.Image_url.ToString(), (Sprite) =>
-                    //    {
-                                Sprite sprite = Sprite.Create(new Texture2D(512, 382), new Rect(0, 0, 512, 382), new Vector2(0f, 0f));
-                                switch (card.Event_type_id)
-                                {
-                                    case 1:
-                                        LoadBigDeal(card, sprite);
-                                        break;
-                                    case 2:
-                                        LoadSmallDeal(card, sprite);
-                                        break;
-                                    case 3:
-                                        LoadDoodad(card, sprite);
-                                        break;
-                                    case 4:
-                                        LoadMarket(card, sprite);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            //}
-                    //    ));
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    Debug.LogError(e.Message);
-                    //}
-                    //}
+                    switch (card.Event_type_id)
+                    {
+                        case 1:
+                            LoadBigDeal(card);
+                            break;
+                        case 2:
+                            LoadSmallDeal(card);
+                            break;
+                        case 3:
+                            LoadDoodad(card);
+                            break;
+                        case 4:
+                            LoadMarket(card);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -106,24 +67,24 @@ public class EvenCard_Data : MonoBehaviour
 
     }
 
-    private void LoadDoodad(Event_card_Entity card,Sprite image)
+    private void LoadDoodad(Event_card_Entity card)
     {
-        Doodads.Add(new Doodad(image, card.Event_name, card.Account_name,card.Event_description, card.Cost,card.Action));
+        Doodads.Add(new Doodad(card.Image_url, card.Event_name, card.Account_name,card.Event_description, card.Cost,card.Action));
     }
 
 
-    private void LoadMarket(Event_card_Entity card, Sprite image)
+    private void LoadMarket(Event_card_Entity card)
     {
-        Markets.Add(new Market(image, card.Event_name, card.Account_name,card.Event_description, card.Cost,card.Action));
+        Markets.Add(new Market(card.Image_url, card.Event_name, card.Account_name,card.Event_description, card.Cost,card.Action));
     }
 
-    private void LoadBigDeal(Event_card_Entity card, Sprite image)
+    private void LoadBigDeal(Event_card_Entity card)
     {
-        Big_Deal_List.Add(new Big_Deal(image, card.Event_name,card.Account_name,card.Event_description, card.Cost, card.Down_pay, card.Trading_range,card.Dept, card.Cash_flow,card.Action));
+        Big_Deal_List.Add(new Big_Deal(card.Image_url, card.Event_name,card.Account_name,card.Event_description, card.Cost, card.Down_pay, card.Trading_range,card.Dept, card.Cash_flow,card.Action));
     }
 
-    private void LoadSmallDeal(Event_card_Entity card, Sprite image)
+    private void LoadSmallDeal(Event_card_Entity card)
     {   
-        Small_Deal_List.Add(new Small_Deal(image, card.Event_name, card.Account_name,card.Event_description, card.Cost, card.Dept, card.Cash_flow, card.Down_pay,card.Trading_range,card.Action));
+        Small_Deal_List.Add(new Small_Deal(card.Image_url, card.Event_name, card.Account_name,card.Event_description, card.Cost, card.Dept, card.Cash_flow, card.Down_pay,card.Trading_range,card.Action));
     }
 }

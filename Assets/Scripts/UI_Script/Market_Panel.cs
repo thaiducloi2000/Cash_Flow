@@ -14,9 +14,9 @@ public class Market_Panel : MonoBehaviour
     public Market market;
 
 
-    public void SetMarketPanel(Market market)
+    public void SetMarketPanel(Market market,Sprite image)
     {
-        this._image.sprite = market.Image;
+        this._image.sprite = image;
         this.market = market;
         this.Title.text = market.Title;
         this.Description.text = market.Description;
