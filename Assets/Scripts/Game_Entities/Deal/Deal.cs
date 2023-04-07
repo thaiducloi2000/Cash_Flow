@@ -7,7 +7,7 @@ public class Deal
 
     public enum Deal_Type { Big, Small, Doodad, Market };
     private Deal_Type type;
-    private Sprite image;
+    private string image_url;
     private string title;
     private string Account_name;
     private string description;
@@ -22,5 +22,5 @@ public class Deal
     public string Description { get => description; set => description = value; }
     public float Cost { get => cost; set => cost = value; }
     public int Action { get => action; set => action = value; }
-    public Sprite Image { get => image; set => image = value; }
+    public string Image { get => image_url; set => image_url = value; }
 }

@@ -14,13 +14,10 @@ public class Deal_Panel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CashFlow_TradingRange_Txt;
     [SerializeField] private TextMeshProUGUI DownSize_Share_Owned_Txt;
 
-    public void SetBigDeal(Big_Deal deal)
+    public void SetBigDeal(Big_Deal deal,Sprite image)
     {
         resetPanel();
-        if (deal.Image != null)
-        {
-            this._image.sprite = deal.Image;
-        }
+        this._image.sprite = image;
         this.Title.text = deal.Title;
         this.Description.text = deal.Description;
         if (deal.Cost > 0)
@@ -41,13 +38,10 @@ public class Deal_Panel : MonoBehaviour
 
     }
 
-    public void SetSmallDeal(Small_Deal deal)
+    public void SetSmallDeal(Small_Deal deal,Sprite image)
     {
         resetPanel();
-        if (deal.Image != null)
-        {
-            this._image.sprite = deal.Image;
-        }
+        this._image.sprite = image;
         this.Title.text = deal.Title;
         this.Description.text = deal.Description;
         if (deal.Cost > 0)

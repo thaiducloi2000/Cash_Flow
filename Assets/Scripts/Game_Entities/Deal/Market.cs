@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Market : Deal
 {
-    public Market(Sprite image_url, string title, string Account_name,string description, float cost,int Action)
+    public Market(string image_url, string title, string Account_name,string description, float cost,int Action)
     {
         base.Type = Deal_Type.Doodad;
         this.Image = image_url;
