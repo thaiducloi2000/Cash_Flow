@@ -220,23 +220,24 @@ public class UI_Manager : MonoBehaviour
 
     public void Roll_Dice()
     {
-        if (GameManager.Instance.EndGame != true)
-        {
-            // Dress Key button to roll
-            // Role Dice
-            int step = Random.Range(1, 7);
-            // Move
-            if (Player.Instance.isInFatRace)
-            {
-                StartCoroutine(Player.Instance.gameObject.GetComponent<Step>().Move(Player.Instance, step, GameBoard.Instance.Tiles_Fat_Race));
-            }
-            else
-            {
-                StartCoroutine(Player.Instance.gameObject.GetComponent<Step>().Move(Player.Instance, step, GameBoard.Instance.Tiles_Rat_Race));
-            }
+        //if (GameManager.Instance.EndGame != true)
+        //{
+        //    // Dress Key button to roll
+        //    // Role Dice
+        //    int step = Random.Range(1, 7);
+        //    // Move
+        //    if (Player.Instance.isInFatRace)
+        //    {
+        //        StartCoroutine(Player.Instance.gameObject.GetComponent<Step>().Move(Player.Instance, step, GameBoard.Instance.Tiles_Fat_Race));
+        //    }
+        //    else
+        //    {
+        //        StartCoroutine(Player.Instance.gameObject.GetComponent<Step>().Move(Player.Instance, step, GameBoard.Instance.Tiles_Rat_Race));
+        //    }
 
-            GameManager.Instance.nextTurn();
-        }
+        //    GameManager.Instance.nextTurn();
+        //}
+        Player.Instance.GetComponent<Player>().OnRollDice();
     }
 
     public void AcceptJob()

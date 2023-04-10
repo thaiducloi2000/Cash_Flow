@@ -1,6 +1,8 @@
 
+using Fusion;
+
 public enum AccountType { Income,Expense,Asset,Liability}
-public class Game_accounts
+public class Game_accounts : NetworkBehaviour
 {
 
 

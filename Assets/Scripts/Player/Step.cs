@@ -1,40 +1,61 @@
-﻿using System.Collections;
+﻿using Fusion;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 // Move Player base on Dice
-public class Step : MonoBehaviour
+public enum BoardType { RatRace, FatRace }
+
+public class Step : NetworkBehaviour
 {
-    public int currentPos; // Current Pos of Player in GameBoard list...
+    [Networked]
+    public int currentPos { get; set; } // Current Pos of Player in GameBoard list...
     public Player player;
-
-
+    [Networked]
+    private NetworkBool moveToNextTile { get; set; }
+    public List<GameObject> Ratrace;
+    public List<GameObject> Fatrace;
+    public List<GameObject> race;
 
     private void Awake()
     {
         player = GetComponent<Player>();
     }
 
-    public IEnumerator Move(Player player, int step,List<GameObject> race)
+    public override void Spawned()
     {
+        Ratrace = GameBoard.Instance.Tiles_Rat_Race;
+        Fatrace = GameBoard.Instance.Tiles_Fat_Race;
+    }
+
+    public IEnumerator Move(Player player, int step, BoardType boardType)
+    {
+        //DanhNPC add check board race
+        if (boardType == BoardType.RatRace)
+            race = Ratrace;
+        else if (boardType == BoardType.FatRace)
+            race = Fatrace;
+        
         if (GameManager.Instance.isPlayerMoving)
         {
             yield break;
         }
         GameManager.Instance.isPlayerMoving = true;
-
         while (step > 0)
         {
-            currentPos++;
-            currentPos %= race.Count;
-            Vector3 nextPos = race[this.currentPos].transform.position;
-            if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
-            {
-                Paycheck();
-            }
-            nextPos.y = 0.05f;
-            while (MoveToNextTiles(nextPos, player)) { yield return null; }
-            yield return new WaitForSeconds(.2f);
+            //currentPos++;
+            //currentPos %= race.Count;
+            //Vector3 nextPos = race[this.currentPos].transform.position;
+            //if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
+            //{
+            //    Paycheck();
+            //}
+            //nextPos.y = 0.05f;
+            //MoveToNextTiles(nextPos);
+            Debug.Log("CountRace: " + race.Count);
+            RPC_Moving(boardType);
+            if (this.moveToNextTile) { yield return null; }
+            yield return new WaitForSeconds(.5f);
             step--;
         }
         GameManager.Instance.isPlayerMoving = false;
@@ -56,6 +77,16 @@ public class Step : MonoBehaviour
         return false;
     }
 
+    //DanhNPC add online move function
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    void RPC_MovingToFatRace(RpcInfo info = default)
+    {
+        currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
+        Vector3 nextPos = GameBoard.Instance.Tiles_Fat_Race[0].transform.position;
+        nextPos.y = 0.05f;
+        MoveToNextTiles(nextPos);
+    }
+
     public IEnumerator MoveFatRace(Player player)
     {
         if (GameManager.Instance.isPlayerMoving)
@@ -63,39 +94,70 @@ public class Step : MonoBehaviour
             yield break;
         }
         GameManager.Instance.isPlayerMoving = true;
+        int count = 4;
         //currentPos++;
-        currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
-        Vector3 nextPos = GameBoard.Instance.Tiles_Fat_Race[0].transform.position;
-        nextPos.y = 0.05f;
-        while (MoveToNextTiles(nextPos, player)) { yield return null; }
-        yield return new WaitForSeconds(.2f);
+        //currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
+        //Vector3 nextPos = GameBoard.Instance.Tiles_Fat_Race[0].transform.position;
+        //nextPos.y = 0.05f;
+        //MoveToNextTiles(nextPos);
+
+        while (count > 0)
+        {
+            RPC_MovingToFatRace();
+            if (this.moveToNextTile) { yield return null; }
+            yield return new WaitForSeconds(.2f);
+            count--;
+        }
             
         GameManager.Instance.isPlayerMoving = false;
 
         // popup panel when player stop moving
     }
 
-    bool MoveToNextTiles(Vector3 nextTiles,Player player)
+    //DanhNPC add online move function
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    void RPC_Moving(BoardType boardType , RpcInfo info = default)
+    {
+        //DanhNPC add check board race
+        if (boardType == BoardType.RatRace)
+            race = Ratrace;
+        else if (boardType == BoardType.FatRace)
+            race = Fatrace;
+        currentPos++;
+        currentPos %= race.Count;
+        Vector3 nextPos = race[this.currentPos].transform.position;
+        if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
+        {
+            if (Object.HasInputAuthority)
+                Paycheck();
+        }
+        nextPos.y = 0.05f;
+        MoveToNextTiles(nextPos);
+
+    }
+    //DanhNPC modified move function
+    void MoveToNextTiles(Vector3 nextTiles)
     {
         float speed = 2f;
         float rotationSpeed = 10f;
 
-        Vector3 newPos = player.Avatar.transform.position;
+        Vector3 newPos = transform.position;
         newPos.y += Mathf.Sin(Time.deltaTime * .5f * Mathf.PI) * .5f;
 
-        Vector3 targetDirection = nextTiles - player.Avatar.transform.position;
+        Vector3 targetDirection = nextTiles - transform.position;
         targetDirection.y = 0; // Set the Y component of the direction to 0
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
         // Interpolate between the current rotation and the target rotation
-        player.Avatar.transform.rotation = Quaternion.Lerp(player.Avatar.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed);
 
         // Move the player towards the nextTiles position
-        player.Avatar.transform.position = Vector3.MoveTowards(newPos, nextTiles, speed * Time.deltaTime);
-
+        transform.position = Vector3.MoveTowards(newPos, nextTiles, speed );
+        //RPC_Moving(nextTiles);
 
         // Return true if the player has reached the nextTiles position
-        return player.Avatar.transform.position != nextTiles;
+        //this.moveToNextTile = transform.position != nextTiles;
+        this.moveToNextTile = transform.position != nextTiles; //changed return bool to void
     }
 
     void PopupPanel(Tile tile)

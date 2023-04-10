@@ -1,7 +1,8 @@
 ﻿
+using Fusion;
 using System.Collections.Generic;
 
-public class Financial
+public class Financial : NetworkBehaviour
 {
     public int children_amount { get; set; }
     public string user_id { get; set; }
