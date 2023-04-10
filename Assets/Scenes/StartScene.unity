@@ -2685,6 +2685,7 @@ MonoBehaviour:
   Attentionpanel: {fileID: 1027770701}
   TextAttention: {fileID: 829032751}
   helper: {fileID: 0}
+  user_data: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!1 &521613878
 GameObject:
   m_ObjectHideFlags: 0
