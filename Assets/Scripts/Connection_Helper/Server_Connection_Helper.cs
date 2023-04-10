@@ -57,6 +57,27 @@ public class Server_Connection_Helper : MonoBehaviour
         return list;
     }
 
+    public T ParseData<T>(UnityWebRequest request)
+    {
+        T data = default(T);
+        switch (request.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError(": Error: " + request.error);
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError(": HTTP Error: " + request.error);
+                break;
+            case UnityWebRequest.Result.Success:
+                data = JsonConvert.DeserializeObject<T>(request.downloadHandler.text);
+                break;
+            default:
+                break;
+        }
+        return data;
+    }
+
     public IEnumerator DownloadImage(string url, Action<Sprite> callback)
     {
         ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;

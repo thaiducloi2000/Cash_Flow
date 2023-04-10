@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public GameObject HairPage;
     public void openInven()
     {
+        Debug.Log("Iventory");
         InventoryPanel.SetActive(true);
     }
     public void closeInven()
