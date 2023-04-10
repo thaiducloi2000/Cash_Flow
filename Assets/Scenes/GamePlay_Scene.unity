@@ -3837,7 +3837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4095c44f6100944e978d6a814045393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefabs: {fileID: 1750163529464388843, guid: b0dec4c613990f84b9dbfa5cd3fabf97, type: 3}
+  gameBoard: {fileID: 1365476225}
+  _playerPrefab:
+    RawGuidValue: b0dec4c613990f84b9dbfa5cd3fabf97
   playerList: []
   isPlayerMoving: 0
   EndGame: 0

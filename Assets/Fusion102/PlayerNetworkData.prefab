@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3752232141572771082}
   - component: {fileID: -371017220119070848}
-  - component: {fileID: -4960709483662822745}
+  - component: {fileID: -4914158912173600402}
   m_Layer: 0
   m_Name: PlayerNetworkData
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MonoBehaviour:
     _value: 0
   _IsLeftRoom:
     _value: 0
---- !u!114 &-4960709483662822745
+--- !u!114 &-4914158912173600402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

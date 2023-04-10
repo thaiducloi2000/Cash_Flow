@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Fusion;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,14 +7,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
-    public static Player Instance;
+    public static Player Instance { get; set; }
     public string id = "7f1515ce-a0bd-4b95-adf7-98d1243e6117CU";
     public Transform root;
     public Vector3 offset;
     // Add Avatar
-    public GameObject Avatar;
     public bool isInFatRace = false;
     public float Children_cost = 0;
     //public float cash;
@@ -23,27 +23,36 @@ public class Player : MonoBehaviour
     public Turn myTurn;
     public List<Dream> dreams;
 
+    [Networked (OnChanged = nameof(OnStepChanged))]
+    public int step { get; set; }
 
-    private void Awake()
+
+    public override void Spawned()
     {
-        if (Instance != null)
+        if (Object.HasInputAuthority)
         {
             Instance = this;
+            LoadAllJob();
+            Debug.Log("Spawn local player");
         }
-        Instance = this;
+        else
+        {
+            Debug.Log("Spawn remote player");
+        }
+
     }
 
     private void Start()
     {
         //setting camera 
-        this.transform.position = Vector3.zero;
+
         root = GameBoard.Instance.Root.transform;
         offset = new Vector3(GameBoard.Instance.size * 0f, GameBoard.Instance.size * 3f, -10f);
         //offset = new Vector3(0, 7, -9f);
         Camera.main.transform.position = offset;
         //Camera.main.transform.LookAt(root);
 
-        LoadAllJob();
+        //LoadAllJob();
     }
 
 
@@ -51,6 +60,20 @@ public class Player : MonoBehaviour
     {
         Camera.main.transform.LookAt(root);
         MoveCameraOnCirle();
+    }
+
+    public void OnRollDice()
+    {
+        if (Object.HasInputAuthority)
+        {
+            RPC_Random_Dice();
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    public void RPC_Random_Dice(RpcInfo info = default)
+    {
+        step = Random.Range(1, 7);
     }
 
     public void SelectJoB()
@@ -88,7 +111,8 @@ public class Player : MonoBehaviour
         this.financial_rp_fat_race = new Financial(0, this.id, this.job.id, this.financial_rp.GetPassiveIncome() * 100f, 0, list);
 
         UI_Manager.instance.Financial_Panel.GetComponent<Financial_Panel_Manager>().Financial(this.financial_rp_fat_race);
-        StartCoroutine(this.gameObject.GetComponent<Step>().MoveFatRace(this));
+        if (Object.HasInputAuthority)
+            StartCoroutine(this.gameObject.GetComponent<Step>().MoveFatRace(this));
     }
 
     private void LoadAllJob()
@@ -109,4 +133,24 @@ public class Player : MonoBehaviour
         ));
     }
 
+    static void OnStepChanged(Changed<Player> changed)
+    {
+        changed.Behaviour.OnStepChanged();
+    }
+
+    private void OnStepChanged()
+    {
+        if (isInFatRace)
+        {
+            if(Object.HasInputAuthority)
+                StartCoroutine(GetComponent<Step>().Move(this, step, BoardType.FatRace));
+        }
+        else
+        {
+            if (Object.HasInputAuthority)
+                StartCoroutine(GetComponent<Step>().Move(this, step, BoardType.RatRace));
+        }
+
+        GameManager.Instance.nextTurn();
+    }
 }
