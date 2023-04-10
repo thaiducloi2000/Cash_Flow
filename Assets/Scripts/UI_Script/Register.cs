@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
+using Newtonsoft.Json;
+using UnityEngine.Networking;
 
 public class Register : MonoBehaviour
 {
@@ -18,10 +21,15 @@ public class Register : MonoBehaviour
     public TMP_Text TextAttentionsuccess;
     [SerializeField] private Toggle MaleCB;
     [SerializeField] private Toggle FemaleCB;
+    public Server_Connection_Helper helper;
 
     // Start is called before the first frame update
     void Awake()
     {
+        if (helper == null)
+        {
+            helper = GetComponentInParent<Server_Connection_Helper>();
+        }
         if (PlayerPrefs.GetInt("ToggelSelected") == 0)
         {
             MaleCB.isOn = true;
@@ -47,40 +55,82 @@ public class Register : MonoBehaviour
         {
             attention.SetActive(true);
             TextAttention.text = "Khong o nao duoc bo trong";
-        }else if (user_inputfield.text.Length>30 && user_inputfield.text.Length<6)
+            return false;
+        }
+        if (user_inputfield.text.Length>30 && user_inputfield.text.Length<6)
         {
             attention.SetActive(true);
             TextAttention.text = "Username khong duoc be hon 6 va lon hon 30";
-        }else if (phone_inputfield.text.Length!=10)
-        {
-            attention.SetActive(true);
-            TextAttention.text = "SDT phai co 11 so";
-        }else if (pass_inputfield.text.Length<8)
+            return false;
+        }
+        //if (phone_inputfield.text.Length <= 11)
+        //{
+        //    attention.SetActive(true);
+        //    TextAttention.text = "SDT phai co 11 so";
+        //    return false;
+        //}
+        if (pass_inputfield.text.Length<8)
         {
             attention.SetActive(true);
             TextAttention.text = "Mat khau khong duoc be hon 8";
-        }else if (name_inputfield.text.Length < 1)
+            return false;
+        }
+        if (name_inputfield.text.Length < 1)
         {
             attention.SetActive(true);
             TextAttention.text = "Ten khong duoc be hon 1";
+            return false;
         }
-        else
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
     public void RegisterAccount()
     {
-        if (Check()==true)
+        Debug.Log("1");
+        if (Check() == true)
         {
-            attentionsuccess.SetActive(true);
-            TextAttentionsuccess.text = "Tao tai khoan thanh cong";
+            WWWForm form = new WWWForm();
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("UserName", user_inputfield.text.ToString());
+            data.Add("Password", pass_inputfield.text.ToString());
+            data.Add("NickName", name_inputfield.text);
+            if (MaleCB.isOn)
+            {
+                data.Add("Gender", "Male");
+            }
+            else
+            {
+                data.Add("Gender", "Female");
+            }
+            data.Add("Phone", phone_inputfield.text.ToString());
+            data.Add("Email", email_inputfield.text.ToString());
+            string bodydata = JsonConvert.SerializeObject(data);
+            StartCoroutine(helper.Post("users/register", form, bodydata, (request, process) =>
+            {
+                switch (request.result)
+                {
+                    case UnityWebRequest.Result.ConnectionError:
+                        Debug.LogError(": Error: " + request.error);
+                        break;
+                    case UnityWebRequest.Result.DataProcessingError:
+                        Debug.LogError(": Error: " + request.error);
+                        break;
+                    case UnityWebRequest.Result.ProtocolError:
+                        Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
+                        TextAttention.text = request.error;
+                        break;
+                    case UnityWebRequest.Result.Success:
+                        attentionsuccess.SetActive(true);
+                        TextAttentionsuccess.text = "Register Successfully !!";
+                        break;
+                    default:
+                        break;
+                }
+            }));
         }
         else
         {
             attention.SetActive(true);
-            TextAttention.text = "DCMMM";
+            //TextAttention.text = "Register Unsuccess !! Please Try Again !!";
         }
     }
 }

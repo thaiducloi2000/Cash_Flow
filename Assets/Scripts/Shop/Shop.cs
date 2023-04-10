@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     public void openShop()
     {
         Shoppanel.SetActive(true);
+        Shoppanel.GetComponent<ShopManager>().PopupShop();
     }
 
     public void closeShop()

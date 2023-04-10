@@ -45,7 +45,7 @@ public class Login : MonoBehaviour
         data.Add("Password", password);
         data.Add("RememberMe", isRememberMe);
         string bodydata = JsonConvert.SerializeObject(data);
-        StartCoroutine(helper.Post("Users/authenticate", form, bodydata, (request, process) =>
+        StartCoroutine(helper.Post("users/authenticate", form, bodydata, (request, process) =>
         {
             switch(request.result)
             {

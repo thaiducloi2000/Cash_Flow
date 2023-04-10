@@ -366,6 +366,7 @@ MonoBehaviour:
   nameitem_inputfield: {fileID: 549183804165194762}
   price_inputfield: {fileID: 549183805541567786}
   image: {fileID: 309287216703129774}
+  user: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!1 &549183805205737529
 GameObject:
   m_ObjectHideFlags: 0
