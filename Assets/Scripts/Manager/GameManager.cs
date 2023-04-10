@@ -45,8 +45,8 @@ public class GameManager : MonoBehaviour
 
     public void FindAllPlayerInScene()
     {
-        foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
-        {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        { 
             switch (playerList.Count)
             {
                 case 0:

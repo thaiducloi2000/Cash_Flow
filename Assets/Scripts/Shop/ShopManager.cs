@@ -5,9 +5,9 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public ShopItemSO[] shopItemSO;
+    public List<ShopItemSO> shopItemSO;
     //public List<GameObject> shopItemSO;
-    public ShopChessSO[] shopChessSO;
+    public List<ShopChessSO> shopChessSO;
     public List<ShopTemplate> shopTemplate;
     public List<GameObject> shopPanel;
     public GameObject Attention;
@@ -29,14 +29,20 @@ public class ShopManager : MonoBehaviour
         }
         SpawnItems();
         tab = "OutfitTab";
+        coinUI.text = shop_data.user_data.data.user.Coin.ToString();
         //coins = 0;
     }
     void Update()
     {
         //coins = int.Parse(coinUI.text);
+        //CheckPurchase();
+    }
+
+    public void PopupShop()
+    {
         if (tab == "OutfitTab")
         {
-            for (int i = 0; i < shopPanel.Count-1; i++)
+            for (int i = 0; i < shopPanel.Count - 1; i++)
                 shopPanel[i].SetActive(true);
             loadTemplate();
         }
@@ -46,10 +52,7 @@ public class ShopManager : MonoBehaviour
                 shopPanel[i].SetActive(true);
             loadTemplate();
         }
-        //CheckPurchase();
     }
-
-
 
     public void loadTemplate()
     {
@@ -108,6 +111,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0;i< shop_data.Items.Count; i++)
         {
             GameObject item = Instantiate(ShopItemPrefab, Content.transform);
+            item.GetComponent<ShopTemplate>().item = shop_data.Items[i];
             shopItemSO[i].price = shop_data.Items[i].ItemPrice;
             shopItemSO[i].name = shop_data.Items[i].ItemName;
             shopPanel.Add(item);
