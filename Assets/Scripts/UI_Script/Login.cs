@@ -17,6 +17,7 @@ public class Login : MonoBehaviour
     public GameObject Attentionpanel;
     public TMP_Text TextAttention;
     public Server_Connection_Helper helper;
+    public User_Data user_data;
 
     private void Start()
     {
@@ -44,7 +45,7 @@ public class Login : MonoBehaviour
         data.Add("Password", password);
         data.Add("RememberMe", isRememberMe);
         string bodydata = JsonConvert.SerializeObject(data);
-        StartCoroutine(helper.Post("Users/authenticate", form, bodydata, (request, process) =>
+        StartCoroutine(helper.Post("users/authenticate", form, bodydata, (request, process) =>
         {
             switch(request.result)
             {
@@ -55,39 +56,20 @@ public class Login : MonoBehaviour
                     Debug.LogError(": Error: " + request.error);
                     break;
                 case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
+                    //Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
                     Attentionpanel.SetActive(true);
                     TextAttention.text = "DCMMM";
                     break;
                 case UnityWebRequest.Result.Success:
                     //Debug.Log(request.downloadHandler.text);
-                    ParsePlayerData(request.downloadHandler.text);
-                    SceneManager.LoadScene("GamePlay_Scene");
+                    Users user = helper.ParseData<Users>(request);
+                    this.user_data.data = user;
+                    SceneManager.LoadScene("TestShopScene");
                     break;
                 default:
                     break;
             }
         }));
-
-    }
-
-
-    private void ParsePlayerData(string token)
-    {
-        //string secrectkey = "1FDBA0CCB3E0E1DBA9885062DB7EADFF";
-
-        //JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-
-        //// Decode the JWT string
-        //JwtSecurityToken jwtToken = tokenHandler.ReadJwtToken(token);
-
-        //string name = jwtToken.Claims.FirstOrDefault(c => c.Type == "NickName")?.Value;
-        //string UserName = jwtToken.Claims.FirstOrDefault(c => c.Type == "UserName")?.Value;
-        //string Id = jwtToken.Claims.FirstOrDefault(c => c.Type == "Id")?.Value;
-
-        //Debug.Log("Nick Name: " + name);
-        //Debug.Log("User Name: " + UserName);
-        //Debug.Log("ID: " + Id);
 
     }
 }

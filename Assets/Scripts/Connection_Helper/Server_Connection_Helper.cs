@@ -26,6 +26,20 @@ public class Server_Connection_Helper : MonoBehaviour
         }
     }
 
+    public IEnumerator PostAuthentication(string endpoint,string token,WWWForm form, string bodydata, Action<UnityWebRequest, float> callback)
+    {
+
+        using (UnityWebRequest request = UnityWebRequest.Post(BASE_URL + endpoint, form))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + token);
+            yield return request.SendWebRequest();
+            callback(request, request.downloadProgress);
+        }
+    }
+
     public IEnumerator Get(string endpoint, Action<UnityWebRequest,float> callback)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint))
@@ -55,6 +69,27 @@ public class Server_Connection_Helper : MonoBehaviour
                 break;
         }
         return list;
+    }
+
+    public T ParseData<T>(UnityWebRequest request)
+    {
+        T data = default(T);
+        switch (request.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError(": Error: " + request.error);
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError(": HTTP Error: " + request.error);
+                break;
+            case UnityWebRequest.Result.Success:
+                data = JsonConvert.DeserializeObject<T>(request.downloadHandler.text);
+                break;
+            default:
+                break;
+        }
+        return data;
     }
 
     public IEnumerator DownloadImage(string url, Action<Sprite> callback)

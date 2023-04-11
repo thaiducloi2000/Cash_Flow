@@ -1,50 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public ShopItemSO[] shopItemSO;
-    public ShopChessSO[] shopChessSO;
-    public ShopTemplate[] shopTemplate;
-    public GameObject[] shopPanel;
+    public List<ShopItemSO> shopItemSO;
+    //public List<GameObject> shopItemSO;
+    public List<ShopChessSO> shopChessSO;
+    public List<ShopTemplate> shopTemplate;
+    public List<GameObject> shopPanel;
     public GameObject Attention;
-    public Button[] purchase;
     public string tab;
-    public int coins;
+
+    //Content where prefab of template ShopItemSO spawn
+    public GameObject Content;
+    // Prefabs to spawn
+    public GameObject ShopItemPrefab;
+    //public int coins;
     public TMP_Text coinUI;
+    private Shop_Data shop_data;
+
     private void Awake()
     {
-        tab = "ChessBoardTab";
-        coins = 0;
+        if(shop_data == null)
+        {
+            shop_data = GetComponentInParent<Shop_Data>();
+        }
+        SpawnItems();
+        tab = "OutfitTab";
+        coinUI.text = shop_data.user_data.data.user.Coin.ToString();
+        //coins = 0;
     }
     void Update()
     {
-        coins = int.Parse(coinUI.text);
-        if (tab == "ChessBoardTab")
+        //coins = int.Parse(coinUI.text);
+        //CheckPurchase();
+    }
+
+    public void PopupShop()
+    {
+        if (tab == "OutfitTab")
         {
-            for (int i = 0; i < shopChessSO.Length; i++)
+            for (int i = 0; i < shopPanel.Count - 1; i++)
                 shopPanel[i].SetActive(true);
             loadTemplate();
         }
         else
         {
-            for (int i = 0; i < shopItemSO.Length; i++)
+            for (int i = 0; i < shopPanel.Count - 1; i++)
                 shopPanel[i].SetActive(true);
             loadTemplate();
         }
-        CheckPurchase();
-
     }
 
     public void loadTemplate()
     {
         if( tab== "ChessBoardTab")
         {
-            for (int i = 0; i < shopChessSO.Length; i++)
+            for (int i = 0; i < shopTemplate.Count; i++)
             {
+                shopPanel[i].gameObject.SetActive(true);
                 shopTemplate[i].nameitem_inputfield.text = shopChessSO[i].name;
                 shopTemplate[i].price_inputfield.text = shopChessSO[i].price.ToString();
                 shopTemplate[i].image.sprite = shopChessSO[i].image;
@@ -52,8 +68,9 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < shopItemSO.Length; i++)
+            for (int i = 0; i < shopTemplate.Count; i++)
             {
+                shopPanel[i].gameObject.SetActive(true);
                 shopTemplate[i].nameitem_inputfield.text = shopItemSO[i].name;
                 shopTemplate[i].price_inputfield.text = shopItemSO[i].price.ToString();
                 shopTemplate[i].image.sprite = shopItemSO[i].image;
@@ -61,44 +78,61 @@ public class ShopManager : MonoBehaviour
         }
 
     }
-    public void CheckPurchase()
+    //public void CheckPurchase()
+    //{
+    //    if (tab == "ChessBoardTab")
+    //    {
+    //        for(int i = 0; i < shopChessSO.Length; i++)
+    //        {
+    //            if(shop_data.user_data.data.user.Coin >= shopChessSO[i].price)
+    //                purchase[i].interactable=true;
+                
+    //            else
+    //                purchase[i].interactable = false;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < shopItemSO.Count-1; i++)
+    //        {
+    //            if (shop_data.user_data.data.user.Coin >= shopItemSO[i].GetComponent<ShopItemSO>().price)
+    //                purchase[i].interactable = true;       
+    //            else      
+    //                purchase[i].interactable = false;
+                
+    //        }
+    //    }
+    //}
+    
+    public void SpawnItems()
     {
-        if (tab == "ChessBoardTab")
+        shopPanel = new List<GameObject>();
+        shopTemplate = new List<ShopTemplate>();
+        for (int i = 0;i< shop_data.Items.Count; i++)
         {
-            for(int i = 0; i < shopChessSO.Length; i++)
-            {
-                if(coins >= shopChessSO[i].price)
-                    purchase[i].interactable=true;
-                
-                else
-                    purchase[i].interactable = false;
-            }
+            GameObject item = Instantiate(ShopItemPrefab, Content.transform);
+            item.GetComponent<ShopTemplate>().item = shop_data.Items[i];
+            shopItemSO[i].price = shop_data.Items[i].ItemPrice;
+            shopItemSO[i].name = shop_data.Items[i].ItemName;
+            shopPanel.Add(item);
+            shopTemplate.Add(item.GetComponent<ShopTemplate>());
         }
-        else
+        foreach(GameObject item in shopPanel)
         {
-            for (int i = 0; i < shopItemSO.Length; i++)
-            {
-                if (coins >= shopItemSO[i].price)
-                    purchase[i].interactable = true;       
-                else      
-                    purchase[i].interactable = false;
-                
-            }
+            item.SetActive(false);
         }
     }
+
     public void buy(int btnNO)
     {
-        if (coins >= shopChessSO[btnNO].price)
+        if (shop_data.user_data.data.user.Coin >= shopChessSO[btnNO].price)
         {
-            coins -= shopChessSO[btnNO].price;
-            coinUI.text = coins.ToString();
-            CheckPurchase();
+            shop_data.user_data.data.user.Coin -= shopChessSO[btnNO].price;
+            coinUI.text = shop_data.user_data.data.user.Coin.ToString();
+            //CheckPurchase();
         }
     }
-    //public void showAttention()
-    //{
-    //    Attention.SetActive(true);
-    //}
+
     public void ChessBoardTab()
     {
         tab = "ChessBoardTab";

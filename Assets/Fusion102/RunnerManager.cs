@@ -10,6 +10,8 @@ public class RunnerManager : MonoBehaviour
 
     [SerializeField] private NetworkRunner runner = null;
 
+    public User_Data user;
+
     public NetworkRunner Runner
     {
         get
