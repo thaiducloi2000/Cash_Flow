@@ -37,6 +37,6 @@ public class NPCInteractable : MonoBehaviour
     }
     public void PlayGame()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("GamePlay_Scene");
     }
 }
