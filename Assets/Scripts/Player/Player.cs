@@ -20,7 +20,8 @@ public class Player : NetworkBehaviour
     public Financial financial_rp;
     public Financial financial_rp_fat_race;
     public Job job;
-    public Turn myTurn;
+    [Networked]
+    public Turn myTurn { get; set; }
     public List<Dream> dreams;
 
     [Networked (OnChanged = nameof(OnStepChanged))]
@@ -60,6 +61,17 @@ public class Player : NetworkBehaviour
     {
         Camera.main.transform.LookAt(root);
         MoveCameraOnCirle();
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (Object.HasInputAuthority)
+        {
+            if (GameManager.Instance.isTurn != myTurn)
+                UI_Manager.instance.Roll_Button.SetActive(false);
+            else if (GameManager.Instance.isTurn == myTurn)
+                UI_Manager.instance.Roll_Button.SetActive(true);
+        }
     }
 
     public void OnRollDice()
@@ -150,7 +162,7 @@ public class Player : NetworkBehaviour
             if (Object.HasInputAuthority)
                 StartCoroutine(GetComponent<Step>().Move(this, step, BoardType.RatRace));
         }
-
-        GameManager.Instance.nextTurn();
+        //if (Object.HasInputAuthority)
+            GameManager.Instance.RPC_nextTurn();
     }
 }

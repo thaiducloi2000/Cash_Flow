@@ -41650,6 +41650,8 @@ MonoBehaviour:
   financial: {fileID: 6106256702097183813}
   financial_fat_race: {fileID: 7944904058502841561}
   isOpen: 0
+  financial_rp_rat_race: {fileID: 0}
+  financial_rp_fat_race: {fileID: 0}
 --- !u!1 &1431427059073470678
 GameObject:
   m_ObjectHideFlags: 0

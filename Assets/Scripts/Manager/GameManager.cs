@@ -28,9 +28,17 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
     public bool isPlayerMoving;
     public bool EndGame;
     // To Defind Player Turn;
+
     public Turn isTurn;
 
+    [Networked]
+    public int totalPlayer { get; set; }
 
+    private void Update()
+    {
+        Debug.Log("Turn: " + isTurn);
+        Debug.Log("PlayerCount: " + totalPlayer);
+    }
     private void Awake()
     {
         if (Instance != null)
@@ -48,15 +56,15 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Start()
     {
-        StartGame(GameMode.AutoHostOrClient);
+        //StartGame(GameMode.AutoHostOrClient);
         gameBoard = GameBoard.Instance;
         gameManager = RunnerManager.Instance;
 
-        //_runner = gameManager.Runner;
+        _runner = gameManager.Runner;
 
-        //_runner.AddCallbacks(this);
+        _runner.AddCallbacks(this);
 
-        //SpawnAllPlayers();
+        SpawnAllPlayers();
 
         this.isTurn = Turn.A;
         playerList = new List<Player>();
@@ -93,6 +101,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
         Log.Debug("Count: " + gameManager.PlayerList.Count);
+        totalPlayer = gameManager.PlayerList.Count;
     }
 
     public void FindAllPlayerInScene()
@@ -117,6 +126,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
                     break;
             }
             playerList.Add(player.gameObject.GetComponent<Player>());
+            //Debug.Log("PlayerCount: " + playerList.Count);
         }
     }
 
@@ -133,19 +143,29 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         }
     }
 
-    public void nextTurn()
+    //[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_nextTurn()
     {
         // switch turn to next player
         switch (isTurn)
         {
             case Turn.A:
-                this.isTurn = Turn.B;
+                if (totalPlayer == 1)
+                    this.isTurn = Turn.A;
+                else if (totalPlayer == 2)
+                    this.isTurn = Turn.B;
                 break;
             case Turn.B:
-                this.isTurn = Turn.C;
+                if (totalPlayer == 2)
+                    this.isTurn = Turn.A;
+                else if (totalPlayer == 3)
+                    this.isTurn = Turn.C;
                 break;
             case Turn.C:
-                this.isTurn = Turn.D;
+                if (totalPlayer == 3)
+                    this.isTurn = Turn.A;
+                else if (totalPlayer == 4)
+                    this.isTurn = Turn.D;
                 break;
             case Turn.D:
                 this.isTurn = Turn.A;
