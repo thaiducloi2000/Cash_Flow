@@ -5,8 +5,8 @@ using UnityEngine.Networking;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
-//using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using UnityEngine.UI;
+using System.Collections;
 
 public class Login : MonoBehaviour
 {
@@ -15,13 +15,18 @@ public class Login : MonoBehaviour
     public GameObject Loginpanel;
     public GameObject Regiserpanel;
     public GameObject Attentionpanel;
+    public GameObject Loading_Panel;
+
+    public Slider bar;
+
     public TMP_Text TextAttention;
     public Server_Connection_Helper helper;
     public User_Data user_data;
 
     private void Start()
     {
-        if(helper == null)
+        Loading_Panel.gameObject.SetActive(false);
+        if (helper == null)
         {
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
@@ -64,12 +69,29 @@ public class Login : MonoBehaviour
                     //Debug.Log(request.downloadHandler.text);
                     Users user = helper.ParseData<Users>(request);
                     this.user_data.data = user;
-                    SceneManager.LoadScene("TestShopScene");
+                    StartCoroutine(Loading_Scene());
                     break;
                 default:
                     break;
             }
         }));
+    }
 
+    public IEnumerator Loading_Scene()
+    {
+        Loading_Panel.SetActive(true);
+        yield return null;
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("TestShopScene");
+        while (!asyncOperation.isDone)
+        {
+
+            Debug.Log(asyncOperation.progress);
+            float progress = Mathf.Clamp01(asyncOperation.progress / .9f);
+            Debug.Log(progress);
+            bar.value = progress;
+            yield return null;
+        }
+
+        Loading_Panel.SetActive(false);
     }
 }

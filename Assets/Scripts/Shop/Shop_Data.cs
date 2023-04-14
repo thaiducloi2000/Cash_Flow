@@ -28,10 +28,6 @@ public class Shop_Data : MonoBehaviour
                 Items = new List<Item>();
             }
             Items = helper.ParseToList<Item>(request);
-            foreach(Item item in Items)
-            {
-                Debug.Log(item.ItemPrice.ToString());
-            }
         }));
     }
 }
