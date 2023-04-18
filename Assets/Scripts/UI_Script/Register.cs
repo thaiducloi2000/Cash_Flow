@@ -14,13 +14,12 @@ public class Register : MonoBehaviour
     public TMP_InputField pass_inputfield;
     public TMP_InputField email_inputfield;
     public TMP_InputField name_inputfield;
-    public TMP_InputField phone_inputfield;
     public GameObject attention;
     public GameObject attentionsuccess;
+    public GameObject loginpanel;
+    public GameObject registerpanel;
     public TMP_Text TextAttention;
     public TMP_Text TextAttentionsuccess;
-    [SerializeField] private Toggle MaleCB;
-    [SerializeField] private Toggle FemaleCB;
     public Server_Connection_Helper helper;
 
     // Start is called before the first frame update
@@ -30,15 +29,15 @@ public class Register : MonoBehaviour
         {
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
-        if (PlayerPrefs.GetInt("ToggelSelected") == 0)
-        {
-            MaleCB.isOn = true;
-            FemaleCB.isOn = false;
-        } else if (PlayerPrefs.GetInt("ToggelSelected") == 1)
-        {
-            MaleCB.isOn = false;
-            FemaleCB.isOn = true;
-        }
+        //if (PlayerPrefs.GetInt("ToggelSelected") == 0)
+        //{
+        //    MaleCB.isOn = true;
+        //    FemaleCB.isOn = false;
+        //} else if (PlayerPrefs.GetInt("ToggelSelected") == 1)
+        //{
+        //    MaleCB.isOn = false;
+        //    FemaleCB.isOn = true;
+        //}
     }
     public void ToggelSelected()
     {
@@ -50,8 +49,7 @@ public class Register : MonoBehaviour
     }
     public bool Check()
     {
-        if (user_inputfield == null||pass_inputfield == null||email_inputfield==null||phone_inputfield==null
-            || name_inputfield == null)
+        if (user_inputfield == null||pass_inputfield == null||email_inputfield==null || name_inputfield == null)
         {
             attention.SetActive(true);
             TextAttention.text = "Khong o nao duoc bo trong";
@@ -83,6 +81,11 @@ public class Register : MonoBehaviour
         }
         return true;
     }
+    public void cancle()
+    {
+        loginpanel.SetActive(true);
+        registerpanel.SetActive(false);
+    }
     public void RegisterAccount()
     {
         Debug.Log("1");
@@ -93,15 +96,14 @@ public class Register : MonoBehaviour
             data.Add("UserName", user_inputfield.text.ToString());
             data.Add("Password", pass_inputfield.text.ToString());
             data.Add("NickName", name_inputfield.text);
-            if (MaleCB.isOn)
-            {
-                data.Add("Gender", "Male");
-            }
-            else
-            {
-                data.Add("Gender", "Female");
-            }
-            data.Add("Phone", phone_inputfield.text.ToString());
+            //if (MaleCB.isOn)
+            //{
+            //    data.Add("Gender", "Male");
+            //}
+            //else
+            //{
+            //    data.Add("Gender", "Female");
+            //}
             data.Add("Email", email_inputfield.text.ToString());
             string bodydata = JsonConvert.SerializeObject(data);
             StartCoroutine(helper.Post("users/register", form, bodydata, (request, process) =>
