@@ -80,16 +80,18 @@ public class Login : MonoBehaviour
     public IEnumerator Loading_Scene()
     {
         Loading_Panel.SetActive(true);
-        yield return null;
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("TestShopScene");
+        float progress = 0;
         while (!asyncOperation.isDone)
         {
-
-            Debug.Log(asyncOperation.progress);
-            float progress = Mathf.Clamp01(asyncOperation.progress / .9f);
-            Debug.Log(progress);
+            progress = Mathf.MoveTowards(progress,asyncOperation.progress,Time.deltaTime);
             bar.value = progress;
-            yield return null;
+            if(progress >= 0.9f)
+            {
+                bar.value = 1;
+                asyncOperation.allowSceneActivation = true;
+            }
+            yield return new WaitForEndOfFrame();
         }
 
         Loading_Panel.SetActive(false);
