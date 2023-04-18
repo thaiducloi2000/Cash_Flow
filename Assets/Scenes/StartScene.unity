@@ -177,6 +177,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459287}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+=======
 --- !u!1 &6739476
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +255,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6739476}
   m_CullTransparentMesh: 1
+>>>>>>> 9a869435d4eda9f5323c37fb4769f41b1f58ece6
 --- !u!1 &18730883
 GameObject:
   m_ObjectHideFlags: 0
@@ -3711,6 +3714,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713571926}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+=======
 --- !u!1 &738251560
 GameObject:
   m_ObjectHideFlags: 0
@@ -3915,6 +3920,7 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+>>>>>>> 9a869435d4eda9f5323c37fb4769f41b1f58ece6
 --- !u!1 &778470347
 GameObject:
   m_ObjectHideFlags: 0
