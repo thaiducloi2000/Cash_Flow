@@ -145,15 +145,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Doctor
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7b41be957de22c14d85f14477898b9fb, type: 2}
+  m_sharedMaterial: {fileID: 8973571838796957020, guid: 7b41be957de22c14d85f14477898b9fb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294572543
-  m_fontColor: {r: 1, g: 0.97547174, b: 0.97547174, a: 1}
+    rgba: 4286943548
+  m_fontColor: {r: 0.23529412, g: 0.5686275, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -153.39307, w: 0}
+  m_margin: {x: 0, y: -14.34436, z: -185.01184, w: -17.210327}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
