@@ -48,7 +48,7 @@ public class Player : NetworkBehaviour
         //setting camera 
 
         root = GameBoard.Instance.Root.transform;
-        offset = new Vector3(GameBoard.Instance.size * 0f, GameBoard.Instance.size * 3f, -10f);
+        offset = new Vector3(GameBoard.Instance.size * 0f, GameBoard.Instance.size * 5f, -9f);
         //offset = new Vector3(0, 7, -9f);
         Camera.main.transform.position = offset;
         //Camera.main.transform.LookAt(root);

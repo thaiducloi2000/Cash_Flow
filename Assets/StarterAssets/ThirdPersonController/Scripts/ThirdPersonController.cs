@@ -75,6 +75,9 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        public User_Data _data;
+        public GameObject Player_Avatar;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -131,12 +134,23 @@ namespace StarterAssets
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
         }
-
+        private void SpawnPlayer()
+        {
+            this.Player_Avatar = Instantiate(_data.Last_Character_Selected.Prefabs, this.transform);
+            RuntimeAnimatorController animator = this.Player_Avatar.GetComponent<Animator>().runtimeAnimatorController;
+            Debug.Log(this.Player_Avatar.GetComponent<Animator>() == null);
+            _animator = this.Player_Avatar.GetComponent<Animator>();
+            _hasAnimator = _animator == null ? false : true;
+            Character_Event character = this.Player_Avatar.GetComponent<Character_Event>();
+            character.LandingAudioClip = this.LandingAudioClip;
+            character.FootstepAudioClips = this.FootstepAudioClips;
+            character._controller = this._controller;
+        }
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
-            _hasAnimator = TryGetComponent(out _animator);
+
+            _hasAnimator = _animator == null ? false : true;
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -146,7 +160,7 @@ namespace StarterAssets
 #endif
 
             AssignAnimationIDs();
-
+            SpawnPlayer();
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
@@ -154,7 +168,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
+            _hasAnimator = _animator == null ? false : true;
 
             JumpAndGravity();
             GroundedCheck();
@@ -368,25 +382,17 @@ namespace StarterAssets
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
         }
-
-        private void OnFootstep(AnimationEvent animationEvent)
+        public void ChangeAvatar(Character_Item Item)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                if (FootstepAudioClips.Length > 0)
-                {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-                }
-            }
-        }
 
-        private void OnLand(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            }
+            Destroy(this.Player_Avatar);
+            this.Player_Avatar = Instantiate(Item.Prefabs, this.transform);
+            this._animator = this.Player_Avatar.GetComponent<Animator>();
+            _hasAnimator = _animator == null ? false : true;
+            Character_Event character = this.Player_Avatar.GetComponent<Character_Event>();
+            character.LandingAudioClip = this.LandingAudioClip;
+            character.FootstepAudioClips = this.FootstepAudioClips;
+            character._controller = this._controller;
         }
     }
 }
