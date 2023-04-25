@@ -13,6 +13,7 @@ public class EvenCard_Data : MonoBehaviour
     [SerializeField] public List<Doodad> Doodads;
     [SerializeField] public List<Market> Markets;
     public Server_Connection_Helper helper;
+    [SerializeField] private User_Data user;
     private void Awake()
     {
         if(instance != null)
@@ -23,6 +24,7 @@ public class EvenCard_Data : MonoBehaviour
         if (helper == null)
         {
             helper = GetComponent<Server_Connection_Helper>();
+            helper.Authorization_Header = "Bearer " + user.data.token;
         }
         LoadAllDeal();
         //LoadAllJob();

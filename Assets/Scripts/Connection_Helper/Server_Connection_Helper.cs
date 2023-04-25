@@ -11,7 +11,8 @@ using Newtonsoft.Json;
 public class Server_Connection_Helper : MonoBehaviour
 {
     private const string BASE_URL = "https://mobilebasedcashflowapi.herokuapp.com/api/";
-
+    private const string Content_Header= "application/json";
+    public string Authorization_Header;
 
     public IEnumerator Post(string endpoint, WWWForm form,string bodydata, Action<UnityWebRequest,float> callback)
     {
@@ -20,7 +21,7 @@ public class Server_Connection_Helper : MonoBehaviour
         {
             byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Content-Type", Content_Header);
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }
@@ -33,8 +34,8 @@ public class Server_Connection_Helper : MonoBehaviour
         {
             byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.SetRequestHeader("Content-Type", "application/json");
-            request.SetRequestHeader("Authorization", "Bearer " + token);
+            request.SetRequestHeader("Content-Type", Content_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request, request.downloadProgress);
         }
@@ -44,6 +45,8 @@ public class Server_Connection_Helper : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint))
         {
+            request.SetRequestHeader("Content-Type", Content_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }

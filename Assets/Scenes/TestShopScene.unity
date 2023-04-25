@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 8338988566402391465}
+    - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
+      propertyPath: m_Lens.FarClipPlane
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: CameraSide
       value: 0.75
@@ -14190,7 +14194,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.2
-  far clip plane: 500
+  far clip plane: 300
   field of view: 40
   orthographic: 0
   orthographic size: 10
@@ -17243,10 +17247,10 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.28
   m_SlopeLimit: 45
-  m_StepOffset: 0.25
+  m_StepOffset: 0.35
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1001 &4725516982635931565
 PrefabInstance:
   m_ObjectHideFlags: 0

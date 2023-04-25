@@ -15,13 +15,14 @@ public class Shop_Data : MonoBehaviour
         {
             this.gameObject.AddComponent<Server_Connection_Helper>();
             helper = this.gameObject.GetComponent<Server_Connection_Helper>();
+            helper.Authorization_Header = "Bearer " + user_data.data.token;
         }
         GetAllItems();
     }
 
     private void GetAllItems()
     {
-        StartCoroutine(helper.Get("items", (request, process) =>
+        StartCoroutine(helper.Get("assets", (request, process) =>
         {
             if (Items == null)
             {

@@ -4553,6 +4553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helper: {fileID: 0}
+  user: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!114 &360187620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4565,6 +4566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da15ecdb45b3ba41a8d3c41e8112b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Authorization_Header: 
 --- !u!1 &385339947
 GameObject:
   m_ObjectHideFlags: 0

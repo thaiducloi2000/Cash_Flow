@@ -63,11 +63,12 @@ public class Login : MonoBehaviour
                 case UnityWebRequest.Result.ProtocolError:
                     //Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
                     Attentionpanel.SetActive(true);
-                    TextAttention.text = "DCMMM";
+                    TextAttention.text = "HTTP Error: " + request.error + " - " + request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.Success:
                     //Debug.Log(request.downloadHandler.text);
                     Users user = helper.ParseData<Users>(request);
+                    helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
                     StartCoroutine(Loading_Scene());
                     break;
