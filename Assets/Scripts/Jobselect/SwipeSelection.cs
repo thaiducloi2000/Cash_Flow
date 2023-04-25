@@ -49,7 +49,9 @@ public class SwipeSelection : MonoBehaviour
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1.1f, 1.1f), 0.2f);
                 color.a = 1;
                 transform.GetChild(i).GetComponent<Image>().color = color;
-              
+                //transform.GetChild(i).GetComponent<TMP_Text>().color = color;
+
+
                 //jobname.text = jobnames.text;
                 for (int a = 0; a < pos.Length; a++)
                 {
@@ -58,6 +60,7 @@ public class SwipeSelection : MonoBehaviour
                         transform.GetChild(a).localScale = Vector2.Lerp(transform.GetChild(a).localScale, new Vector2(0.7f, 0.7f), 0.2f);
                         color.a = 0.4f;
                         transform.GetChild(a).GetComponent<Image>().color = color;
+                        //transform.GetChild(a).GetComponent<TMP_Text>().color = color;
                     }
                 }
 
