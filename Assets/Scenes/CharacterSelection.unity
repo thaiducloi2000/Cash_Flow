@@ -2739,6 +2739,8 @@ MonoBehaviour:
   attentionpanel: {fileID: 827188809}
   textAttention: {fileID: 414244783}
   name_input: {fileID: 1366579444}
+  helper: {fileID: 0}
+  user_data: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!1001 &1198715167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3478,8 +3480,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498260790}
   m_HandleRect: {fileID: 498260789}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.39588806
+  m_Value: -0.00000006180041
+  m_Size: 0.34871987
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
