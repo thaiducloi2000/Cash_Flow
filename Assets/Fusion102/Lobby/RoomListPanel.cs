@@ -37,7 +37,7 @@ public class RoomListPanel : MonoBehaviour, Ipanel
         {
             var cell = Instantiate(roomCellPrefab, contentTrans);
 
-            cell.SetInfo(lobbyManager, session.Name);
+            cell.SetInfo(lobbyManager, session.Name, session.PlayerCount);
         }
     }
 
@@ -46,4 +46,48 @@ public class RoomListPanel : MonoBehaviour, Ipanel
         lobbyManager.SetPairState(PairState.CreatingRoom);
     }
 
+    // create 5 default room
+    private void Start()
+    {
+        roomCells.Add(new RoomCell("room1", 0));
+        roomCells.Add(new RoomCell("room2", 0));
+        roomCells.Add(new RoomCell("room3", 0));
+        roomCells.Add(new RoomCell("room4", 0));
+        roomCells.Add(new RoomCell("room5", 0));
+        
+        foreach (var roomcell in roomCells)
+        {
+            var cell = Instantiate(roomCellPrefab, contentTrans);
+            cell.SetInfo(lobbyManager, roomcell.roomName, roomcell.playerCount);
+        }
+    }
+    public int ExistedSession(string name, List<SessionInfo> sessionList)
+    {
+        
+        foreach(var session in sessionList)
+        {
+            if(session.Name == name)
+                return session.PlayerCount;
+        }
+        return 0;
+    }
+
+    public void UpdateAvailableRoomList(List<SessionInfo> sessionList)
+    {
+        foreach (Transform child in contentTrans)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (var roomcell in roomCells)
+        {
+            var cell = Instantiate(roomCellPrefab, contentTrans);
+            cell.SetInfo(lobbyManager, roomcell.roomName, ExistedSession(roomcell.roomName, sessionList));
+        }
+    }
+
+    private void Update()
+    {
+        //Debug.Log("TestSessionList: " + lobbyManager.sessions.Count);
+    }
 }

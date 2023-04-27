@@ -28,6 +28,14 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private CreateRoomPanel createRoomPanel = null;
     [SerializeField] private InRoomPanel inRoomPanel = null;
 
+    public List<SessionInfo> sessions = null;
+
+    private void Awake()
+    {
+        if (sessions == null)
+            sessions = new List<SessionInfo>();
+    }
+
     private async void Start()
     {
         SetPairState(PairState.Lobby);
@@ -96,7 +104,7 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         var result = await gameManager.Runner.StartGame(new StartGameArgs()
         {
-            GameMode = GameMode.Client,
+            GameMode = GameMode.AutoHostOrClient,
             SessionName = roomName,
             Scene = SceneManager.GetActiveScene().buildIndex,
             SceneManager = gameManager.gameObject.AddComponent<NetworkSceneManagerDefault>(),
@@ -127,7 +135,12 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
-        roomListPanel.UpdateRoomList(sessionList);
+        //roomListPanel.UpdateRoomList(sessionList);
+        //roomListPanel.UpdateAvailableRoomList(sessionList);
+
+        
+        roomListPanel.UpdateAvailableRoomList(sessionList);
+        
     }
 
     public void OnConnectedToServer(NetworkRunner runner)
