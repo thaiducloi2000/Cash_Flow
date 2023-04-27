@@ -29,15 +29,6 @@ public class Register : MonoBehaviour
         {
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
-        //if (PlayerPrefs.GetInt("ToggelSelected") == 0)
-        //{
-        //    MaleCB.isOn = true;
-        //    FemaleCB.isOn = false;
-        //} else if (PlayerPrefs.GetInt("ToggelSelected") == 1)
-        //{
-        //    MaleCB.isOn = false;
-        //    FemaleCB.isOn = true;
-        //}
     }
     public void ToggelSelected()
     {
@@ -88,7 +79,6 @@ public class Register : MonoBehaviour
     }
     public void RegisterAccount()
     {
-        Debug.Log("1");
         if (Check() == true)
         {
             WWWForm form = new WWWForm();
@@ -96,14 +86,6 @@ public class Register : MonoBehaviour
             data.Add("UserName", user_inputfield.text.ToString());
             data.Add("Password", pass_inputfield.text.ToString());
             data.Add("NickName", name_inputfield.text);
-            //if (MaleCB.isOn)
-            //{
-            //    data.Add("Gender", "Male");
-            //}
-            //else
-            //{
-            //    data.Add("Gender", "Female");
-            //}
             data.Add("Email", email_inputfield.text.ToString());
             string bodydata = JsonConvert.SerializeObject(data);
             StartCoroutine(helper.Post("users/register", form, bodydata, (request, process) =>
