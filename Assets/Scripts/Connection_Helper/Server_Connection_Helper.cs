@@ -127,8 +127,8 @@ public class Server_Connection_Helper : MonoBehaviour
                 Texture2D texture = DownloadHandlerTexture.GetContent(request);
                 if (texture != null)
                 {
-                    Texture2D resize = ResizeTexture(texture, 1024, 756);
-                    Sprite sprite = Sprite.Create(resize, new Rect(0, 0, resize.width, resize.height), new Vector2(0f, 0f));
+                    //Texture2D resize = ResizeTexture(texture, 1024, 756);
+                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0f, 0f));
                     callback(sprite);
                 }
             }
