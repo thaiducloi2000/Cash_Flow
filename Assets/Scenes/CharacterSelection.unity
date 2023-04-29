@@ -1537,10 +1537,6 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: 2aa9189bb059ebf4fa9071f3f861b3c0, type: 2}
   m_sharedMaterial: {fileID: -5718385199547902110, guid: 2aa9189bb059ebf4fa9071f3f861b3c0, type: 2}
   m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
     rgba: 4279440147
   m_fontColor: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}
   m_enableVertexGradient: 0
@@ -2739,6 +2735,8 @@ MonoBehaviour:
   attentionpanel: {fileID: 827188809}
   textAttention: {fileID: 414244783}
   name_input: {fileID: 1366579444}
+  helper: {fileID: 0}
+  user_data: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!1001 &1198715167
 PrefabInstance:
   m_ObjectHideFlags: 0

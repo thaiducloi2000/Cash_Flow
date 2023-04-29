@@ -70,7 +70,15 @@ public class Login : MonoBehaviour
                     Users user = helper.ParseData<Users>(request);
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
-                    StartCoroutine(Loading_Scene());
+                    if(user_data.data.user.NickName != null && user_data.data.user.NickName != "")
+                    {
+
+                        StartCoroutine(Loading_Scene("TestShopScene"));
+                    }
+                    else
+                    {
+                        StartCoroutine(Loading_Scene("CharacterSelection"));
+                    }
                     break;
                 default:
                     break;
@@ -78,10 +86,10 @@ public class Login : MonoBehaviour
         }));
     }
 
-    public IEnumerator Loading_Scene()
+    public IEnumerator Loading_Scene(string scene)
     {
         Loading_Panel.SetActive(true);
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("TestShopScene");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
         float progress = 0;
         while (!asyncOperation.isDone)
         {
