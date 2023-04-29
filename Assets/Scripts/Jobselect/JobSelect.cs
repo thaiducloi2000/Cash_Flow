@@ -29,7 +29,7 @@ public class JobSelect : MonoBehaviour
     {
         if(name_input.text == "") {
             attentionpanel.SetActive(true);
-            textAttention.text = "Khong duoc de o trong";
+            textAttention.text = "Không ???c ?? ô tr?ng";
             return false;
         }else if(name_input.text.Length <= 2 || name_input.text.Length > 15)
         {
