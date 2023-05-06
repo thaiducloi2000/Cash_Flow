@@ -51,7 +51,7 @@ public class Player : NetworkBehaviour
         offset = new Vector3(GameBoard.Instance.size * 0f, GameBoard.Instance.size * 5f, -9f);
         //offset = new Vector3(0, 7, -9f);
         Camera.main.transform.position = offset;
-        //Camera.main.transform.LookAt(root);
+        Camera.main.transform.LookAt(root);
 
         //LoadAllJob();
     }
@@ -59,7 +59,7 @@ public class Player : NetworkBehaviour
 
     void Update()
     {
-        Camera.main.transform.LookAt(root);
+        //Camera.main.transform.LookAt(root);
         MoveCameraOnCirle();
     }
 

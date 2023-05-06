@@ -1,10 +1,11 @@
 public class Item
 {
-    public string ItemId { get; set; }
-    public string ItemName { get; set; }
-    public string ItemImageUrl { get; set; }
-    public int ItemPrice { get; set; }
+    public int AssetId { get; set; }
+    public string AssetName { get; set; }
+    public string ImageUrl { get; set; }
+    public int AssetPrice { get; set; }
     public string Description { get; set; }
     public bool IsInShop { get; set; }
-    public string CreateBy { get; set; }
+    public int CreateBy { get; set; }
+    public int AssetType { get; set; }
 }
