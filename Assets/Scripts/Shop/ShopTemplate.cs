@@ -22,12 +22,15 @@ public class ShopTemplate : MonoBehaviour
 
     public void Purchase()
     {
-        if (this.user.data.user.Coin >= this.item.ItemPrice)
+        if (this.user.data.user.Coin >= this.item.AssetPrice)
         {
             Server_Connection_Helper helper = GetComponentInParent<Server_Connection_Helper>();
             WWWForm form = new WWWForm();
-            string bodydata = JsonConvert.SerializeObject("");
-            StartCoroutine(helper.PostAuthentication("inventories?itemId="+this.item.ItemId.ToString(), this.user.data.token,form, bodydata, (request, process) =>
+            Dictionary<string, int> data = new Dictionary<string, int>();
+            Debug.Log(this.item.AssetId);
+            data.Add("assetId", this.item.AssetId);
+            string bodydata = JsonConvert.SerializeObject(data);
+            StartCoroutine(helper.Post("users/buy",form, bodydata, (request, process) =>
             {
                 switch (request.result)
                 {

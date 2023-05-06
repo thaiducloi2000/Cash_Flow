@@ -16,7 +16,7 @@ public class GameBoard : MonoBehaviour
     [SerializeField] public Tile_Material tile_avatar;
     [SerializeField] public List<Dream> dreams;
     // Size of Tile
-    public float size = 4f;
+    public float size = 1f;
     // Radius of Rat Race
     public float radius = 10f;
     // List Tile

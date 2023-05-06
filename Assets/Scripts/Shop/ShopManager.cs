@@ -112,8 +112,8 @@ public class ShopManager : MonoBehaviour
         {
             GameObject item = Instantiate(ShopItemPrefab, Content.transform);
             item.GetComponent<ShopTemplate>().item = shop_data.Items[i];
-            shopItemSO[i].price = shop_data.Items[i].ItemPrice;
-            shopItemSO[i].name = shop_data.Items[i].ItemName;
+            shopItemSO[i].price = shop_data.Items[i].AssetPrice;
+            shopItemSO[i].name = shop_data.Items[i].AssetName;
             shopPanel.Add(item);
             shopTemplate.Add(item.GetComponent<ShopTemplate>());
         }

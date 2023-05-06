@@ -23,6 +23,7 @@ public class Server_Connection_Helper : MonoBehaviour
             byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.SetRequestHeader("Content-Type", Content_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }

@@ -69,8 +69,8 @@ public class JobSelect : MonoBehaviour
             Dictionary<string, object> data = new Dictionary<string, object>();
             Dictionary<string, int> parameter = new Dictionary<string, int>();
             data.Add("NickName", name_input.text.ToString());
-            data.Add("Gender", "male");
-            data.Add("Phone", "");
+            data.Add("Gender", "nam");
+            data.Add("Phone", "0948260825");
             data.Add("Email", "thaiducloi2000@gmail.com");
             data.Add("ImageUrl", "");
             parameter.Add("userId", this.user_data.data.user.UserId);

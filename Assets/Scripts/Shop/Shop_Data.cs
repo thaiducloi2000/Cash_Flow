@@ -22,7 +22,7 @@ public class Shop_Data : MonoBehaviour
 
     private void GetAllItems()
     {
-        StartCoroutine(helper.Get("assets", (request, process) =>
+        StartCoroutine(helper.Get("assets/all", (request, process) =>
         {
             if (Items == null)
             {
