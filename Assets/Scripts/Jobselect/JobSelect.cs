@@ -6,12 +6,14 @@ using TMPro;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
+using Unity.VisualScripting;
 
 public class JobSelect : MonoBehaviour
 {
     public GameObject attentionpanel;
     public TMP_Text textAttention;
     public TMP_InputField name_input;
+    public GameObject name_title;
     public Server_Connection_Helper helper;
 
     public User_Data user_data;
@@ -22,7 +24,23 @@ public class JobSelect : MonoBehaviour
         if (helper == null)
         {
             helper = this.gameObject.AddComponent<Server_Connection_Helper>();
+        }
+        if (this.user_data.data != null)
+        {
             helper.Authorization_Header = "Bearer " + this.user_data.data.token.ToString();
+            bool hasNickname = this.user_data.data.user.NickName == "" ? true : false;
+            name_input.gameObject.SetActive(!hasNickname);
+            name_title.gameObject.SetActive(!hasNickname);
+        }
+    }
+
+    private void Update()
+    {
+        if (this.user_data.data != null)
+        {
+            bool hasNickname = this.user_data.data.user.NickName == "" ? true : false;
+            name_input.gameObject.SetActive(!hasNickname);
+            name_title.gameObject.SetActive(!hasNickname);
         }
     }
 
@@ -39,7 +57,14 @@ public class JobSelect : MonoBehaviour
     }
     public void BackK()
     {
-        SceneManager.LoadSceneAsync("StartScene");
+        if(user_data.data.user.NickName != "" && user_data.data.user.NickName != null)
+        {
+            SceneManager.LoadSceneAsync("TestShopScene");
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync("StartScene");
+        }
     }
     public bool checkName()
     {

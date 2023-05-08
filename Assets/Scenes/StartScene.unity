@@ -2384,6 +2384,7 @@ MonoBehaviour:
   TextAttention: {fileID: 977430670}
   helper: {fileID: 0}
   user_data: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
+  data: {fileID: 11400000, guid: 03f3a175c2ddda543901b86ac7448a82, type: 2}
 --- !u!1 &521613878
 GameObject:
   m_ObjectHideFlags: 0
