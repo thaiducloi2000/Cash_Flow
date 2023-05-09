@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
 
-public class Event_card_Entity
+using UnityEngine;
+
+public class Event_card_Entity : MonoBehaviour
 {
     public string id { get; set; }
     public string Event_name { get; set; }

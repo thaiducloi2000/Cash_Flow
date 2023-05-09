@@ -22,6 +22,7 @@ public class Login : MonoBehaviour
     public TMP_Text TextAttention;
     public Server_Connection_Helper helper;
     public User_Data user_data;
+    public Game_Data data;
 
     private void Start()
     {
@@ -91,10 +92,26 @@ public class Login : MonoBehaviour
         Loading_Panel.SetActive(true);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
         float progress = 0;
+        Coroutine dataLoading1 = StartCoroutine(helper.Get("eventcards/all", (request, process) =>
+        {
+            List<Event_card_Entity> event_cards = helper.ParseToList<Event_card_Entity>(request);
+            this.data.event_cards = event_cards;
+        }));
+        Coroutine dataLoading2 = StartCoroutine(helper.Get("jobcards/all", (request, process) =>
+        {
+            List<Job> jobs = helper.ParseToList<Job>(request);
+            this.data.jobs = jobs;
+        }));
+        Coroutine dataLoading3 = StartCoroutine(helper.Get("dreams/all", (request, process) =>
+        {
+            List<Dream> dreams = helper.ParseToList<Dream>(request);
+            this.data.dreams = dreams;
+        }));
+        //apply Job to avatar
         while (!asyncOperation.isDone)
         {
             progress = Mathf.MoveTowards(progress,asyncOperation.progress,Time.deltaTime);
-            bar.value = progress;
+            bar.value = progress * 0.25f;
             if(progress >= 0.9f)
             {
                 bar.value = 1;
