@@ -6,9 +6,10 @@ public class User
     public string Address { get; set; }
     public int Coin { get; set; }
     public int Point { get; set; }
-    public string ImageUrl { get; set; }
-    public string Phone { get; set; }
+    public object ImageUrl { get; set; }
+    public object Phone { get; set; }
     public string Gender { get; set; }
     public string roleName { get; set; }
-    public string CharacterLastUsed { get; set; }
+    public string LastJobSelected { get; set; }
+    public string lastCharacterSelected { get; set; }
 }

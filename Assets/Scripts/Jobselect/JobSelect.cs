@@ -30,20 +30,15 @@ public class JobSelect : MonoBehaviour
         if (this.user_data.data != null)
         {
             helper.Authorization_Header = "Bearer " + this.user_data.data.token.ToString();
-            bool hasNickname = this.user_data.data.user.NickName == "" && this.user_data.data.user.NickName == null ? true : false;
+            bool hasNickname = isemptyNickname();
             name_input.gameObject.SetActive(hasNickname);
             name_title.gameObject.SetActive(hasNickname);
         }
     }
 
-    private void Update()
+    private bool isemptyNickname()
     {
-        if (this.user_data.data != null)
-        {
-            bool hasNickname = this.user_data.data.user.NickName == "" && this.user_data.data.user.NickName == null ? true : false;
-            name_input.gameObject.SetActive(hasNickname);
-            name_title.gameObject.SetActive(hasNickname);
-        }
+        return this.user_data.data.user.NickName == "" || this.user_data.data.user.NickName == null;
     }
 
     public void changeScene()
