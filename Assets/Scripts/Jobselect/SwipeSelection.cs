@@ -42,7 +42,6 @@ public class SwipeSelection : MonoBehaviour
     {
         pool_item = new List<GameObject>();
         // change ti Item when have full Item;
-        Debug.Log(data.jobs.Count);
         foreach(Job job in data.jobs)
         {
             var image = Resources.Load<Sprite>("Sprite/"+job.Image_url);

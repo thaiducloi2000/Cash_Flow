@@ -29,7 +29,7 @@ public class Server_Connection_Helper : MonoBehaviour
         }
     }
 
-    public IEnumerator PostAuthentication(string endpoint,string token,WWWForm form, string bodydata, Action<UnityWebRequest, float> callback)
+    public IEnumerator PostAuthentication(string endpoint,WWWForm form, string bodydata, Action<UnityWebRequest, float> callback)
     {
 
         using (UnityWebRequest request = UnityWebRequest.Post(BASE_URL + endpoint, form))
@@ -37,7 +37,6 @@ public class Server_Connection_Helper : MonoBehaviour
             byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.SetRequestHeader("Content-Type", Content_Header);
-            request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request, request.downloadProgress);
         }
