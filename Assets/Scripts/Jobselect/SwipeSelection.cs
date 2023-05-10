@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mono.Cecil;
 
 public class SwipeSelection : MonoBehaviour
 {
@@ -35,22 +36,13 @@ public class SwipeSelection : MonoBehaviour
 
     public void GenarateItem()
     {
-        foreach (Character_Item item in this.data.characters)
-        {
-            foreach (Job job in this.data.jobs)
-            {
-                if (job.id == item.ID)
-                {
-                    item.Job = job;
-                }
-            }
-        }
         pool_item = new List<GameObject>();
         // change ti Item when have full Item;
-        foreach (Character_Item character in data.characters)
+        foreach (Job job in data.jobs)
         {
+            var image = Resources.Load<Sprite>("Sprite/"+job.Image_url);
             GameObject item = Instantiate(template, this.transform);
-            item.GetComponent<Image>().sprite = character.Avatar_Image;
+            item.GetComponent<Image>().sprite = image;
             pool_item.Add(item);
         }
     }
@@ -83,10 +75,10 @@ public class SwipeSelection : MonoBehaviour
             {
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1.1f, 1.1f), 0.2f);
                 color.a = 1;
-                job_name.text = data.characters[i].Job.Job_card_name;
-                job_salary.text = data.characters[i].Job.GetSalary().ToString();
-                job_cash.text = data.characters[i].Job.GetCash().ToString();
-                job_tax.text = data.characters[i].Job.GetTax().ToString();
+                job_name.text = data.jobs[i].Job_card_name;
+                job_salary.text = data.jobs[i].GetSalary().ToString();
+                job_cash.text = data.jobs[i].GetCash().ToString();
+                job_tax.text = data.jobs[i].GetTax().ToString();
                 transform.GetChild(i).GetComponent<Image>().color = color;
 
                 //jobname.text = jobnames.text;

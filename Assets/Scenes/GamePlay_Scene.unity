@@ -4552,6 +4552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a474f0ce3ec8eb499245841738ed3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Job_List: []
   helper: {fileID: 0}
   user: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!114 &360187620
@@ -40553,6 +40554,7 @@ MonoBehaviour:
   total_asset: 0
   total_expense: 0
   total_liability: 0
+  job: {fileID: 0}
 --- !u!222 &8285309847749159499
 CanvasRenderer:
   m_ObjectHideFlags: 0
