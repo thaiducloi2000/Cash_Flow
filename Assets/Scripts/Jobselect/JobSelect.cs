@@ -139,7 +139,6 @@ public class JobSelect : MonoBehaviour
         else
         {
             attentionpanel.SetActive(true);
-            //TextAttention.text = "Register Unsuccess !! Please Try Again !!";
         }
     }
 }

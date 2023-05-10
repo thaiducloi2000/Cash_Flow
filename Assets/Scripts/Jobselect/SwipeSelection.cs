@@ -45,7 +45,6 @@ public class SwipeSelection : MonoBehaviour
         Debug.Log(data.jobs.Count);
         foreach(Job job in data.jobs)
         {
-            Debug.Log(job.Image_url.ToString());
             var image = Resources.Load<Sprite>("Sprite/"+job.Image_url);
             GameObject item = Instantiate(template, this.transform);
             item.GetComponent<Image>().sprite = image;
