@@ -7530,7 +7530,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1963633440}
-  - component: {fileID: 1963633442}
   - component: {fileID: 1963633441}
   m_Layer: 5
   m_Name: GameObject
@@ -7575,18 +7574,6 @@ MonoBehaviour:
   AttentionSuccesspanel: {fileID: 707620550}
   Loginpanel: {fileID: 459287}
   Regiserpanel: {fileID: 0}
---- !u!114 &1963633442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963633439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1155fdd4c6c8584d93eb5d5fce461bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1990283361
 GameObject:
   m_ObjectHideFlags: 0
