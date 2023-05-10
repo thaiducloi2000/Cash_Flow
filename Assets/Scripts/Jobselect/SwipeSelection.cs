@@ -21,18 +21,22 @@ public class SwipeSelection : MonoBehaviour
     // Prefabs Pooling Object
     public GameObject template;
 
+    public Job job_Selected;
+
     public List<GameObject> pool_item;
     public Game_Data data;
 
     private void Awake()
     {
         GenarateItem();
+        
     }
 
     void Update()
     {
         Swipe();
     }
+
 
     public void GenarateItem()
     {
@@ -79,6 +83,7 @@ public class SwipeSelection : MonoBehaviour
                 job_salary.text = data.jobs[i].GetSalary().ToString();
                 job_cash.text = data.jobs[i].GetCash().ToString();
                 job_tax.text = data.jobs[i].GetTax().ToString();
+                this.job_Selected = data.jobs[i];
                 transform.GetChild(i).GetComponent<Image>().color = color;
 
                 //jobname.text = jobnames.text;

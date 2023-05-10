@@ -8,4 +8,5 @@ public class User_Data : ScriptableObject
     public Users data;
     public Character_Item Last_Character_Selected;
     public List<Character_Item> Items;
+    public Job LastJobSelected;
 }

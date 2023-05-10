@@ -2369,6 +2369,7 @@ MonoBehaviour:
   name_input: {fileID: 1366579444}
   name_title: {fileID: 1266691706}
   helper: {fileID: 0}
+  content: {fileID: 1629231236}
   user_data: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
 --- !u!1 &1236042962
 GameObject:
@@ -3372,6 +3373,7 @@ MonoBehaviour:
   pos: []
   current_pos: 0
   template: {fileID: 4748183620542333425, guid: 56c959cd6f2bfef4bbba3996e0809eb2, type: 3}
+  job_Selected: {fileID: 0}
   pool_item: []
   data: {fileID: 11400000, guid: 03f3a175c2ddda543901b86ac7448a82, type: 2}
 --- !u!1 &1629547763

@@ -136,7 +136,7 @@ namespace StarterAssets
         }
         private void SpawnPlayer()
         {
-            Character_Item item = Resources.Load<Character_Item>("Items/Character/"+_data.Last_Character_Selected.name);
+            Character_Item item = Resources.Load<Character_Item>("Items/Character/"+_data.data.user.CharacterLastUsed);
             this.Player_Avatar = Instantiate(item.Prefabs, this.transform);
             RuntimeAnimatorController animator = this.Player_Avatar.GetComponent<Animator>().runtimeAnimatorController;
             Debug.Log(this.Player_Avatar.GetComponent<Animator>() == null);
