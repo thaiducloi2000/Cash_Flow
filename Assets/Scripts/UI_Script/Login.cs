@@ -92,15 +92,15 @@ public class Login : MonoBehaviour
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
         float progress = 0;
         // Get Data
-        Coroutine dataLoading1 = StartCoroutine(helper.Get("eventcards/all", (request, process) =>
+        StartCoroutine(helper.Get("eventcards/all", (request, process) =>
         {
             this.data.event_cards = helper.ParseToList<Event_card_Entity>(request);
         }));
-        Coroutine dataLoading2 = StartCoroutine(helper.Get("jobcards/all", (request, process) =>
+        StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
             this.data.jobs = helper.ParseToList<Job>(request);
         }));
-        Coroutine dataLoading3 = StartCoroutine(helper.Get("dreams/all", (request, process) =>
+        StartCoroutine(helper.Get("dreams/all", (request, process) =>
         {
             this.data.dreams = helper.ParseToList<Dream>(request);
         }));
