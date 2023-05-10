@@ -6,7 +6,7 @@ public class Job : MonoBehaviour
 {
     public string id { get; set; }
     public string Job_card_name { get; set; }
-    public float  Children_cost { get; set; }
+    public float Children_cost { get; set; }
     public string Image_url { get; set; }
     public DateTime Create_at { get; set; }
     public int Create_by { get; set; }
@@ -14,6 +14,7 @@ public class Job : MonoBehaviour
     public int Update_by { get; set; }
     public bool Status { get; set; }
     public List<Game_accounts> Game_accounts { get; set; }
+
 
     public Job(string _id, string name, float children_cost, List<Game_accounts> gameAccounts)
     {
