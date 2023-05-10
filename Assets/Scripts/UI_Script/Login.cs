@@ -62,7 +62,6 @@ public class Login : MonoBehaviour
                     Debug.LogError(": Error: " + request.error);
                     break;
                 case UnityWebRequest.Result.ProtocolError:
-                    //Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
                     Attentionpanel.SetActive(true);
                     TextAttention.text = "HTTP Error: " + request.error + " - " + request.downloadHandler.text;
                     break;
@@ -92,22 +91,19 @@ public class Login : MonoBehaviour
         Loading_Panel.SetActive(true);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
         float progress = 0;
+        // Get Data
         Coroutine dataLoading1 = StartCoroutine(helper.Get("eventcards/all", (request, process) =>
         {
-            List<Event_card_Entity> event_cards = helper.ParseToList<Event_card_Entity>(request);
-            this.data.event_cards = event_cards;
+            this.data.event_cards = helper.ParseToList<Event_card_Entity>(request);
         }));
         Coroutine dataLoading2 = StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
-            List<Job> jobs = helper.ParseToList<Job>(request);
-            this.data.jobs = jobs;
+            this.data.jobs = helper.ParseToList<Job>(request);
         }));
         Coroutine dataLoading3 = StartCoroutine(helper.Get("dreams/all", (request, process) =>
         {
-            List<Dream> dreams = helper.ParseToList<Dream>(request);
-            this.data.dreams = dreams;
+            this.data.dreams = helper.ParseToList<Dream>(request);
         }));
-        //apply Job to avatar
         while (!asyncOperation.isDone)
         {
             progress = Mathf.MoveTowards(progress,asyncOperation.progress,Time.deltaTime);

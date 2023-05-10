@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
         pool_item = new List<GameObject>();
         User_Data data = GetComponentInParent<Inventory_Manager>().data;
         // change ti Item when have full Item;
-        foreach (Character_Item character in data.Items)
+        foreach(Character_Item character in data.Items)
         {
             GameObject item = Instantiate(Inventory_Item_Prefab, this.Content.transform);
             item.GetComponent<Inventory_Item_UI>().Avatar.sprite = character.Avatar_Image;

@@ -16,6 +16,8 @@ public class JobSelect : MonoBehaviour
     public GameObject name_title;
     public Server_Connection_Helper helper;
 
+    public GameObject content;
+
     public User_Data user_data;
 
 
@@ -28,9 +30,9 @@ public class JobSelect : MonoBehaviour
         if (this.user_data.data != null)
         {
             helper.Authorization_Header = "Bearer " + this.user_data.data.token.ToString();
-            bool hasNickname = this.user_data.data.user.NickName == "" ? true : false;
-            name_input.gameObject.SetActive(!hasNickname);
-            name_title.gameObject.SetActive(!hasNickname);
+            bool hasNickname = this.user_data.data.user.NickName == "" && this.user_data.data.user.NickName == null ? true : false;
+            name_input.gameObject.SetActive(hasNickname);
+            name_title.gameObject.SetActive(hasNickname);
         }
     }
 
@@ -38,17 +40,27 @@ public class JobSelect : MonoBehaviour
     {
         if (this.user_data.data != null)
         {
-            bool hasNickname = this.user_data.data.user.NickName == "" ? true : false;
-            name_input.gameObject.SetActive(!hasNickname);
-            name_title.gameObject.SetActive(!hasNickname);
+            bool hasNickname = this.user_data.data.user.NickName == "" && this.user_data.data.user.NickName == null ? true : false;
+            name_input.gameObject.SetActive(hasNickname);
+            name_title.gameObject.SetActive(hasNickname);
         }
     }
 
     public void changeScene()
     {
-        if (checkName() == true)
+        SwipeSelection selection = content.GetComponent<SwipeSelection>();
+        if (this.user_data.data.user.NickName != "" && this.user_data.data.user.NickName != null)
         {
-            UpdateAccount();
+            Debug.Log(selection.job_Selected.Job_card_name);
+            user_data.LastJobSelected = selection.job_Selected;
+            SceneManager.LoadSceneAsync("TestShopScene");
+        }
+        else
+        {
+            if (checkName() == true)
+            {
+                UpdateAccount();
+            }
         }
     }
     public void OK()

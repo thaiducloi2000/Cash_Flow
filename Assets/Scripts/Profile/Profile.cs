@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Profile : MonoBehaviour
 {
@@ -22,5 +23,10 @@ public class Profile : MonoBehaviour
     public void closeProfile()
     {
         ProfilePanel.SetActive(false);
+    }
+
+    public void ChangeJob()
+    {
+        SceneManager.LoadSceneAsync("CharacterSelection");
     }
 }
