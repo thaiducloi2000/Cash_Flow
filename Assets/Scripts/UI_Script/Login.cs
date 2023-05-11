@@ -94,14 +94,17 @@ public class Login : MonoBehaviour
         // Get Data
         StartCoroutine(helper.Get("eventcards/all", (request, process) =>
         {
+            this.data.event_cards = new List<Event_card_Entity>();
             this.data.event_cards = helper.ParseToList<Event_card_Entity>(request);
         }));
         StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
+            this.data.jobs = new List<Job>();
             this.data.jobs = helper.ParseToList<Job>(request);
         }));
         StartCoroutine(helper.Get("dreams/all", (request, process) =>
         {
+            this.data.dreams = new List<Dream>();
             this.data.dreams = helper.ParseToList<Dream>(request);
         }));
         while (!asyncOperation.isDone)
