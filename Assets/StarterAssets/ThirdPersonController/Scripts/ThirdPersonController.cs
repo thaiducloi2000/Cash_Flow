@@ -385,6 +385,7 @@ namespace StarterAssets
         }
         public void ChangeAvatar(Character_Item Item)
         {
+            _data.Last_Character_Selected = Item;
             Destroy(this.Player_Avatar);
             this.Player_Avatar = Instantiate(Item.Prefabs, this.transform);
             this._animator = this.Player_Avatar.GetComponent<Animator>();

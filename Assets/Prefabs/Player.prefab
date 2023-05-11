@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7429564873477307737}
   - component: {fileID: -7135778244016704099}
   - component: {fileID: 8033884035489187603}
+  - component: {fileID: 4523300440352797833}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -35,6 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1242155001025089317}
+  - {fileID: 5935769033388755973}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58,7 +60,8 @@ MonoBehaviour:
   Children_cost: 0
   financial_rp: {fileID: 0}
   financial_rp_fat_race: {fileID: 0}
-  myTurn: 0
+  job: {fileID: 0}
+  _myTurn: 0
   dreams: []
   _step: 0
 --- !u!114 &1750163529464388846
@@ -76,6 +79,8 @@ MonoBehaviour:
   _interpolationDataSource: 0
   _currentPos: 0
   player: {fileID: 0}
+  Ratrace: []
+  Fatrace: []
   race: []
 --- !u!114 &3172874710233754126
 MonoBehaviour:
@@ -104,6 +109,7 @@ MonoBehaviour:
   - {fileID: 7429564873477307737}
   - {fileID: -7135778244016704099}
   - {fileID: 8033884035489187603}
+  - {fileID: 4523300440352797833}
   SimulationBehaviours: []
 --- !u!114 &7429564873477307737
 MonoBehaviour:
@@ -119,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   InterpolationSpace: 0
-  InterpolationTarget: {fileID: 1242155001025089317}
+  InterpolationTarget: {fileID: 5935769033388755973}
   InterpolateErrorCorrection: 1
   InterpolatedErrorCorrectionSettings:
     MinRate: 3.3
@@ -159,6 +165,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+--- !u!114 &4523300440352797833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750163529464388843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15a791c7bab2ac44ac26ec3aa869a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  user: {fileID: 11400000, guid: 2d684d3519207be46848d07103f40bae, type: 2}
+  playerAvatar: {fileID: 1906946551278933407}
+  avatars: []
+  Avt: {fileID: 5935769033388755973}
+--- !u!1 &8355794371182528520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5935769033388755973}
+  m_Layer: 0
+  m_Name: avt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5935769033388755973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8355794371182528520}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1750163529464388840}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1636983805513181390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,5 +289,10 @@ PrefabInstance:
 --- !u!4 &1242155001025089317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0d371eed65514014c912f3f6f2384b01, type: 3}
+  m_PrefabInstance: {fileID: 1636983805513181390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1906946551278933407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0d371eed65514014c912f3f6f2384b01, type: 3}
   m_PrefabInstance: {fileID: 1636983805513181390}
   m_PrefabAsset: {fileID: 0}
