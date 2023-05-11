@@ -17,7 +17,7 @@ public class Attention : MonoBehaviour
     }
     public void oksuccess()
     {
-        Attentionpanel.SetActive(false);
+        AttentionSuccesspanel.SetActive(false);
         Loginpanel.SetActive(true);
         Regiserpanel.SetActive(false);
     }
