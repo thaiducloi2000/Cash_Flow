@@ -10,8 +10,6 @@ public class RunnerManager : MonoBehaviour
 
     [SerializeField] private NetworkRunner runner = null;
 
-    public User_Data user;
-
     public NetworkRunner Runner
     {
         get
@@ -25,6 +23,13 @@ public class RunnerManager : MonoBehaviour
 
             return runner;
         }
+    }
+
+    public void LeaveSession()
+    {
+        if (runner != null)
+            runner.Shutdown();
+
     }
 
     public string PlayerName = null;
@@ -69,7 +74,7 @@ public class RunnerManager : MonoBehaviour
     public void UpdatePlayerList()
     {
         OnPlayerListUpdated?.Invoke();
-        
+
         if (CheckAllPlayerIsReady())
         {
             Debug.Log("All player is ready yet");
