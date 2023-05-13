@@ -126,6 +126,9 @@ public class JobSelect : MonoBehaviour
                         this.user_data.data.user.NickName = name_input.text.ToString();
                         this.user_data.data.user.Gender = "male";
                         this.user_data.data.user.Email = "thaiducloi2000@gmail.com";
+                        this.user_data.data.user.lastCharacterSelected = "Default";
+                        SwipeSelection selection = content.GetComponent<SwipeSelection>();
+                        user_data.LastJobSelected = selection.job_Selected;
                         SceneManager.LoadSceneAsync("TestShopScene");
                         break;
                     default:
@@ -136,7 +139,6 @@ public class JobSelect : MonoBehaviour
         else
         {
             attentionpanel.SetActive(true);
-            //TextAttention.text = "Register Unsuccess !! Please Try Again !!";
         }
     }
 }

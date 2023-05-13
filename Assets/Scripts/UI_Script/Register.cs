@@ -85,10 +85,10 @@ public class Register : MonoBehaviour
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("UserName", user_inputfield.text.ToString());
             data.Add("Password", pass_inputfield.text.ToString());
-            data.Add("NickName", name_inputfield.text);
+            data.Add("ConfirmPassword", name_inputfield.text.ToString());
             data.Add("Email", email_inputfield.text.ToString());
             string bodydata = JsonConvert.SerializeObject(data);
-            StartCoroutine(helper.Post("users/register", form, bodydata, (request, process) =>
+            StartCoroutine(helper.PostAuthentication("users/register", form, bodydata, (request, process) =>
             {
                 switch (request.result)
                 {
