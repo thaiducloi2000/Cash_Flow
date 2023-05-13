@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InRoomPanel : MonoBehaviour, Ipanel
 {
@@ -104,5 +105,7 @@ public class InRoomPanel : MonoBehaviour, Ipanel
         gameManager.OnPlayerListUpdated -= UpdatePlayerList;
 
         lobbyManager.SetPairState(PairState.Lobby);
+        gameManager.LeaveSession();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
