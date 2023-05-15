@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
 using Unity.VisualScripting;
+using System.Data.Common;
 
 public class JobSelect : MonoBehaviour
 {
@@ -107,7 +108,7 @@ public class JobSelect : MonoBehaviour
             data.Add("ImageUrl", "");
             parameter.Add("userId", this.user_data.data.user.UserId);
             string bodydata = JsonConvert.SerializeObject(data);
-            StartCoroutine(helper.Put("users/profile", parameter, bodydata, (request, process) =>
+            StartCoroutine(helper.Put_Parameter("users/profile", parameter, bodydata, (request, process) =>
             {
                 switch (request.result)
                 {
@@ -126,9 +127,7 @@ public class JobSelect : MonoBehaviour
                         this.user_data.data.user.NickName = name_input.text.ToString();
                         this.user_data.data.user.Gender = "male";
                         this.user_data.data.user.Email = "thaiducloi2000@gmail.com";
-                        this.user_data.data.user.lastCharacterSelected = "Default";
-                        SwipeSelection selection = content.GetComponent<SwipeSelection>();
-                        user_data.LastJobSelected = selection.job_Selected;
+                        UpdateLastJobSelected();
                         SceneManager.LoadSceneAsync("TestShopScene");
                         break;
                     default:
@@ -140,5 +139,41 @@ public class JobSelect : MonoBehaviour
         {
             attentionpanel.SetActive(true);
         }
+    }
+
+    private void UpdateLastJobSelected()
+    {
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        this.user_data.data.user.lastCharacterSelected = "BacSi";
+        SwipeSelection selection = content.GetComponent<SwipeSelection>();
+        user_data.LastJobSelected = selection.job_Selected;
+        Character_Item character = Resources.Load<Character_Item>("Items/Character/" + this.user_data.data.user.lastCharacterSelected);
+
+        data.Add("AssetId", character.ID);
+        data.Add("LastJobSelected", user_data.LastJobSelected.name);
+
+        string bodydata = JsonConvert.SerializeObject(data);
+
+        StartCoroutine(helper.Put("users/profile", bodydata, (request, process) =>
+        {
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
+                    textAttention.text = request.error;
+                    break;
+                case UnityWebRequest.Result.Success:
+                    SceneManager.LoadSceneAsync("TestShopScene");
+                    break;
+                default:
+                    break;
+            }
+        }));
     }
 }

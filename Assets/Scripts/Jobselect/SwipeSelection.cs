@@ -28,6 +28,7 @@ public class SwipeSelection : MonoBehaviour
 
     private void Awake()
     {
+        data = Resources.Load<Game_Data>("Items/Game_Data");
         GenarateItem();
         
     }
@@ -42,9 +43,9 @@ public class SwipeSelection : MonoBehaviour
     {
         pool_item = new List<GameObject>();
         // change ti Item when have full Item;
-        foreach(Job job in data.jobs)
+        foreach (Job job in data.jobs)
         {
-            var image = Resources.Load<Sprite>("Sprite/"+job.Image_url);
+            var image = Resources.Load<Sprite>("Sprite/" + job.Image_url);
             GameObject item = Instantiate(template, this.transform);
             item.GetComponent<Image>().sprite = image;
             pool_item.Add(item);

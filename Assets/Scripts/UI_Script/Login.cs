@@ -22,15 +22,19 @@ public class Login : MonoBehaviour
     public TMP_Text TextAttention;
     public Server_Connection_Helper helper;
     public User_Data user_data;
-    public Game_Data data;
+    public Game_Data game_data;
+
+    bool isDownloading = false;
 
     private void Start()
     {
         Loading_Panel.gameObject.SetActive(false);
+        game_data = Resources.Load<Game_Data>("Items/Game_Data");
         if (helper == null)
         {
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
+        Loading_Data();
     }
     public void SwitchScene()
     {
@@ -70,9 +74,10 @@ public class Login : MonoBehaviour
                     Users user = helper.ParseData<Users>(request);
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
-                    if(user_data.data.user.NickName != null && user_data.data.user.NickName != "")
+                    // Get Data
+                    this.isDownloading = true;
+                    if (user_data.data.user.NickName != null && user_data.data.user.NickName != "")
                     {
-
                         StartCoroutine(Loading_Scene("TestShopScene"));
                     }
                     else
@@ -86,27 +91,37 @@ public class Login : MonoBehaviour
         }));
     }
 
-    public IEnumerator Loading_Scene(string scene)
+    private bool Loading_Data()
+    {
+        StartCoroutine(helper.Get("dreams/all", (request, process) =>
+        {
+            this.game_data.dreams = new List<Dream>();
+            this.game_data.dreams = helper.ParseToList<Dream>(request);
+            Debug.Log("1:"+request.isDone);
+            isDownloading = request.isDone;
+        }));
+        StartCoroutine(helper.Get("eventcards/all", (request, process) =>
+        {
+            this.game_data.event_cards = new List<Event_card_Entity>();
+            this.game_data.event_cards = helper.ParseToList<Event_card_Entity>(request);
+            Debug.Log("2:"+request.isDone);
+            isDownloading = request.isDone;
+        }));
+        StartCoroutine(helper.Get("jobcards/all", (request, process) =>
+        {
+            this.game_data.jobs = new List<Job>();
+            this.game_data.jobs = helper.ParseToList<Job>(request);
+            Debug.Log("3:" + request.isDone);
+            isDownloading = request.isDone;
+        }));
+        return !isDownloading;
+    }
+
+    private IEnumerator Loading_Scene(string scene)
     {
         Loading_Panel.SetActive(true);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
         float progress = 0;
-        // Get Data
-        StartCoroutine(helper.Get("eventcards/all", (request, process) =>
-        {
-            this.data.event_cards = new List<Event_card_Entity>();
-            this.data.event_cards = helper.ParseToList<Event_card_Entity>(request);
-        }));
-        StartCoroutine(helper.Get("jobcards/all", (request, process) =>
-        {
-            this.data.jobs = new List<Job>();
-            this.data.jobs = helper.ParseToList<Job>(request);
-        }));
-        StartCoroutine(helper.Get("dreams/all", (request, process) =>
-        {
-            this.data.dreams = new List<Dream>();
-            this.data.dreams = helper.ParseToList<Dream>(request);
-        }));
         while (!asyncOperation.isDone)
         {
             progress = Mathf.MoveTowards(progress,asyncOperation.progress,Time.deltaTime);
@@ -116,7 +131,7 @@ public class Login : MonoBehaviour
                 bar.value = 1;
                 asyncOperation.allowSceneActivation = true;
             }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => isDownloading == false);
         }
 
         Loading_Panel.SetActive(false);

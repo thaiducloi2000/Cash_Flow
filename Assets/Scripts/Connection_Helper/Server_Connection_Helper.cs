@@ -42,7 +42,7 @@ public class Server_Connection_Helper : MonoBehaviour
         }
     }
 
-    public IEnumerator Put(string endpoint, Dictionary<string, int> parameters, string bodydata, Action<UnityWebRequest, float> callback)
+    public IEnumerator Put_Parameter(string endpoint, Dictionary<string, int> parameters, string bodydata, Action<UnityWebRequest, float> callback)
     {
         string url = BASE_URL + endpoint;
 
@@ -62,12 +62,27 @@ public class Server_Connection_Helper : MonoBehaviour
         }
     }
 
+    public IEnumerator Put(string endpoint, string bodydata, Action<UnityWebRequest, float> callback)
+    {
+        string url = BASE_URL + endpoint;
+
+        using (UnityWebRequest request = UnityWebRequest.Put(url, bodydata))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.SetRequestHeader("Content-Type", Content_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
+            yield return request.SendWebRequest();
+            callback(request, request.downloadProgress);
+        }
+    }
+
     public IEnumerator Get(string endpoint, Action<UnityWebRequest,float> callback)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint))
         {
             request.SetRequestHeader("Content-Type", Content_Header);
-            request.SetRequestHeader("Authorization", Authorization_Header);
+            //request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }
