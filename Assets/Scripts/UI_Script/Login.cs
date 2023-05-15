@@ -72,6 +72,10 @@ public class Login : MonoBehaviour
                 case UnityWebRequest.Result.Success:
                     //Debug.Log(request.downloadHandler.text);
                     Users user = helper.ParseData<Users>(request);
+                    if(user.user.lastCharacterSelected == null)
+                    {
+                        user.user.lastCharacterSelected = "Default";
+                    }
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
                     // Get Data
@@ -95,21 +99,18 @@ public class Login : MonoBehaviour
     {
         StartCoroutine(helper.Get("dreams/all", (request, process) =>
         {
-            this.game_data.dreams = new List<Dream>();
             this.game_data.dreams = helper.ParseToList<Dream>(request);
             Debug.Log("1:"+request.isDone);
             isDownloading = request.isDone;
         }));
         StartCoroutine(helper.Get("eventcards/all", (request, process) =>
         {
-            this.game_data.event_cards = new List<Event_card_Entity>();
             this.game_data.event_cards = helper.ParseToList<Event_card_Entity>(request);
             Debug.Log("2:"+request.isDone);
             isDownloading = request.isDone;
         }));
         StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
-            this.game_data.jobs = new List<Job>();
             this.game_data.jobs = helper.ParseToList<Job>(request);
             Debug.Log("3:" + request.isDone);
             isDownloading = request.isDone;
