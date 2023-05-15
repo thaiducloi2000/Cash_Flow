@@ -139,7 +139,6 @@ namespace StarterAssets
             Character_Item item = Resources.Load<Character_Item>("Items/Character/" + _data.data.user.lastCharacterSelected);
             this.Player_Avatar = Instantiate(item.Prefabs, this.transform);
             RuntimeAnimatorController animator = this.Player_Avatar.GetComponent<Animator>().runtimeAnimatorController;
-            Debug.Log(this.Player_Avatar.GetComponent<Animator>() == null);
             _animator = this.Player_Avatar.GetComponent<Animator>();
             _hasAnimator = _animator == null ? false : true;
             Character_Event character = this.Player_Avatar.GetComponent<Character_Event>();

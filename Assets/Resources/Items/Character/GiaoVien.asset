@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GiaoVien
   m_EditorClassIdentifier: 
   item: 2
-  ID: 64575fed72241e2a6d3ab235
+  ID: 2
   Prefabs: {fileID: 5294000484700616724, guid: 93a54ab90b1ca0147a31dc79997493d7, type: 3}
-  Avatar_Image: {fileID: 21300000, guid: 2aec803b664d7424d9ff2c6b5e73b443, type: 3}
+  Avatar_Image: {fileID: 21300000, guid: 8659cb35c95760d41b046bea39bc19f1, type: 3}
   Job: {fileID: 0}
