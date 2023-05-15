@@ -24,8 +24,11 @@ public class Player : NetworkBehaviour
     public Turn myTurn { get; set; }
     public List<Dream> dreams;
 
-    [Networked (OnChanged = nameof(OnStepChanged))]
+    [Networked]
     public int step { get; set; }
+    private Dice dice;
+    [Networked(OnChanged = nameof(OnStepChanged))]
+    public int totalStep { get; set; }
 
 
     public override void Spawned()
@@ -52,7 +55,8 @@ public class Player : NetworkBehaviour
         //offset = new Vector3(0, 7, -9f);
         Camera.main.transform.position = offset;
         Camera.main.transform.LookAt(root);
-
+        dice = Dice.Instance;
+        RPC_HideDice(false);
         //LoadAllJob();
     }
 
@@ -78,6 +82,7 @@ public class Player : NetworkBehaviour
     {
         if (Object.HasInputAuthority)
         {
+            RPC_HideDice(true);
             RPC_Random_Dice();
         }
     }
@@ -85,7 +90,53 @@ public class Player : NetworkBehaviour
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     public void RPC_Random_Dice(RpcInfo info = default)
     {
-        step = Random.Range(1, 7);
+        //step = Random.Range(1, 7);
+        StartCoroutine("RollTheDice");
+    }
+
+    private IEnumerator RollTheDice()
+    {
+        // Variable to contain random dice side number.
+        // It needs to be assigned. Let it be 0 initially
+        int randomDiceSide = 0;
+
+        // Final side or value that dice reads in the end of coroutine
+        //int finalSide = 0;
+
+        // Loop to switch dice sides ramdomly
+        // before final side appears. 20 itterations here.
+        for (int i = 0; i <= 20; i++)
+        {
+            // Pick up random value from 0 to 5 (All inclusive)
+            randomDiceSide = Random.Range(0, 5);
+            //RPC_RandomNumber(randomDiceSide);
+
+            // Set sprite to upper face of dice from array according to random value
+            // dice.rend.sprite = dice.diceSides[randomDiceSide];
+            RPC_DisplayDice(randomDiceSide);
+
+            // Pause before next itteration
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        // Assigning final side so you can use this value later in your game
+        // for player movement for example
+        step = randomDiceSide + 1;
+        totalStep += step;
+        // Show final dice value in Console
+        Debug.Log(step);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    void RPC_DisplayDice(int randomDiceSide, RpcInfo info = default)
+    {
+        dice.rend.sprite = dice.diceSides[randomDiceSide];
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_HideDice(NetworkBool isHide, RpcInfo info = default)
+    {
+        dice.rend.enabled = isHide;
     }
 
     public void SelectJoB()
