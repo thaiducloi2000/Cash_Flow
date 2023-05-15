@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
@@ -76,8 +76,16 @@ public class Login : MonoBehaviour
                     {
                         user.user.lastCharacterSelected = "Default";
                     }
+                    
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
+                    foreach (Job job in game_data.jobs)
+                    {
+                        if (job.Image_url == user.user.LastJobSelected)
+                        {
+                            user_data.LastJobSelected = job;
+                        }
+                    }
                     // Get Data
                     this.isDownloading = true;
                     if (user_data.data.user.NickName != null && user_data.data.user.NickName != "")

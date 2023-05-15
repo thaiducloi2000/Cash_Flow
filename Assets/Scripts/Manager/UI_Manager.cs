@@ -242,9 +242,9 @@ public class UI_Manager : MonoBehaviour
 
     public void AcceptJob()
     {
-        Player.Instance.job = UI_Manager.instance.Job_Panel.GetComponent<Job_Panel>().job;
+        Player.Instance.user_data.LastJobSelected = UI_Manager.instance.Job_Panel.GetComponent<Job_Panel>().job;
         UI_Manager.instance.Job_Panel.SetActive(false);
-        ApplyJobToFinancial(Player.Instance.job);
+        ApplyJobToFinancial(Player.Instance.user_data.LastJobSelected);
         UI_Manager.instance.Financial_Panel.GetComponent<Financial_Panel_Manager>().Financial(Player.Instance.financial_rp);
     }
 
@@ -261,10 +261,6 @@ public class UI_Manager : MonoBehaviour
         Player.Instance.Children_cost = job.Children_cost;
         Player.Instance.financial_rp = new Financial(0, Player.Instance.id, job.Job_card_name, 0, expense, job.Game_accounts);
         Player.Instance.dreams = GameBoard.Instance.GetListDream();
-        foreach (Dream dream in Player.Instance.dreams)
-        {
-            Debug.Log(dream.Name);
-        }
     }
 
     private void ApplySmallDeal(Small_Deal deal, int amount)

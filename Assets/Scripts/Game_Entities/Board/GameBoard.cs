@@ -14,7 +14,8 @@ public class GameBoard : MonoBehaviour
     [SerializeField] private GameObject Tile_Rat_Race;
     [SerializeField] private GameObject Tile_Fat_Race;
     [SerializeField] public Tile_Material tile_avatar;
-    [SerializeField] public List<Dream> dreams;
+    public Game_Data game_data;
+
     // Size of Tile
     public float size = 1f;
     // Radius of Rat Race
@@ -35,6 +36,7 @@ public class GameBoard : MonoBehaviour
             Destroy(this);
         }
         Instance = this;
+        game_data = Resources.Load<Game_Data>("Items/Game_Data");
         SpawnTiles();
     }
 
@@ -54,8 +56,7 @@ public class GameBoard : MonoBehaviour
         Spawn_Rat_Race(NumberTiles_Rat_Race);
         // Spawn Fat Race with Square
         Spawn_Fat_Race(NumberTiles_Fat_Race);
-
-        Load_Dream();
+        Set_Tiles_Type();
     }
 
     public void Set_Tiles_Type()
@@ -97,22 +98,6 @@ public class GameBoard : MonoBehaviour
             angle += nextAngle;
         }
     }   
-
-    public void Load_Dream()
-    {
-        StartCoroutine(EvenCard_Data.instance.helper.Get("dreams/all", (request, process) =>
-        {
-            //Debug.Log(request.downloadHandler.text);
-            if (dreams == null)
-            {
-                dreams = new List<Dream>();
-            }
-            dreams = EvenCard_Data.instance.helper.ParseToList<Dream>(request);
-
-            // Set Event Type to All Race , TMP is RAT RACE
-            Set_Tiles_Type();
-        }));
-    }
 
     private void Set_Rat_Race_Tile_Event(Tile_Entity tile)
     {
@@ -182,8 +167,8 @@ public class GameBoard : MonoBehaviour
                 type = TileType.Oppotunity;
                 break;
         }
-        List<Dream> dream = this.dreams;
-        int dream_amount = dreams.Count;
+        List<Dream> dream = game_data.dreams;
+        int dream_amount = game_data.dreams.Count;
         foreach (int i in tile.positions)
         {
             Tiles_Fat_Race[i].GetComponent<Tile>().Type = type;
@@ -227,24 +212,24 @@ public class GameBoard : MonoBehaviour
     public List<Dream> GetListDream()
     {
         List<Dream> dream_list = new List<Dream>();
-        int rnd = Random.Range(0, this.dreams.Count - 1);
-        if (rnd > 0 && rnd < dreams.Count - 1)
+        int rnd = Random.Range(0, game_data.dreams.Count - 1);
+        if (rnd > 0 && rnd < game_data.dreams.Count - 1)
         {
-            dream_list.Add(dreams[rnd]);
-            dream_list.Add(dreams[rnd + 1]);
-            dream_list.Add(dreams[rnd - 1]);
+            dream_list.Add(game_data.dreams[rnd]);
+            dream_list.Add(game_data.dreams[rnd + 1]);
+            dream_list.Add(game_data.dreams[rnd - 1]);
         }
         else if (rnd == 0)
         {
-            dream_list.Add(dreams[rnd]);
-            dream_list.Add(dreams[rnd + 1]);
-            dream_list.Add(dreams[rnd + 2]);
+            dream_list.Add(game_data.dreams[rnd]);
+            dream_list.Add(game_data.dreams[rnd + 1]);
+            dream_list.Add(game_data.dreams[rnd + 2]);
         }
-        else if (rnd == dreams.Count - 1)
+        else if (rnd == game_data.dreams.Count - 1)
         {
-            dream_list.Add(dreams[rnd]);
-            dream_list.Add(dreams[rnd - 1]);
-            dream_list.Add(dreams[rnd - 2]);
+            dream_list.Add(game_data.dreams[rnd]);
+            dream_list.Add(game_data.dreams[rnd - 1]);
+            dream_list.Add(game_data.dreams[rnd - 2]);
         }
         Debug.Log(dream_list.Count);
         return dream_list;
