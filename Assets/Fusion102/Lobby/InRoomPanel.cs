@@ -106,6 +106,6 @@ public class InRoomPanel : MonoBehaviour, Ipanel
 
         lobbyManager.SetPairState(PairState.Lobby);
         gameManager.LeaveSession();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -30,6 +30,8 @@ public class Step : NetworkBehaviour
 
     public IEnumerator Move(Player player, int step, BoardType boardType)
     {
+        yield return new WaitForSeconds(1.05f);
+        GetComponent<Player>().RPC_HideDice(false);
         //DanhNPC add check board race
         if (boardType == BoardType.RatRace)
             race = Ratrace;
@@ -58,6 +60,7 @@ public class Step : NetworkBehaviour
             yield return new WaitForSeconds(.5f);
             step--;
         }
+        
         GameManager.Instance.isPlayerMoving = false;
 
 
@@ -108,7 +111,7 @@ public class Step : NetworkBehaviour
             yield return new WaitForSeconds(.2f);
             count--;
         }
-            
+        GetComponent<Player>().RPC_HideDice(false);
         GameManager.Instance.isPlayerMoving = false;
 
         // popup panel when player stop moving
