@@ -4,6 +4,7 @@ using TMPro;
 
 public class Job_Panel : MonoBehaviour
 {
+    [SerializeField] private GameObject Job_Image;
     [SerializeField] private GameObject Job_Name;
     [SerializeField] private GameObject Content_Incomes;
     [SerializeField] private GameObject Content_Assets;
@@ -21,7 +22,7 @@ public class Job_Panel : MonoBehaviour
 
     public void loadJobInformation(Job job)
     {
-       
+        Job_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/" + job.Image_url);
         Job_Name.GetComponent<TextMeshProUGUI>().text = job.Job_card_name;
         foreach(Game_accounts account in job.Game_accounts)
         {

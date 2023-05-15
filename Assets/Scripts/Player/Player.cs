@@ -19,9 +19,9 @@ public class Player : NetworkBehaviour
     //public float cash;
     public Financial financial_rp;
     public Financial financial_rp_fat_race;
-    public Job job;
+    //public Job job;
     [Networked]
-    public Turn myTurn { get; set; }
+    public Turn myTurn { get; set;}
     public List<Dream> dreams;
 
     [Networked]
@@ -30,13 +30,15 @@ public class Player : NetworkBehaviour
     [Networked(OnChanged = nameof(OnStepChanged))]
     public int totalStep { get; set; }
 
+    public User_Data user_data;
 
     public override void Spawned()
     {
         if (Object.HasInputAuthority)
         {
             Instance = this;
-            LoadAllJob();
+            user_data = Resources.Load<User_Data>("Items/User_Data");
+            SelectJoB();
             Debug.Log("Spawn local player");
         }
         else
@@ -141,7 +143,7 @@ public class Player : NetworkBehaviour
 
     public void SelectJoB()
     {
-        UI_Manager.instance.PopupJob_UI(EvenCard_Data.instance.Job_List[Random.Range(0, EvenCard_Data.instance.Job_List.Count - 1)]);
+        UI_Manager.instance.PopupJob_UI(user_data.LastJobSelected);
     }
 
     public void MoveCameraOnCirle()
@@ -171,29 +173,11 @@ public class Player : NetworkBehaviour
         List<Game_accounts> list = new List<Game_accounts>();
         list.Add(account);
         list.Add(account_2);
-        this.financial_rp_fat_race = new Financial(0, this.id, this.job.id, this.financial_rp.GetPassiveIncome() * 100f, 0, list);
+        this.financial_rp_fat_race = new Financial(0, this.id, this.user_data.LastJobSelected.id, this.financial_rp.GetPassiveIncome() * 100f, 0, list);
 
         UI_Manager.instance.Financial_Panel.GetComponent<Financial_Panel_Manager>().Financial(this.financial_rp_fat_race);
         if (Object.HasInputAuthority)
             StartCoroutine(this.gameObject.GetComponent<Step>().MoveFatRace(this));
-    }
-
-    private void LoadAllJob()
-    {
-        EvenCard_Data.instance.Job_List = new List<Job>();
-        StartCoroutine(EvenCard_Data.instance.helper.Get("jobcards/all", (request, process) =>
-        {
-            List<Job> list = EvenCard_Data.instance.helper.ParseToList<Job>(request);
-            foreach (Job job in list)
-            {
-                EvenCard_Data.instance.Job_List.Add(job);
-            }
-            if (request.downloadProgress == 1)
-            {
-                SelectJoB();
-            }
-        }
-        ));
     }
 
     static void OnStepChanged(Changed<Player> changed)

@@ -9,16 +9,16 @@ public class Profile : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject ProfilePanel;
+    public GameObject Job_Image;
     public TMP_Text profilename;
-    public TMP_Text infoname;
-    private void Update()
-    {
-        profilename.text = infoname.text;
-    }
+    public TMP_Text Job_Name;
     public void openProfile()
     {
+        User_Data user = Resources.Load<User_Data>("Items/User_Data");
         ProfilePanel.SetActive(true);
-        profilename.text = infoname.text;
+        profilename.text = user.data.user.NickName;
+        Job_Name.text = user.LastJobSelected.Job_card_name;
+        Job_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/" + user.LastJobSelected.Image_url);
     }
     public void closeProfile()
     {
