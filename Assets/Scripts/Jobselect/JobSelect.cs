@@ -128,7 +128,6 @@ public class JobSelect : MonoBehaviour
                         this.user_data.data.user.Gender = "male";
                         this.user_data.data.user.Email = "thaiducloi2000@gmail.com";
                         UpdateLastJobSelected();
-                        SceneManager.LoadSceneAsync("TestShopScene");
                         break;
                     default:
                         break;
@@ -144,13 +143,13 @@ public class JobSelect : MonoBehaviour
     private void UpdateLastJobSelected()
     {
         Dictionary<string, object> data = new Dictionary<string, object>();
-        this.user_data.data.user.lastCharacterSelected = "BacSi";
+        this.user_data.data.user.lastCharacterSelected = "Default";
         SwipeSelection selection = content.GetComponent<SwipeSelection>();
         user_data.LastJobSelected = selection.job_Selected;
         Character_Item character = Resources.Load<Character_Item>("Items/Character/" + this.user_data.data.user.lastCharacterSelected);
 
         data.Add("AssetId", character.ID);
-        data.Add("LastJobSelected", user_data.LastJobSelected.name);
+        data.Add("LastJobSelected", user_data.LastJobSelected.Job_card_name);
 
         string bodydata = JsonConvert.SerializeObject(data);
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   item: 2
-  ID: 0
+  ID: 8
   Prefabs: {fileID: 4587611413196904969, guid: 25bf11c962746ed41a96da882a17e070, type: 3}
   Avatar_Image: {fileID: 21300000, guid: 0a1447b6e459e2d4f9bf811ab1155c6f, type: 3}
   Job: {fileID: 0}
