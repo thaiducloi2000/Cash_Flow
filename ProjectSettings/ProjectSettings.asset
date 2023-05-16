@@ -802,7 +802,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Android: STARTER_ASSETS_PACKAGES_CHECKED;FUSION_WEAVER
+    Android: STARTER_ASSETS_PACKAGES_CHECKED;FUSION_WEAVER;ENABLE_UNITY_COLLECTIONS_CHECKS
     Standalone: STARTER_ASSETS_PACKAGES_CHECKED;FUSION_WEAVER
   additionalCompilerArguments: {}
   platformArchitecture: {}

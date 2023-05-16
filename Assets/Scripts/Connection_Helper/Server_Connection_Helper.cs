@@ -7,7 +7,8 @@ using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
-
+using Mono.Cecil;
+using UnityEditor;
 
 public class Server_Connection_Helper : MonoBehaviour
 {
@@ -152,28 +153,6 @@ public class Server_Connection_Helper : MonoBehaviour
                 Debug.LogError(request.error);
             }
         }
-    }
-
-    private Texture2D ResizeTexture(Texture2D originalTexture, int newWidth, int newHeight)
-    {
-        Texture2D resizedTexture = new Texture2D(newWidth, newHeight);
-        Color[] pixels = new Color[newWidth * newHeight];
-        float xRatio = (float)originalTexture.width / newWidth;
-        float yRatio = (float)originalTexture.height / newHeight;
-
-        for (int y = 0; y < newHeight; y++)
-        {
-            for (int x = 0; x < newWidth; x++)
-            {
-                int index = (int)(y * xRatio) * originalTexture.width + (int)(x * yRatio);
-                pixels[y * newWidth + x] = originalTexture.GetPixel(index % originalTexture.width, index / originalTexture.width);
-            }
-        }
-
-        resizedTexture.SetPixels(pixels);
-        resizedTexture.Apply();
-
-        return resizedTexture;
     }
 }
 
