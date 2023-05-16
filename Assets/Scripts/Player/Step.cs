@@ -186,10 +186,12 @@ public class Step : NetworkBehaviour
                 break;
             case TileType.Baby:
                 Baby();
+                UI_Manager.instance.UpdateProfilePlayer();
                 break;
             case TileType.Charity:
                 //UI_Manager.Instance.PopUpDeal_UI();
                 Charity();
+                UI_Manager.instance.UpdateProfilePlayer();
                 break;
             case TileType.DownSize:
                 //UI_Manager.Instance.PopUpDeal_UI();

@@ -108,7 +108,7 @@ public class UI_Manager : NetworkBehaviour
             }
         }
 
-
+        UpdateProfilePlayer();
     }
 
     public void Popup_Market_Panel(Market market)
@@ -249,7 +249,7 @@ public class UI_Manager : NetworkBehaviour
         UI_Manager.instance.Job_Panel.SetActive(false);
         ApplyJobToFinancial(Player.Instance.user_data.LastJobSelected);
         UI_Manager.instance.Financial_Panel.GetComponent<Financial_Panel_Manager>().Financial(Player.Instance.financial_rp);
-        infoPlayers.SetInfoPlayers(Player.Instance.infoNumber, user.data.user.NickName, user.LastJobSelected.Job_card_name, Player.Instance.financial_rp.GetCash(), Player.Instance.financial_rp.children_amount);
+        UpdateProfilePlayer();
     }
 
     public void ApplyJobToFinancial(Job job)
@@ -358,4 +358,14 @@ public class UI_Manager : NetworkBehaviour
         this.s_deal = -1;
         this.b_deal = -1;
     }
+
+    public void UpdateProfilePlayer()
+    {
+        infoPlayers.SetInfoPlayers(Player.Instance.infoNumber, 
+            user.data.user.NickName, 
+            user.LastJobSelected.Job_card_name, 
+            Player.Instance.financial_rp.GetCash(), 
+            Player.Instance.financial_rp.children_amount);
+    }
+
 }

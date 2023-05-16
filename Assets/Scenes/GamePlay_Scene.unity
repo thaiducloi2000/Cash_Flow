@@ -43590,6 +43590,7 @@ GameObject:
   - component: {fileID: 8285309848734210886}
   - component: {fileID: 8285309848734210887}
   - component: {fileID: 8285309848734210883}
+  - component: {fileID: 8285309848734210888}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -43637,6 +43638,31 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8285309848734210888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8285309848734210884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 23679eaa33c64c0189ac681bd3320811
+  NestedObjects:
+  - {fileID: 620100790}
+  NetworkedBehaviours:
+  - {fileID: 8285309848734210883}
+  SimulationBehaviours: []
 --- !u!224 &8285309848741345362
 RectTransform:
   m_ObjectHideFlags: 0
