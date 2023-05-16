@@ -106,22 +106,10 @@ public class Login : MonoBehaviour
 
     private bool Loading_Data()
     {
-        StartCoroutine(helper.Get("dreams/all", (request, process) =>
-        {
-            this.game_data.dreams = helper.ParseToList<Dream>(request);
-            Debug.Log("1:"+request.isDone);
-            isDownloading = request.isDone;
-        }));
-        StartCoroutine(helper.Get("eventcards/all", (request, process) =>
-        {
-            this.game_data.event_cards = helper.ParseToList<Event_card_Entity>(request);
-            Debug.Log("2:"+request.isDone);
-            isDownloading = request.isDone;
-        }));
         StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
+            this.game_data.jobs = new List<Job>();
             this.game_data.jobs = helper.ParseToList<Job>(request);
-            Debug.Log("3:" + request.isDone);
             isDownloading = request.isDone;
         }));
         return !isDownloading;
