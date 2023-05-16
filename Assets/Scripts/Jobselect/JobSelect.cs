@@ -149,23 +149,22 @@ public class JobSelect : MonoBehaviour
         Character_Item character = Resources.Load<Character_Item>("Items/Character/" + this.user_data.data.user.lastCharacterSelected);
 
         data.Add("AssetId", character.ID);
-        data.Add("LastJobSelected", user_data.LastJobSelected.Job_card_name);
+        data.Add("LastJobSelected", user_data.LastJobSelected.Image_url);
 
         string bodydata = JsonConvert.SerializeObject(data);
 
-        StartCoroutine(helper.Put("users/profile", bodydata, (request, process) =>
+        StartCoroutine(helper.Put("users/asset-last-used", bodydata, (request, process) =>
         {
             switch (request.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
-                    Debug.LogError(": Error: " + request.error);
+                    textAttention.text = "Error: " + request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(": Error: " + request.error);
+                    textAttention.text = "Error: " + request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
-                    textAttention.text = request.error;
+                    textAttention.text = "Error: " + request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.Success:
                     SceneManager.LoadSceneAsync("TestShopScene");

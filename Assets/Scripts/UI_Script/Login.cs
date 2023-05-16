@@ -60,14 +60,14 @@ public class Login : MonoBehaviour
             switch(request.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
-                    Debug.LogError(": Error: "+ request.error);
+                    TextAttention.text = "Error: " + request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(": Error: " + request.error);
+                    TextAttention.text = "Error: " + request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.ProtocolError:
                     Attentionpanel.SetActive(true);
-                    TextAttention.text = "HTTP Error: " + request.error + " - " + request.downloadHandler.text;
+                    TextAttention.text = "Error: "+ request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.Success:
                     //Debug.Log(request.downloadHandler.text);
@@ -83,6 +83,7 @@ public class Login : MonoBehaviour
                     {
                         if (job.Image_url == user.user.LastJobSelected)
                         {
+                            Debug.Log(job.Image_url + " " + job.Job_card_name);
                             user_data.LastJobSelected = job;
                         }
                     }
