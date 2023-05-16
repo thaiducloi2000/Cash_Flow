@@ -111,15 +111,19 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
             {
                 case 0:
                     player.GetComponent<Player>().myTurn = Turn.A;
+                    player.GetComponent<Player>().infoNumber = 0;
                     break;
                 case 1:
                     player.GetComponent<Player>().myTurn = Turn.B;
+                    player.GetComponent<Player>().infoNumber = 1;
                     break;
                 case 2:
                     player.GetComponent<Player>().myTurn = Turn.C;
+                    player.GetComponent<Player>().infoNumber = 2;
                     break;
                 case 3:
                     player.GetComponent<Player>().myTurn = Turn.D;
+                    player.GetComponent<Player>().infoNumber = 3;
                     break;
                 default:
                     break;

@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 // Manage UI Canvas in Game
-public class UI_Manager : MonoBehaviour
+public class UI_Manager : NetworkBehaviour
 {
     public static UI_Manager instance;
     public GameObject Deal_Panel;
@@ -23,6 +24,8 @@ public class UI_Manager : MonoBehaviour
     private int s_deal = -1;
     private int f_oppotunity = -1;
     //[SerializeField] Player player;
+    public InfoPlayers infoPlayers;
+    public User_Data user;
 
     private void Awake()
     {
@@ -344,6 +347,7 @@ public class UI_Manager : MonoBehaviour
         UI_Manager.instance.Job_Panel.SetActive(false);
         ApplyJobToFinancial(Player.Instance.user_data.LastJobSelected);
         UI_Manager.instance.Financial_Panel.GetComponent<Financial_Panel_Manager>().Financial(Player.Instance.financial_rp);
+        infoPlayers.SetInfoPlayers(Player.Instance.infoNumber, user.data.user.NickName, user.LastJobSelected.Job_card_name, Player.Instance.financial_rp.GetCash(), Player.Instance.financial_rp.children_amount);
     }
 
     public void ApplyJobToFinancial(Job job)

@@ -29,6 +29,8 @@ public class Player : NetworkBehaviour
     private Dice dice;
     [Networked(OnChanged = nameof(OnStepChanged))]
     public int totalStep { get; set; }
+    [Networked]
+    public int infoNumber { get; set; }
 
     public User_Data user_data;
 
