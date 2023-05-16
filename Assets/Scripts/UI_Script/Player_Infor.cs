@@ -43,9 +43,9 @@ public class Player_Infor : MonoBehaviour
         character_selected.Add("AssetId", character.ID);
         character_selected.Add("LastJobSelected", user.LastJobSelected.Image_url);
 
-        string bodydata = JsonConvert.SerializeObject(character_selected);
+        string bodydata_1 = JsonConvert.SerializeObject(character_selected);
 
-        StartCoroutine(helper.Put("users/asset-last-used", bodydata, (request, process) =>
+        StartCoroutine(helper.Put("users/asset-last-used", bodydata_1, (request, process) =>
         {
             switch (request.result)
             {
@@ -72,8 +72,8 @@ public class Player_Infor : MonoBehaviour
         point_coint.Add("Coin", user.data.user.Coin);
         point_coint.Add("Point", user.data.user.Point);
         parameter.Add("userId", user.data.user.UserId);
-        bodydata = JsonConvert.SerializeObject(point_coint);
-        StartCoroutine(helper.Put_Parameter("users/coin-point", parameter, bodydata, (request, process) =>
+        string bodydata_2 = JsonConvert.SerializeObject(point_coint);
+        StartCoroutine(helper.Put_Parameter("users/coin-point", parameter, bodydata_2, (request, process) =>
         {
             switch (request.result)
             {

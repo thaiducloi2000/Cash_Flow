@@ -14,7 +14,6 @@ public class EvenCard_Data : MonoBehaviour
     [SerializeField] public List<Market> Markets;
     public Server_Connection_Helper helper;
     [SerializeField] private User_Data user;
-    [SerializeField] private Game_Data game_data;
     private void Awake()
     {
         if(instance != null)
@@ -22,7 +21,6 @@ public class EvenCard_Data : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-        game_data = Resources.Load<Game_Data>("Items/Game_Data");
         if (helper == null)
         {
             helper = GetComponent<Server_Connection_Helper>();
@@ -39,9 +37,10 @@ public class EvenCard_Data : MonoBehaviour
         Big_Deal_List = new List<Big_Deal>();
         Doodads = new List<Doodad>();
         Markets = new List<Market>();
-        foreach (Event_card_Entity card in game_data.event_cards)
-        {
-            if (card.Image_url != null && card.Image_url != "")
+        StartCoroutine(helper.Get("eventcards/all", (request, process) => {
+            List<Event_card_Entity> event_card = helper.ParseToList<Event_card_Entity>(request);
+            Debug.Log(request.downloadProgress);
+            foreach (Event_card_Entity card in event_card)
             {
                 switch (card.Event_type_id)
                 {
@@ -61,7 +60,7 @@ public class EvenCard_Data : MonoBehaviour
                         break;
                 }
             }
-        }
+        }));
     }
 
     private void LoadDoodad(Event_card_Entity card)
