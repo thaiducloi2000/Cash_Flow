@@ -60,17 +60,16 @@ public class Login : MonoBehaviour
             switch(request.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
-                    TextAttention.text = "Error: " + request.downloadHandler.text;
+                    TextAttention.text = "Error: Connection Error";
                     break;
                 case UnityWebRequest.Result.DataProcessingError:
-                    TextAttention.text = "Error: " + request.downloadHandler.text;
+                    TextAttention.text = "Error: Data Processing Error";
                     break;
                 case UnityWebRequest.Result.ProtocolError:
                     Attentionpanel.SetActive(true);
-                    TextAttention.text = "Error: "+ request.downloadHandler.text;
+                    TextAttention.text = "Error: Protocol Error";
                     break;
                 case UnityWebRequest.Result.Success:
-                    //Debug.Log(request.downloadHandler.text);
                     Users user = helper.ParseData<Users>(request);
                     if(user.user.lastCharacterSelected == null)
                     {

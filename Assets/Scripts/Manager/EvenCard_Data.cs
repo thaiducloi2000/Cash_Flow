@@ -10,6 +10,7 @@ public class EvenCard_Data : MonoBehaviour
     [SerializeField] public List<Job> Job_List;
     [SerializeField] public List<Small_Deal> Small_Deal_List;
     [SerializeField] public List<Big_Deal> Big_Deal_List;
+    [SerializeField] public List<Big_Deal> fat_race_oppoturnities;
     [SerializeField] public List<Doodad> Doodads;
     [SerializeField] public List<Market> Markets;
     public Server_Connection_Helper helper;
@@ -37,6 +38,7 @@ public class EvenCard_Data : MonoBehaviour
         Big_Deal_List = new List<Big_Deal>();
         Doodads = new List<Doodad>();
         Markets = new List<Market>();
+        fat_race_oppoturnities = new List<Big_Deal>();
         StartCoroutine(helper.Get("eventcards/all", (request, process) => {
             List<Event_card_Entity> event_card = helper.ParseToList<Event_card_Entity>(request);
             Debug.Log(request.downloadProgress);
@@ -55,6 +57,9 @@ public class EvenCard_Data : MonoBehaviour
                         break;
                     case 4:
                         LoadMarket(card);
+                        break;
+                    case 5:
+                        Load_Fat_Race_Event_Card(card);
                         break;
                     default:
                         break;
@@ -77,6 +82,11 @@ public class EvenCard_Data : MonoBehaviour
     private void LoadBigDeal(Event_card_Entity card)
     {
         Big_Deal_List.Add(new Big_Deal(card.Image_url, card.Event_name,card.Account_name,card.Event_description, card.Cost, card.Down_pay, card.Trading_range,card.Dept, card.Cash_flow,card.Action));
+    }
+
+    private void Load_Fat_Race_Event_Card(Event_card_Entity card)
+    {
+        fat_race_oppoturnities.Add(new Big_Deal(card.Image_url, card.Event_name, card.Account_name, card.Event_description, card.Cost, card.Down_pay, card.Trading_range, card.Dept, card.Cash_flow, card.Action));
     }
 
     private void LoadSmallDeal(Event_card_Entity card)

@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Update()
     {
-        Debug.Log("Turn: " + isTurn);
-        Debug.Log("PlayerCount: " + totalPlayer);
+        Debug.Log("End Game : " + EndGame);
     }
     private void Awake()
     {

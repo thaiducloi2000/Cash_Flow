@@ -172,7 +172,7 @@ public class Step : NetworkBehaviour
             case TileType.Oppotunity:
                 if (Player.Instance.isInFatRace)
                 {
-                    Debug.Log("Oppotunity : Fat Race");
+                    UI_Manager.instance.Fat_Race_Oppotunity();
                 }
                 else
                 {
@@ -239,35 +239,35 @@ public class Step : NetworkBehaviour
     {
         // -50% cash
         UI_Manager.instance.ProblemContainer_Panel.GetComponent<ProblemContainer_Panel>().Popup_Divorce_Panel();
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 2));
+        player.financial_rp_fat_race.SetCash(player.financial_rp_fat_race.GetCash() - (player.financial_rp_fat_race.GetCash() / 2));
     }
 
     private void CashFlowDay()
     {
         // get cash
         float total_income = 0;
-        foreach (Game_accounts account in player.financial_rp.game_accounts)
+        foreach (Game_accounts account in player.financial_rp_fat_race.game_accounts)
         {
             if (account.Game_account_type == AccountType.Income)
             {
                 total_income += account.Game_account_value;
             }
         }
-        player.financial_rp.SetCash(player.financial_rp.GetCash() + total_income);
+        player.financial_rp_fat_race.SetCash(player.financial_rp_fat_race.GetCash() + total_income);
     }
 
     private void Accused()
     {
         // -25%
         UI_Manager.instance.ProblemContainer_Panel.GetComponent<ProblemContainer_Panel>().Popup_Litigation_Panel();
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 4));
+        player.financial_rp_fat_race.SetCash(player.financial_rp_fat_race.GetCash() - (player.financial_rp_fat_race.GetCash() / 4));
     }
 
     private void Taxes()
     {
         // -10%
         UI_Manager.instance.ProblemContainer_Panel.GetComponent<ProblemContainer_Panel>().Popup_Taxes_Panel();
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (player.financial_rp.GetCash() / 10));
+        player.financial_rp_fat_race.SetCash(player.financial_rp_fat_race.GetCash() - (player.financial_rp_fat_race.GetCash() / 10));
     }
 
     private void Paycheck()
@@ -322,6 +322,7 @@ public class Step : NetworkBehaviour
 
     private void Baby()
     {
+        UI_Manager.instance.PopupBabyUI();
         if(player.financial_rp.children_amount < 3)
         {
             player.financial_rp.children_amount++;
