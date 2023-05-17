@@ -13,8 +13,10 @@ public class Event_card_Entity : MonoBehaviour
     public int Cash_flow { get; set; }
     public string Trading_range { get; set; }
     public string Event_description { get; set; }
-    public int Event_type_id { get; set; }
+    public string Event_type { get; set; }
     public int Action { get; set; }
+    public int Game_mode_id { get; set; }
+    public bool Status { get; set; }
 
 
 }

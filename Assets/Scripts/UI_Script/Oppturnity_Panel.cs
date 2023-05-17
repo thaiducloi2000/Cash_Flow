@@ -15,7 +15,7 @@ public class Oppturnity_Panel : MonoBehaviour
         resetPanel();
         this._image.sprite = image;
         this.Title.text = deal.Title;
-        this.Description.text = deal.Description + "/nTrả trước: "+deal.Downpay +"{5}"+" Dòng tiền: "+deal.Cash_flow;
+        this.Description.text = deal.Description + "<br> Trả trước: "+deal.Downpay + "<space=5em>Dòng tiền: "+deal.Cash_flow;
     }
 
     private void resetPanel()

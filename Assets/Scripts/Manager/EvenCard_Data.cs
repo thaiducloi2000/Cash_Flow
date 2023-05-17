@@ -44,21 +44,21 @@ public class EvenCard_Data : MonoBehaviour
             Debug.Log(request.downloadProgress);
             foreach (Event_card_Entity card in event_card)
             {
-                switch (card.Event_type_id)
+                switch (card.Event_type)
                 {
-                    case 1:
+                    case "Big Deal":
                         LoadBigDeal(card);
                         break;
-                    case 2:
+                    case "Small Deal":
                         LoadSmallDeal(card);
                         break;
-                    case 3:
+                    case "DooDad":
                         LoadDoodad(card);
                         break;
-                    case 4:
+                    case "Market":
                         LoadMarket(card);
                         break;
-                    case 5:
+                    case "Opotunity":
                         Load_Fat_Race_Event_Card(card);
                         break;
                     default:

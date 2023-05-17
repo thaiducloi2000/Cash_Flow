@@ -6,9 +6,6 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Security.Cryptography;
-using Mono.Cecil;
-using UnityEditor;
 
 public class Server_Connection_Helper : MonoBehaviour
 {

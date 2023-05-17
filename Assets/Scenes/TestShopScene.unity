@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17255,6 +17255,7 @@ MonoBehaviour:
   user_name: {fileID: 2058888885}
   Money: {fileID: 1673026622}
   avatar: {fileID: 1162131173}
+  helper: {fileID: 0}
 --- !u!224 &1690533255 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 126862126902169314, guid: db4178fcdaaf45443bfa4fd953ab2de5, type: 3}

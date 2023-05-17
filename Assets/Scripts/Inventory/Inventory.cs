@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,6 +57,7 @@ public class Inventory : MonoBehaviour
             item.GetComponent<Inventory_Item_UI>().Avatar.sprite = character.Avatar_Image;
             item.GetComponent<Inventory_Item_UI>().Item = character;
             item.GetComponent<Inventory_Item_UI>().Player = this.Player_Avatar;
+            item.GetComponent<Inventory_Item_UI>()._data = this.Player_Avatar.GetComponent<ThirdPersonController>()._data;
             pool_item.Add(item);
         }
     }
