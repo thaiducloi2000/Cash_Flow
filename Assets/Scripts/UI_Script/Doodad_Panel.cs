@@ -25,5 +25,6 @@ public class Doodad_Panel : MonoBehaviour
     {
         //Player player = GetComponentInChildren<Player>();
         this.gameObject.SetActive(false);
+        UI_Manager.instance.UpdateProfilePlayer();
     }
 }

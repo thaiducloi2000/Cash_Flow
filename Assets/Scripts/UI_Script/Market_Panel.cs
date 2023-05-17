@@ -58,5 +58,6 @@ public class Market_Panel : MonoBehaviour
             }
         }
         this.gameObject.SetActive(false);
+        UI_Manager.instance.UpdateProfilePlayer();
     }
 }
