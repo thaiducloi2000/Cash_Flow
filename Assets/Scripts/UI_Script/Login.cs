@@ -24,9 +24,8 @@ public class Login : MonoBehaviour
     public User_Data user_data;
     public Game_Data game_data;
 
-    bool isDownloading = false;
 
-    private void Start()
+    private void Awake()
     {
         Loading_Panel.gameObject.SetActive(false);
         game_data = Resources.Load<Game_Data>("Items/Game_Data");
@@ -34,6 +33,9 @@ public class Login : MonoBehaviour
         {
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
+    }
+    private void Start()
+    {
         Loading_Data();
     }
     public void SwitchScene()
@@ -75,7 +77,6 @@ public class Login : MonoBehaviour
                     {
                         user.user.lastCharacterSelected = "Default";
                     }
-                    
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
                     foreach (Job job in game_data.jobs)
@@ -86,8 +87,6 @@ public class Login : MonoBehaviour
                             user_data.LastJobSelected = job;
                         }
                     }
-                    // Get Data
-                    this.isDownloading = true;
                     if (user_data.data.user.NickName != null && user_data.data.user.NickName != "")
                     {
                         StartCoroutine(Loading_Scene("TestShopScene"));
@@ -103,15 +102,13 @@ public class Login : MonoBehaviour
         }));
     }
 
-    private bool Loading_Data()
+    private void Loading_Data()
     {
         StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
             this.game_data.jobs = new List<Job>();
             this.game_data.jobs = helper.ParseToList<Job>(request);
-            isDownloading = request.isDone;
         }));
-        return !isDownloading;
     }
 
     private IEnumerator Loading_Scene(string scene)
@@ -128,7 +125,7 @@ public class Login : MonoBehaviour
                 bar.value = 1;
                 asyncOperation.allowSceneActivation = true;
             }
-            yield return new WaitUntil(() => isDownloading == false);
+            yield return new WaitForEndOfFrame();
         }
 
         Loading_Panel.SetActive(false);
