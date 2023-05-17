@@ -10,6 +10,8 @@ public class UI_Manager : NetworkBehaviour
 {
     public static UI_Manager instance;
     public GameObject Deal_Panel;
+    public GameObject Oppturnity_Panel;
+    public GameObject Baby_Panel;
     public GameObject Select_Deal_Type_Panel;
     public GameObject Job_Panel;
     public GameObject Financial_Panel;
@@ -20,6 +22,7 @@ public class UI_Manager : NetworkBehaviour
     public GameObject ProblemContainer_Panel;
     private int b_deal = -1;
     private int s_deal = -1;
+    private int f_oppotunity = -1;
     //[SerializeField] Player player;
     public InfoPlayers infoPlayers;
     public User_Data user;
@@ -61,6 +64,7 @@ public class UI_Manager : NetworkBehaviour
     public void Denine_Deal_Btn()
     {
         Deal_Panel.SetActive(false);
+        Oppturnity_Panel.SetActive(false);
         Reset_Deal();
     }
 
@@ -107,8 +111,88 @@ public class UI_Manager : NetworkBehaviour
                 Reset_Deal();
             }
         }
+		UpdateProfilePlayer();
+    }
 
-        UpdateProfilePlayer();
+
+        
+    public void Accept_Oppotunity_Btn()
+    {
+        if (f_oppotunity >= 0)
+        {
+            if (Player.Instance.financial_rp_fat_race.GetCash() < EvenCard_Data.instance.fat_race_oppoturnities[f_oppotunity].Cost && Player.Instance.financial_rp_fat_race.GetCash() < EvenCard_Data.instance.fat_race_oppoturnities[f_oppotunity].Downpay)
+            {
+                Rental_Panel rent_panel = this.Rental_Panel.GetComponent<Rental_Panel>();
+                rent_panel.Show_Penel();
+            }
+            else
+            {
+                ApplyBigDeal_FatRace(EvenCard_Data.instance.fat_race_oppoturnities[f_oppotunity]);
+                if (Player.Instance.financial_rp_fat_race.GetPassiveIncome()-Player.Instance.financial_rp.GetPassiveIncome()*100 >= 50000)
+                {
+                    GameManager.Instance.EndGame = true;
+                }
+                Oppturnity_Panel.SetActive(false);
+                Reset_Deal();
+            }
+        }
+    }
+
+    private void ApplyBigDeal_FatRace(Big_Deal deal)
+    {
+        switch (deal.Action)
+        {
+            case 1:
+                if (deal.Downpay > 0)
+                {
+                    Player.Instance.financial_rp_fat_race.SetCash(Player.Instance.financial_rp_fat_race.GetCash() - deal.Downpay);
+                }
+                else if (deal.Downpay == deal.Cost)
+                {
+                    Player.Instance.financial_rp_fat_race.SetCash(Player.Instance.financial_rp_fat_race.GetCash() - deal.Downpay);
+                }
+                else
+                {
+                    Player.Instance.financial_rp_fat_race.SetCash(Player.Instance.financial_rp_fat_race.GetCash() - deal.Cost);
+                }
+                // Add Game Account
+                if (deal.Cash_flow == 0)
+                {
+                    Asset game_Accounts = new Asset(deal.Account_Name, deal.Cost, 1);
+                    Player.Instance.financial_rp_fat_race.game_accounts.Add(game_Accounts);
+                }
+                else if (deal.Cash_flow > 0 && deal.Downpay < deal.Cost)
+                {
+                    Income income = new Income(deal.Account_Name, deal.Cash_flow, 1);
+                    Liability lia = new Liability(deal.Account_Name, deal.Dept, 1);
+                    Asset asset = new Asset(deal.Account_Name, deal.Cost, 1);
+                    Player.Instance.financial_rp_fat_race.game_accounts.Add(income);
+                    Player.Instance.financial_rp_fat_race.game_accounts.Add(lia);
+                    Player.Instance.financial_rp_fat_race.game_accounts.Add(asset);
+                }
+                break;
+            case 3:
+                foreach (Game_accounts game_accounts in Player.Instance.financial_rp_fat_race.game_accounts)
+                {
+                    if (game_accounts.Game_account_name.Contains(deal.Account_Name))
+                    {
+                        Player.Instance.financial_rp_fat_race.SetCash(Player.Instance.financial_rp_fat_race.GetCash() - deal.Cost);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void PopupBabyUI()
+    {
+        Baby_Panel.SetActive(true);
+    }
+
+    public void CloseBabyUI()
+    {
+        Baby_Panel.SetActive(false);
     }
 
     public void Popup_Market_Panel(Market market)
@@ -221,6 +305,23 @@ public class UI_Manager : NetworkBehaviour
         }
     }
 
+    public void Fat_Race_Oppotunity()
+    {
+        int deal_num = Random.Range(0, EvenCard_Data.instance.fat_race_oppoturnities.Count - 1);
+        Big_Deal deal = EvenCard_Data.instance.fat_race_oppoturnities[deal_num];
+        if (deal.Image != null)
+        {
+            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
+                Oppturnity_Panel.SetActive(true);
+
+                // Get BIg Deal From Instance
+                Debug.Log(deal.Title);
+                Oppturnity_Panel panel = Oppturnity_Panel.GetComponent<Oppturnity_Panel>();
+                panel.SetBigDeal(deal, Sprite);
+            }));
+        }
+        f_oppotunity = deal_num;
+    }
     public void Roll_Dice()
     {
         //if (GameManager.Instance.EndGame != true)
@@ -357,6 +458,7 @@ public class UI_Manager : NetworkBehaviour
     {
         this.s_deal = -1;
         this.b_deal = -1;
+        this.f_oppotunity = -1;
     }
 
     public void UpdateProfilePlayer()
