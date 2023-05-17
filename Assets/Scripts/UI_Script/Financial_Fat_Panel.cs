@@ -24,7 +24,6 @@ public class Financial_Fat_Panel : MonoBehaviour
         Dream_3.text = "3."+Player.Instance.dreams[2].Name;
         foreach (Game_accounts account in fin.game_accounts)
         {
-            //if()
             if (account.Game_account_type == AccountType.Income && account.Game_account_name != "Salary")
             {
                 Content_Incomes.GetComponent<ScrollRect>().content.GetComponentInChildren<TextMeshProUGUI>().text += account.Game_account_name + ": $ " + account.Game_account_value + '\n';

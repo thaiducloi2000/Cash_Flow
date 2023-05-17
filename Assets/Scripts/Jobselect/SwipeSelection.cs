@@ -29,8 +29,11 @@ public class SwipeSelection : MonoBehaviour
     private void Awake()
     {
         data = Resources.Load<Game_Data>("Items/Game_Data");
+    }
+
+    private void Start()
+    {
         GenarateItem();
-        
     }
 
     void Update()
