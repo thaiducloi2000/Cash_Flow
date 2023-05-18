@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc427d845d4e8140a188710c7d86de0, type: 3}
   m_Name: User_Data
   m_EditorClassIdentifier: 
-  Last_Character_Selected: {fileID: 11400000, guid: cf9905a91438f734e841035fa0ad3c05, type: 2}
-  Items:
-  - {fileID: 11400000, guid: ca7975fbe9007fa42b944241e8b32b03, type: 2}
-  - {fileID: 11400000, guid: cf9905a91438f734e841035fa0ad3c05, type: 2}
-  - {fileID: 11400000, guid: f9582739632a7324fbc6502b1952d6aa, type: 2}
-  - {fileID: 11400000, guid: 364178624a48efc47b2513bbf585414f, type: 2}
-  - {fileID: 11400000, guid: 5c0b244b51f0fde4cb979919f173faef, type: 2}
+  Last_Character_Selected: {fileID: 0}
+  Items: []

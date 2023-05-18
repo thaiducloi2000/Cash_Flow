@@ -35,11 +35,13 @@ public class Login : MonoBehaviour
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
     }
+
     private void Start()
     {
         isDownloading = true;
         Loading_Data();
     }
+
     public void SwitchScene()
     {
         Loginpanel.SetActive(false);
@@ -81,6 +83,7 @@ public class Login : MonoBehaviour
                     }
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
+                    this.user_data.Last_Character_Selected = Resources.Load<Character_Item>("Items/"+ user.user.lastCharacterSelected);
                     foreach (Job job in game_data.Jobs)
                     {
                         if (job.Image_url == user.user.LastJobSelected)
@@ -112,9 +115,9 @@ public class Login : MonoBehaviour
             this.game_data.Jobs = new List<Job>();
             Debug.Log("1:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs.Count);
             List<Job> jobs = helper.ParseToList<Job>(request);
-            foreach(Job job in jobs)
+            foreach (Job job in jobs)
             {
-                this.game_data.Jobs.Add(job); 
+                this.game_data.Jobs.Add(job);
             }
             Debug.Log("2:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs.Count);
             Debug.Log("3:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs[0].Image_url);
@@ -139,10 +142,7 @@ public class Login : MonoBehaviour
             if(progress >= 0.9f)
             {
                 bar.value = 1;
-                if (isDownloading == false)
-                {
-                    asyncOperation.allowSceneActivation = true;
-                }
+                asyncOperation.allowSceneActivation = true;
             }
             yield return new WaitForEndOfFrame();
         }

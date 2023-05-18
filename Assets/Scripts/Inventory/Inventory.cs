@@ -11,10 +11,19 @@ public class Inventory : MonoBehaviour
     public GameObject Inventory_Item_Prefab;
     public List<GameObject> pool_item;
     public GameObject Player_Avatar;
+    public Server_Connection_Helper helper;
+
+    private void Awake()
+    {
+        if (helper == null)
+        {
+            helper = GetComponentInParent<Server_Connection_Helper>();
+        }
+    }
 
     private void Start()
     {
-        GenarateItem();
+        Load_All_My_Assets();
     }
     public void openInven()
     {
@@ -46,21 +55,36 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void GenarateItem()
+    public void Load_All_My_Assets()
     {
-        pool_item = new List<GameObject>();
         User_Data data = GetComponentInParent<Inventory_Manager>().data;
-        // change ti Item when have full Item;
-        foreach(Character_Item character in data.Items)
+        data.Items = new List<Character_Item>();
+        StartCoroutine(helper.Get("users/my-asset", (request, process) =>
         {
-            GameObject item = Instantiate(Inventory_Item_Prefab, this.Content.transform);
-            item.GetComponent<Inventory_Item_UI>().Avatar.sprite = character.Avatar_Image;
-            item.GetComponent<Inventory_Item_UI>().Item = character;
-            item.GetComponent<Inventory_Item_UI>().Player = this.Player_Avatar;
-            item.GetComponent<Inventory_Item_UI>()._data = this.Player_Avatar.GetComponent<ThirdPersonController>()._data;
-            pool_item.Add(item);
-        }
+            List<My_Asset> assets = new List<My_Asset>();
+            assets = helper.ParseToList<My_Asset>(request);
+            Character_Item[] items = Resources.LoadAll<Character_Item>("Items/Character");
+            foreach (My_Asset asset in assets)
+            {
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i].ID == asset.AssetId)
+                    {
+                        data.Items.Add(items[i]);
+                    }
+                }
+            }
+            pool_item = new List<GameObject>();
+            // change ti Item when have full Item;
+            foreach (Character_Item character in data.Items)
+            {
+                GameObject item = Instantiate(Inventory_Item_Prefab, this.Content.transform);
+                item.GetComponent<Inventory_Item_UI>().Avatar.sprite = character.Avatar_Image;
+                item.GetComponent<Inventory_Item_UI>().Item = character;
+                item.GetComponent<Inventory_Item_UI>().Player = this.Player_Avatar;
+                item.GetComponent<Inventory_Item_UI>()._data = this.Player_Avatar.GetComponent<ThirdPersonController>()._data;
+                pool_item.Add(item);
+            }
+        }));
     }
-
-
 }

@@ -80,7 +80,7 @@ public class Server_Connection_Helper : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint))
         {
             request.SetRequestHeader("Content-Type", Content_Header);
-            //request.SetRequestHeader("Authorization", Authorization_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
         }

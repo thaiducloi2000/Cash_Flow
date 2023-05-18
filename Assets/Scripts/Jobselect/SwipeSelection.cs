@@ -36,7 +36,7 @@ public class SwipeSelection : MonoBehaviour
         if(helper == null)
         {
             helper = this.gameObject.AddComponent<Server_Connection_Helper>();
-            //helper.Authorization_Header = helper.Authorization_Header = "Bearer " + this.user.data.token.ToString();
+            helper.Authorization_Header = helper.Authorization_Header = "Bearer " + this.user.data.token.ToString();
         }
     }
 
