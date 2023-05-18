@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,6 +49,7 @@ public class JobSelect : MonoBehaviour
         {
             Debug.Log(selection.job_Selected.Job_card_name);
             user_data.LastJobSelected = selection.job_Selected;
+            UpdateLastJobSelected(this.user_data.data.user.lastCharacterSelected);
             SceneManager.LoadSceneAsync("TestShopScene");
         }
         else
@@ -78,17 +79,12 @@ public class JobSelect : MonoBehaviour
     {
         if(name_input.text == "") {
             attentionpanel.SetActive(true);
-            textAttention.text = "Kh�ng ???c ?? � tr?ng";
+            textAttention.text = "Tên Không Được để Trống!";
             return false;
         }else if(name_input.text.Length <= 2 || name_input.text.Length > 15)
         {
             attentionpanel.SetActive(true);
-            textAttention.text = "Do dai ten phai lon hon 1 va be hon 12";
-            return false;
-        }else if(name_input.text == "DKLong")
-        {
-            attentionpanel.SetActive(true);
-            textAttention.text = "Ten da duoc su dung";
+            textAttention.text = "Độ dài tên không được để trống và nhỏ hơn 12";
             return false;
         }
         return true;
@@ -113,21 +109,20 @@ public class JobSelect : MonoBehaviour
                 switch (request.result)
                 {
                     case UnityWebRequest.Result.ConnectionError:
-                        Debug.LogError(": Error: " + request.error);
+                        textAttention.text = request.downloadHandler.text;
                         break;
                     case UnityWebRequest.Result.DataProcessingError:
-                        Debug.LogError(": Error: " + request.error);
+                        textAttention.text = request.downloadHandler.text;
                         break;
                     case UnityWebRequest.Result.ProtocolError:
-                        Debug.LogError(": HTTP Error: " + request.error + " - " + request.downloadHandler.text);
-                        textAttention.text = request.error;
+                        textAttention.text = request.downloadHandler.text;
                         break;
                     case UnityWebRequest.Result.Success:
                         Debug.Log(this.user_data.data.user == null);
                         this.user_data.data.user.NickName = name_input.text.ToString();
                         this.user_data.data.user.Gender = "male";
                         this.user_data.data.user.Email = "thaiducloi2000@gmail.com";
-                        UpdateLastJobSelected();
+                        UpdateLastJobSelected("Default");
                         break;
                     default:
                         break;
@@ -140,10 +135,10 @@ public class JobSelect : MonoBehaviour
         }
     }
 
-    private void UpdateLastJobSelected()
+    private void UpdateLastJobSelected(string lastCharacterSelected)
     {
         Dictionary<string, object> data = new Dictionary<string, object>();
-        this.user_data.data.user.lastCharacterSelected = "Default";
+        this.user_data.data.user.lastCharacterSelected = lastCharacterSelected;
         SwipeSelection selection = content.GetComponent<SwipeSelection>();
         user_data.LastJobSelected = selection.job_Selected;
         Character_Item character = Resources.Load<Character_Item>("Items/Character/" + this.user_data.data.user.lastCharacterSelected);

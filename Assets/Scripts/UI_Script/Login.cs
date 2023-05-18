@@ -24,6 +24,7 @@ public class Login : MonoBehaviour
     public User_Data user_data;
     public Game_Data game_data;
 
+    private bool isDownloading = false;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class Login : MonoBehaviour
     }
     private void Start()
     {
+        isDownloading = true;
         Loading_Data();
     }
     public void SwitchScene()
@@ -79,7 +81,7 @@ public class Login : MonoBehaviour
                     }
                     helper.Authorization_Header = "Bearer " + user.token;
                     this.user_data.data = user;
-                    foreach (Job job in game_data.jobs)
+                    foreach (Job job in game_data.Jobs)
                     {
                         if (job.Image_url == user.user.LastJobSelected)
                         {
@@ -104,10 +106,23 @@ public class Login : MonoBehaviour
 
     private void Loading_Data()
     {
+
         StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
-            this.game_data.jobs = new List<Job>();
-            this.game_data.jobs = helper.ParseToList<Job>(request);
+            this.game_data.Jobs = new List<Job>();
+            Debug.Log("1:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs.Count);
+            List<Job> jobs = helper.ParseToList<Job>(request);
+            foreach(Job job in jobs)
+            {
+                this.game_data.Jobs.Add(job); 
+            }
+            Debug.Log("2:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs.Count);
+            Debug.Log("3:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs[0].Image_url);
+            Debug.Log("4:" + this.game_data.Jobs[0].Image_url);
+            if (this.game_data.Jobs.Count > 0)
+            {
+                isDownloading = false;
+            }
         }));
     }
 
@@ -115,6 +130,7 @@ public class Login : MonoBehaviour
     {
         Loading_Panel.SetActive(true);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
+        asyncOperation.allowSceneActivation = false;
         float progress = 0;
         while (!asyncOperation.isDone)
         {
@@ -123,11 +139,13 @@ public class Login : MonoBehaviour
             if(progress >= 0.9f)
             {
                 bar.value = 1;
-                asyncOperation.allowSceneActivation = true;
+                if (isDownloading == false)
+                {
+                    asyncOperation.allowSceneActivation = true;
+                }
             }
             yield return new WaitForEndOfFrame();
         }
-
         Loading_Panel.SetActive(false);
     }
 }

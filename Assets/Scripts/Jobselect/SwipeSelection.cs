@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Mono.Cecil;
+using UnityEditor;
 
 public class SwipeSelection : MonoBehaviour
 {
@@ -25,10 +26,18 @@ public class SwipeSelection : MonoBehaviour
 
     public List<GameObject> pool_item;
     public Game_Data data;
+    public User_Data user;
+    private Server_Connection_Helper helper;
 
     private void Awake()
     {
         data = Resources.Load<Game_Data>("Items/Game_Data");
+        Debug.Log(data);
+        if(helper == null)
+        {
+            helper = this.gameObject.AddComponent<Server_Connection_Helper>();
+            //helper.Authorization_Header = helper.Authorization_Header = "Bearer " + this.user.data.token.ToString();
+        }
     }
 
     private void Start()
@@ -41,18 +50,40 @@ public class SwipeSelection : MonoBehaviour
         Swipe();
     }
 
+    private void Loading_Data()
+    {
+        StartCoroutine(helper.Get("jobcards/all", (request, process) =>
+        {
+            this.data.Jobs = new List<Job>();
+            this.data.Jobs = helper.ParseToList<Job>(request);
+            foreach (Job job in data.Jobs)
+            {
+                var image = Resources.Load<Sprite>("Sprite/" + job.Image_url);
+                GameObject item = Instantiate(template, this.transform);
+                item.GetComponent<Image>().sprite = image;
+                pool_item.Add(item);
+            }
+        }));
+    }
 
     public void GenarateItem()
     {
         pool_item = new List<GameObject>();
-        // change ti Item when have full Item;
-        foreach (Job job in data.jobs)
+        if (data.Jobs == null)
         {
-            var image = Resources.Load<Sprite>("Sprite/" + job.Image_url);
-            GameObject item = Instantiate(template, this.transform);
-            item.GetComponent<Image>().sprite = image;
-            pool_item.Add(item);
+            Loading_Data();
         }
+        else
+        {
+            foreach (Job job in data.Jobs)
+            {
+                var image = Resources.Load<Sprite>("Sprite/" + job.Image_url);
+                GameObject item = Instantiate(template, this.transform);
+                item.GetComponent<Image>().sprite = image;
+                pool_item.Add(item);
+            }
+        }
+        
     }
 
     public void Swipe()
@@ -83,11 +114,11 @@ public class SwipeSelection : MonoBehaviour
             {
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1.1f, 1.1f), 0.2f);
                 color.a = 1;
-                job_name.text = data.jobs[i].Job_card_name;
-                job_salary.text = data.jobs[i].GetSalary().ToString();
-                job_cash.text = data.jobs[i].GetCash().ToString();
-                job_tax.text = data.jobs[i].GetTax().ToString();
-                this.job_Selected = data.jobs[i];
+                job_name.text = data.Jobs[i].Job_card_name;
+                job_salary.text = data.Jobs[i].GetSalary().ToString();
+                job_cash.text = data.Jobs[i].GetCash().ToString();
+                job_tax.text = data.Jobs[i].GetTax().ToString();
+                this.job_Selected = data.Jobs[i];
                 transform.GetChild(i).GetComponent<Image>().color = color;
 
                 //jobname.text = jobnames.text;

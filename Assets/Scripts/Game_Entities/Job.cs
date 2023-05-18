@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Job : MonoBehaviour
+
+public class Job
 {
     public string id { get; set; }
     public string Job_card_name { get; set; }

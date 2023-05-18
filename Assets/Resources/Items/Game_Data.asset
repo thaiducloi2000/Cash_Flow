@@ -12,14 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a921338f8442d4bb90c7ca2871f62f, type: 3}
   m_Name: Game_Data
   m_EditorClassIdentifier: 
-  jobs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  jobs: []
   characters:
   - {fileID: 11400000, guid: cf9905a91438f734e841035fa0ad3c05, type: 2}
   - {fileID: 11400000, guid: ca7975fbe9007fa42b944241e8b32b03, type: 2}
