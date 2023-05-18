@@ -61,6 +61,7 @@ public class Inventory : MonoBehaviour
         data.Items = new List<Character_Item>();
         StartCoroutine(helper.Get("users/my-asset", (request, process) =>
         {
+            Debug.Log(request.downloadHandler.text);
             List<My_Asset> assets = new List<My_Asset>();
             assets = helper.ParseToList<My_Asset>(request);
             Character_Item[] items = Resources.LoadAll<Character_Item>("Items/Character");
@@ -68,7 +69,7 @@ public class Inventory : MonoBehaviour
             {
                 for (int i = 0; i < items.Length; i++)
                 {
-                    if (items[i].ID == asset.AssetId)
+                    if (items[i].ID == asset.AssetId.ToString())
                     {
                         data.Items.Add(items[i]);
                     }

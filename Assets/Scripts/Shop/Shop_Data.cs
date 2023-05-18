@@ -22,8 +22,9 @@ public class Shop_Data : MonoBehaviour
 
     private void GetAllItems()
     {
-        StartCoroutine(helper.Get("assets/all", (request, process) =>
+        StartCoroutine(helper.Get("assets/user/asset-in-shop", (request, process) =>
         {
+            Debug.Log(request.downloadHandler.text);
             if (Items == null)
             {
                 Items = new List<Item>();

@@ -7,5 +7,5 @@ public class Item
     public string Description { get; set; }
     public bool IsInShop { get; set; }
     public int CreateBy { get; set; }
-    public int AssetType { get; set; }
+    public int AssetTypeId { get; set; }
 }

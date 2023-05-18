@@ -94,7 +94,6 @@ public class JobSelect : MonoBehaviour
     {
         if (checkName() == true)
         {
-            WWWForm form = new WWWForm();
             Dictionary<string, object> data = new Dictionary<string, object>();
             Dictionary<string, int> parameter = new Dictionary<string, int>();
             data.Add("NickName", name_input.text.ToString());

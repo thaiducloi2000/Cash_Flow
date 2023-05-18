@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class Server_Connection_Helper : MonoBehaviour
 {
@@ -24,6 +25,19 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
             callback(request,request.downloadProgress);
+        }
+    }
+
+    public IEnumerator Post_Parameter(string endpoint, string parameter,string context, Action<UnityWebRequest, float> callback)
+    {
+        byte[] formDataBytes = Encoding.UTF8.GetBytes(parameter);
+        using (UnityWebRequest request = UnityWebRequest.Post(BASE_URL + endpoint,"POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(formDataBytes);
+            request.SetRequestHeader("Content-Type", context);
+            request.SetRequestHeader("Authorization", Authorization_Header);
+            yield return request.SendWebRequest();
+            callback(request, request.downloadProgress);
         }
     }
 
