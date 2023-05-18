@@ -6,6 +6,8 @@ using UnityEngine;
 // Storage all asset infor from db
 public class Game_Data : ScriptableObject
 {
-    [SerializeField] public List<Job> jobs;
+    private List<Job> jobs;
     public List<Character_Item> characters;
+
+    public List<Job> Jobs { get => jobs; set => jobs = value; }
 }

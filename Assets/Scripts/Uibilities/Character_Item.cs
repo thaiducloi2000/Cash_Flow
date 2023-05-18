@@ -7,5 +7,4 @@ public class Character_Item : ScriptableObject
     public string ID;
     public GameObject Prefabs;
     public Sprite Avatar_Image;
-    public Job Job;
 }
