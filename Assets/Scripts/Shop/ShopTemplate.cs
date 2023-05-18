@@ -1,9 +1,11 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -15,9 +17,13 @@ public class ShopTemplate : MonoBehaviour
     public TMP_Text price_inputfield;
     public Image image;
     public User_Data user;
-    public void SetItem(Item item)
+
+    public void SetItem(Item item,Sprite outfit_image)
     {
         this.item = item;
+        this.nameitem_inputfield.text = item.AssetName;
+        this.price_inputfield.text = item.AssetPrice.ToString();
+        this.image.sprite = outfit_image;
     }
 
     public void Purchase()
@@ -25,12 +31,9 @@ public class ShopTemplate : MonoBehaviour
         if (this.user.data.user.Coin >= this.item.AssetPrice)
         {
             Server_Connection_Helper helper = GetComponentInParent<Server_Connection_Helper>();
-            WWWForm form = new WWWForm();
-            Dictionary<string, int> data = new Dictionary<string, int>();
-            Debug.Log(this.item.AssetId);
-            data.Add("assetId", this.item.AssetId);
-            string bodydata = JsonConvert.SerializeObject(data);
-            StartCoroutine(helper.Post("users/buy",form, bodydata, (request, process) =>
+            string parameter = "assetId=" +this.item.AssetId.ToString();
+            string context = "application/x-www-form-urlencoded";
+            StartCoroutine(helper.Post_Parameter("users/buy", parameter,context, (request, process) =>
             {
                 switch (request.result)
                 {
@@ -41,7 +44,7 @@ public class ShopTemplate : MonoBehaviour
                         Debug.LogError(": Error: " + request.error);
                         break;
                     case UnityWebRequest.Result.ProtocolError:
-                        Debug.LogError(request.error);
+                        Debug.LogError(request.downloadHandler.text);
                         break;
                     case UnityWebRequest.Result.Success:
                         //Debug.Log(request.downloadHandler.text);
@@ -52,7 +55,7 @@ public class ShopTemplate : MonoBehaviour
                 }
             }));
         }
-        else 
+        else
         {
             this.gameObject.SetActive(false);
         }

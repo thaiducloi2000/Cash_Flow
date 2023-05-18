@@ -113,15 +113,11 @@ public class Login : MonoBehaviour
         StartCoroutine(helper.Get("jobcards/all", (request, process) =>
         {
             this.game_data.Jobs = new List<Job>();
-            Debug.Log("1:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs.Count);
             List<Job> jobs = helper.ParseToList<Job>(request);
             foreach (Job job in jobs)
             {
                 this.game_data.Jobs.Add(job);
             }
-            Debug.Log("2:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs.Count);
-            Debug.Log("3:" + Resources.Load<Game_Data>("Items/Game_Data").Jobs[0].Image_url);
-            Debug.Log("4:" + this.game_data.Jobs[0].Image_url);
             if (this.game_data.Jobs.Count > 0)
             {
                 isDownloading = false;

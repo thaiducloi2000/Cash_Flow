@@ -5,7 +5,7 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public List<ShopItemSO> shopItemSO;
+    public List<Character_Item> shopItemSO;
     //public List<GameObject> shopItemSO;
     public List<ShopChessSO> shopChessSO;
     public List<ShopTemplate> shopTemplate;
@@ -27,15 +27,14 @@ public class ShopManager : MonoBehaviour
         {
             shop_data = GetComponentInParent<Shop_Data>();
         }
+        shopItemSO = Resources.Load<Game_Data>("Items/Game_Data").characters;
         SpawnItems();
         tab = "OutfitTab";
         coinUI.text = shop_data.user_data.data.user.Coin.ToString();
-        //coins = 0;
     }
     void Update()
     {
-        //coins = int.Parse(coinUI.text);
-        //CheckPurchase();
+
     }
 
     public void PopupShop()
@@ -68,52 +67,30 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < shopTemplate.Count; i++)
+            for (int i = 0; i < shop_data.Items.Count; i++)
             {
                 shopPanel[i].gameObject.SetActive(true);
-                shopTemplate[i].nameitem_inputfield.text = shopItemSO[i].name;
-                shopTemplate[i].price_inputfield.text = shopItemSO[i].price.ToString();
-                shopTemplate[i].image.sprite = shopItemSO[i].image;
             }
         }
 
     }
-    //public void CheckPurchase()
-    //{
-    //    if (tab == "ChessBoardTab")
-    //    {
-    //        for(int i = 0; i < shopChessSO.Length; i++)
-    //        {
-    //            if(shop_data.user_data.data.user.Coin >= shopChessSO[i].price)
-    //                purchase[i].interactable=true;
-                
-    //            else
-    //                purchase[i].interactable = false;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        for (int i = 0; i < shopItemSO.Count-1; i++)
-    //        {
-    //            if (shop_data.user_data.data.user.Coin >= shopItemSO[i].GetComponent<ShopItemSO>().price)
-    //                purchase[i].interactable = true;       
-    //            else      
-    //                purchase[i].interactable = false;
-                
-    //        }
-    //    }
-    //}
     
     public void SpawnItems()
     {
         shopPanel = new List<GameObject>();
         shopTemplate = new List<ShopTemplate>();
-        for (int i = 0;i< shop_data.Items.Count; i++)
+        Debug.Log(shop_data.Items.Count);
+        for (int i = 0;i < shop_data.Items.Count; i++)
         {
             GameObject item = Instantiate(ShopItemPrefab, Content.transform);
             item.GetComponent<ShopTemplate>().item = shop_data.Items[i];
-            shopItemSO[i].price = shop_data.Items[i].AssetPrice;
-            shopItemSO[i].name = shop_data.Items[i].AssetName;
+            foreach(Character_Item outfit in shopItemSO)
+            {
+                if(outfit.ID == shop_data.Items[i].AssetId.ToString())
+                {
+                    item.GetComponent<ShopTemplate>().SetItem(shop_data.Items[i], outfit.Avatar_Image);
+                }
+            }
             shopPanel.Add(item);
             shopTemplate.Add(item.GetComponent<ShopTemplate>());
         }
