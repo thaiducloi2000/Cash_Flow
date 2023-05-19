@@ -1,8 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Text;
+using System;
 
 public class Deal_Panel : MonoBehaviour
 {
@@ -17,23 +19,27 @@ public class Deal_Panel : MonoBehaviour
     public void SetBigDeal(Big_Deal deal,Sprite image)
     {
         resetPanel();
+        byte[] decodedBytes_Title = Encoding.UTF8.GetBytes(deal.Title);
+        byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(deal.Description);
         this._image.sprite = image;
-        this.Title.text = deal.Title;
-        this.Description.text = deal.Description;
+        //this.Title.text = deal.Title;
+        //this.Description.text = deal.Description;
+        this.Title.text = Encoding.UTF8.GetString(decodedBytes_Title);
+        this.Description.text = Encoding.UTF8.GetString(decodedBytes_Description);
         if (deal.Cost > 0)
         {
-            this.Cost_Txt.text = "Cost : " + deal.Cost + " $";
+            this.Cost_Txt.text = "Chi Phí: " + deal.Cost + " $";
         }
         if (deal.Downpay > 0)
         {
-            this.Mortgage_Divined_Txt.text = "Down pay : " + deal.Downpay + " $";
+            this.Mortgage_Divined_Txt.text = "Trả trước : " + deal.Downpay + " $";
         }
         if (deal.TradingRange != "0")
         {
-            this.CashFlow_TradingRange_Txt.text = "Trading Range : " + deal.TradingRange + " $";
+            this.CashFlow_TradingRange_Txt.text = "Biến động giá: " + deal.TradingRange + " $";
         }if(deal.Dept > 0)
         {
-            this.DownSize_Share_Owned_Txt.text = "Share Owned : " + deal.Dept + " $";
+            this.DownSize_Share_Owned_Txt.text = "Cổ phần sở hữu: " + deal.Dept + " $";
         }
 
     }

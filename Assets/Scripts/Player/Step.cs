@@ -45,16 +45,6 @@ public class Step : NetworkBehaviour
         GameManager.Instance.isPlayerMoving = true;
         while (step > 0)
         {
-            //currentPos++;
-            //currentPos %= race.Count;
-            //Vector3 nextPos = race[this.currentPos].transform.position;
-            //if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
-            //{
-            //    Paycheck();
-            //}
-            //nextPos.y = 0.05f;
-            //MoveToNextTiles(nextPos);
-            Debug.Log("CountRace: " + race.Count);
             RPC_Moving(boardType);
             if (this.moveToNextTile) { yield return null; }
             yield return new WaitForSeconds(.5f);

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Doodad_Panel : MonoBehaviour
@@ -16,8 +15,11 @@ public class Doodad_Panel : MonoBehaviour
     {
         this._image.sprite = image;
         this.doodad = doodad;
-        this.Description.text = doodad.Description;
-        this.Cost_Txt.text = "Cost : " + doodad.Cost + " $";
+
+        byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(doodad.Description);
+        //this.Description.text = doodad.Description;
+        this.Description.text = Encoding.UTF8.GetString(decodedBytes_Description);
+        this.Cost_Txt.text = "Chi Phí: " + doodad.Cost + " $";
 
     }
 

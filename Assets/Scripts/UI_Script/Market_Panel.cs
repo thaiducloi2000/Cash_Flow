@@ -1,5 +1,7 @@
 
+using System;
 using System.Collections;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -18,11 +20,15 @@ public class Market_Panel : MonoBehaviour
     {
         this._image.sprite = image;
         this.market = market;
-        this.Title.text = market.Title;
-        this.Description.text = market.Description;
-        if(market.Cost > 0)
+        byte[] decodedBytes_Title = Encoding.UTF8.GetBytes(market.Title);
+        byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(market.Description);
+        //this.Title.text = market.Title;
+        //this.Description.text = market.Description;
+        this.Title.text = Encoding.UTF8.GetString(decodedBytes_Title);
+        this.Description.text = Encoding.UTF8.GetString(decodedBytes_Description);
+        if (market.Cost > 0)
         {
-            this.Cost_Txt.text = "Cost : " + market.Cost + " $/ 1 Unit";
+            this.Cost_Txt.text = "Chi Phí: " + market.Cost + " $/ 1 Unit";
         }
 
     }

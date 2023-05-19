@@ -85,6 +85,5 @@ public class PlayerAvatarHandler : NetworkBehaviour
     }
     private void Update()
     {
-        Debug.Log("LastIndex: " + lastIndexAvt());
     }
 }
