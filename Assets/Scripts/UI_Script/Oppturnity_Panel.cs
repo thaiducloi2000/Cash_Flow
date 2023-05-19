@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +16,10 @@ public class Oppturnity_Panel : MonoBehaviour
     {
         resetPanel();
         this._image.sprite = image;
-        this.Title.text = deal.Title;
-        this.Description.text = deal.Description + "<br> Trả trước: "+deal.Downpay + "<space=5em>Dòng tiền: "+deal.Cash_flow;
+        byte[] decodedBytes_Title = Encoding.UTF8.GetBytes(deal.Title);
+        byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(deal.Description);
+        this.Title.text = Encoding.UTF8.GetString(decodedBytes_Title);
+        this.Description.text = "Trả trước: " + deal.Downpay + "<space=5em>Dòng tiền: " + deal.Cash_flow;
     }
 
     private void resetPanel()

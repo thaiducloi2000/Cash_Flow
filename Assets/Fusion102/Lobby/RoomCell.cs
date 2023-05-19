@@ -28,8 +28,7 @@ public class RoomCell : MonoBehaviour
 
     private void Update()
     {
-        
-        Debug.Log("Room name: " + roomNameTxt.text.ToString());
+
     }
 
     public void SetInfo(LobbyManager lobbyManager, string roomName, int playerCount)

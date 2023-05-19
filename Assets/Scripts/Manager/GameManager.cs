@@ -34,10 +34,6 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
     [Networked]
     public int totalPlayer { get; set; }
 
-    private void Update()
-    {
-        Debug.Log("End Game : " + EndGame);
-    }
     private void Awake()
     {
         if (Instance != null)

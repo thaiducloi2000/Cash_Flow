@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Streamer
   m_EditorClassIdentifier: 
   item: 2
-  ID: 6
+  ID: 7
   Prefabs: {fileID: 8631681437207659965, guid: 238ed5bba26106d40bee31225f3c70ff, type: 3}
   Avatar_Image: {fileID: 21300000, guid: c29346a6e3604724ebceb1aec6053316, type: 3}
-  Job: {fileID: 0}

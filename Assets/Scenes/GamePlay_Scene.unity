@@ -26187,7 +26187,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Automated Business Enterprise For Sale
+  m_text: "C\u1EA7n b\xE1n c\u0103n h\u1ED9 chung c\u01B0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b73cb5f316d1f8744a9f7f3b234cad65, type: 2}
   m_sharedMaterial: {fileID: -6899046984913952671, guid: b73cb5f316d1f8744a9f7f3b234cad65, type: 2}
@@ -29516,7 +29516,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2917048360563541210}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -32541,7 +32541,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2917048359808647799}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -35318,7 +35318,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Desccription
+  m_text: "C\u1EA7n b\xE1n 2 t\xF2a nh\xE0 v\u1EDBi t\u1ED5ng s\u1ED1 24 c\u0103n
+    h\u1ED9. C\xF3 ban qu\u1EA3n l\xFD h\u1ED7 tr\u1EE3"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b73cb5f316d1f8744a9f7f3b234cad65, type: 2}
   m_sharedMaterial: {fileID: -6899046984913952671, guid: b73cb5f316d1f8744a9f7f3b234cad65, type: 2}
@@ -43818,8 +43819,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 107.4
-  m_fontSizeBase: 107.4
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
