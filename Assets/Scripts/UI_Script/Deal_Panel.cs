@@ -16,12 +16,12 @@ public class Deal_Panel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CashFlow_TradingRange_Txt;
     [SerializeField] private TextMeshProUGUI DownSize_Share_Owned_Txt;
 
-    public void SetBigDeal(Big_Deal deal,Sprite image)
+    public void SetBigDeal(Big_Deal deal/*,Sprite image*/)
     {
         resetPanel();
         byte[] decodedBytes_Title = Encoding.UTF8.GetBytes(deal.Title);
         byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(deal.Description);
-        this._image.sprite = image;
+        //this._image.sprite = image;
         //this.Title.text = deal.Title;
         //this.Description.text = deal.Description;
         this.Title.text = Encoding.UTF8.GetString(decodedBytes_Title);
