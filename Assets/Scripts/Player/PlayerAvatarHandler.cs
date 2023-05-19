@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerAvatarHandler : NetworkBehaviour
 {
     public User_Data user;
+    public Game_Data game_Data;
     public GameObject playerAvatar;
     public List<GameObject> avatars = new List<GameObject>();
 
@@ -25,7 +26,7 @@ public class PlayerAvatarHandler : NetworkBehaviour
         //avatars = Resources.LoadAll<GameObject>("Prefabs/").ToList();
         //avatars = avatars.OrderBy(n => n.name).ToList();
 
-        foreach (var avatar in user.Items)
+        foreach (var avatar in game_Data.characters)
         {
             avatars.Add(avatar.Prefabs);
         }

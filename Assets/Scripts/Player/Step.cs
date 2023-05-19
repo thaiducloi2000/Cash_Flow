@@ -186,6 +186,7 @@ public class Step : NetworkBehaviour
             case TileType.DownSize:
                 //UI_Manager.Instance.PopUpDeal_UI();
                 DownSize();
+                UI_Manager.instance.UpdateProfilePlayer();
                 break;
             case TileType.Doodads:
                 //UI_Manager.Instance.PopUpDeal_UI();
@@ -195,18 +196,22 @@ public class Step : NetworkBehaviour
                 break;
             case TileType.Divorce:
                 Divorce();
+                UI_Manager.instance.UpdateProfilePlayer();
                 Debug.Log("Divorce");
                 break;
             case TileType.CashFlowDay:
                 CashFlowDay();
+                UI_Manager.instance.UpdateProfilePlayer();
                 Debug.Log("CashFlowDay");
                 break;
             case TileType.Accused:
                 Accused();
+                UI_Manager.instance.UpdateProfilePlayer();
                 Debug.Log("Accused");
                 break;
             case TileType.Taxes:
                 Taxes();
+                UI_Manager.instance.UpdateProfilePlayer();
                 Debug.Log("Taxes");
                 break;
             case TileType.Dream:
@@ -222,6 +227,8 @@ public class Step : NetworkBehaviour
         if (isDreamTile(GameBoard.Instance.Tiles_Fat_Race[pos].GetComponent<Tile>()))
         {
             GameManager.Instance.EndGame = true;
+            Player.Instance.GetComponent<Player>().result = true;
+            GameManager.Instance.CheckPlayerWinner();
         }
     }
 
@@ -275,6 +282,7 @@ public class Step : NetworkBehaviour
             }
         }
         player.financial_rp.SetCash(player.financial_rp.GetCash() + total_income - total_expense);
+        UI_Manager.instance.UpdateProfilePlayer();
     }
 
     private void Doodads(Doodad doodad)

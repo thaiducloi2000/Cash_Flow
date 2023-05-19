@@ -175,6 +175,11 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         }
     }
 
+    public void CheckPlayerWinner()
+    {
+        Player.Instance.GetComponent<Player>().ShowResult();
+    }
+
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)

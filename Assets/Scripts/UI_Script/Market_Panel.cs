@@ -16,9 +16,9 @@ public class Market_Panel : MonoBehaviour
     public Market market;
 
 
-    public void SetMarketPanel(Market market,Sprite image)
+    public void SetMarketPanel(Market market/*,Sprite image*/)
     {
-        this._image.sprite = image;
+        //this._image.sprite = image;
         this.market = market;
         byte[] decodedBytes_Title = Encoding.UTF8.GetBytes(market.Title);
         byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(market.Description);

@@ -31,6 +31,8 @@ public class Player : NetworkBehaviour
     public int totalStep { get; set; }
     [Networked]
     public int infoNumber { get; set; }
+    [Networked]
+    public NetworkBool result { get; set; }
 
     public User_Data user_data;
 
@@ -201,5 +203,14 @@ public class Player : NetworkBehaviour
         }
         //if (Object.HasInputAuthority)
             GameManager.Instance.RPC_nextTurn();
+    }
+
+    public void ShowResult()
+    {
+        if (result)
+        {
+            FinishPanel.instance.RPC_Lose();
+            FinishPanel.instance.Win();
+        }
     }
 }

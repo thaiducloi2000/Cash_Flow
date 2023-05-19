@@ -11,9 +11,9 @@ public class Doodad_Panel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Cost_Txt;
     public Doodad doodad;
 
-    public void SetDoodadPanel(Doodad doodad,Sprite image)
+    public void SetDoodadPanel(Doodad doodad/*,Sprite image*/)
     {
-        this._image.sprite = image;
+        //this._image.sprite = image;
         this.doodad = doodad;
 
         byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(doodad.Description);

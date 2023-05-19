@@ -17,7 +17,7 @@ public class InfoPlayer : NetworkBehaviour
     public void RPC_SetInformation(string name, string job, float money, int baby, RpcInfo info = default)
     {
         this.name.text = name;
-        this.job.text = "(" + job +")";
+        //this.job.text = "(" + job +")";
         this.money.text = money.ToString();
         this.baby.text = baby.ToString();
     }

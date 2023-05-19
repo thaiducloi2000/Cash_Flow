@@ -12,10 +12,10 @@ public class Oppturnity_Panel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Title;
     [SerializeField] private TextMeshProUGUI Description;
 
-    public void SetBigDeal(Big_Deal deal, Sprite image)
+    public void SetBigDeal(Big_Deal deal/*, Sprite image*/)
     {
         resetPanel();
-        this._image.sprite = image;
+        //this._image.sprite = image;
         byte[] decodedBytes_Title = Encoding.UTF8.GetBytes(deal.Title);
         byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(deal.Description);
         this.Title.text = Encoding.UTF8.GetString(decodedBytes_Title);

@@ -131,11 +131,14 @@ public class UI_Manager : NetworkBehaviour
                 if (Player.Instance.financial_rp_fat_race.GetPassiveIncome()-Player.Instance.financial_rp.GetPassiveIncome()*100 >= 50000)
                 {
                     GameManager.Instance.EndGame = true;
+                    Player.Instance.GetComponent<Player>().result = true;
+                    GameManager.Instance.CheckPlayerWinner();
                 }
                 Oppturnity_Panel.SetActive(false);
                 Reset_Deal();
             }
         }
+        UpdateProfilePlayer();
     }
 
     private void ApplyBigDeal_FatRace(Big_Deal deal)
@@ -197,28 +200,30 @@ public class UI_Manager : NetworkBehaviour
 
     public void Popup_Market_Panel(Market market)
     {
-        if (market.Image != null)
-        {
-            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(market.Image, (Sprite) => {
-                Market_Panel.SetActive(true);
+        //if (market.Image != null)
+        //{
+        //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(market.Image, (Sprite) => {
+        Market_Panel.SetActive(true);
 
-                Market_Panel panel = Market_Panel.GetComponent<Market_Panel>();
-                panel.SetMarketPanel(market,Sprite);
-            }));
-        }
+        Market_Panel panel = Market_Panel.GetComponent<Market_Panel>();
+       // panel.SetMarketPanel(market, Sprite);
+        panel.SetMarketPanel(market);
+        //    }));
+        //}
     }
 
     public void Popup_Doodad_Panel(Doodad doodad)
     {
-        if (doodad.Image != null)
-        {
-            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(doodad.Image, (Sprite) => {
-                Doodad_Panel.SetActive(true);
+        //if (doodad.Image != null)
+        //{
+        //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(doodad.Image, (Sprite) => {
+        Doodad_Panel.SetActive(true);
 
-                Doodad_Panel panel = Doodad_Panel.GetComponent<Doodad_Panel>();
-                panel.SetDoodadPanel(doodad,Sprite);
-            }));
-        }
+        Doodad_Panel panel = Doodad_Panel.GetComponent<Doodad_Panel>();
+        //panel.SetDoodadPanel(doodad, Sprite);
+        panel.SetDoodadPanel(doodad);
+        //    }));
+        //}
     }
 
 
@@ -227,16 +232,17 @@ public class UI_Manager : NetworkBehaviour
         Select_Deal_Type_Panel.SetActive(false);
         int deal_num = Random.Range(0, EvenCard_Data.instance.Big_Deal_List.Count - 1);
         Big_Deal deal = EvenCard_Data.instance.Big_Deal_List[deal_num];
-        if (deal.Image != null)
-        {
-            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
-                Deal_Panel.SetActive(true);
+        //if (deal.Image != null)
+        //{
+        //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
+        Deal_Panel.SetActive(true);
 
-                // Get BIg Deal From Instance
-                Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
-                panel.SetBigDeal(deal,Sprite);
-            }));
-        }
+        // Get BIg Deal From Instance
+        Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
+        //panel.SetBigDeal(deal, Sprite);
+        panel.SetBigDeal(deal);
+        //    }));
+        //}
         b_deal = deal_num;
     }
 
@@ -309,17 +315,18 @@ public class UI_Manager : NetworkBehaviour
     {
         int deal_num = Random.Range(0, EvenCard_Data.instance.fat_race_oppoturnities.Count - 1);
         Big_Deal deal = EvenCard_Data.instance.fat_race_oppoturnities[deal_num];
-        if (deal.Image != null)
-        {
-            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
-                Oppturnity_Panel.SetActive(true);
+        //if (deal.Image != null)
+        //{
+        //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
+        Oppturnity_Panel.SetActive(true);
 
-                // Get BIg Deal From Instance
-                Debug.Log(deal.Title);
-                Oppturnity_Panel panel = Oppturnity_Panel.GetComponent<Oppturnity_Panel>();
-                panel.SetBigDeal(deal, Sprite);
-            }));
-        }
+        // Get BIg Deal From Instance
+        Debug.Log(deal.Title);
+        Oppturnity_Panel panel = Oppturnity_Panel.GetComponent<Oppturnity_Panel>();
+        //panel.SetBigDeal(deal, Sprite);
+        panel.SetBigDeal(deal);
+        //    }));
+        //}
         f_oppotunity = deal_num;
     }
     public void Roll_Dice()
