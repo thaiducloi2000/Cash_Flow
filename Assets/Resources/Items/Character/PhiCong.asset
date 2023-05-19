@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: 2
   ID: 4
-  Prefabs: {fileID: 4782806762536581557, guid: f13b9b0b5ce91754eb710503339af832, type: 3}
+  Prefabs: {fileID: 8458701019073794718, guid: cc36be380ac9bd146bbadc11b108cc8d, type: 3}
   Avatar_Image: {fileID: 21300000, guid: fffbd3475dd9c314eb8a2631a6666ffc, type: 3}
-  Job: {fileID: 0}
