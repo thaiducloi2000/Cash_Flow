@@ -14,7 +14,7 @@ public class Inventory_Item_UI : MonoBehaviour
     public GameObject Player;
     public User_Data _data;
 
-    public void ViewItem()
+    public void SelectCharacter()
     {
         Dictionary<string, object> character_selected = new Dictionary<string, object>();
 

@@ -50,7 +50,7 @@ public class ShopTemplate : MonoBehaviour
         }
         else
         {
-            this.gameObject.SetActive(false);
+            this.gameObject.SetActive(true);
         }
     }
 }
