@@ -50,7 +50,6 @@ public class JobSelect : MonoBehaviour
             Debug.Log(selection.job_Selected.Job_card_name);
             user_data.LastJobSelected = selection.job_Selected;
             UpdateLastJobSelected(this.user_data.data.user.lastCharacterSelected);
-            SceneManager.LoadSceneAsync("TestShopScene");
         }
         else
         {
@@ -108,12 +107,15 @@ public class JobSelect : MonoBehaviour
                 switch (request.result)
                 {
                     case UnityWebRequest.Result.ConnectionError:
+                        attentionpanel.SetActive(true);
                         textAttention.text = request.downloadHandler.text;
                         break;
                     case UnityWebRequest.Result.DataProcessingError:
+                        attentionpanel.SetActive(true);
                         textAttention.text = request.downloadHandler.text;
                         break;
                     case UnityWebRequest.Result.ProtocolError:
+                        attentionpanel.SetActive(true);
                         textAttention.text = request.downloadHandler.text;
                         break;
                     case UnityWebRequest.Result.Success:
@@ -152,13 +154,16 @@ public class JobSelect : MonoBehaviour
             switch (request.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
-                    textAttention.text = "Error: " + request.downloadHandler.text;
+                    attentionpanel.SetActive(true);
+                    textAttention.text = request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.DataProcessingError:
-                    textAttention.text = "Error: " + request.downloadHandler.text;
+                    attentionpanel.SetActive(true);
+                    textAttention.text = request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.ProtocolError:
-                    textAttention.text = "Error: " + request.downloadHandler.text;
+                    attentionpanel.SetActive(true);
+                    textAttention.text = request.downloadHandler.text;
                     break;
                 case UnityWebRequest.Result.Success:
                     SceneManager.LoadSceneAsync("TestShopScene");

@@ -337,7 +337,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -8503464677931605955}
         m_TargetAssemblyTypeName: Inventory_Item_UI, Assembly-CSharp
-        m_MethodName: ViewItem
+        m_MethodName: SelectCharacter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -362,3 +362,4 @@ MonoBehaviour:
   Avatar: {fileID: 488847917186864107}
   Item: {fileID: 0}
   Player: {fileID: 0}
+  _data: {fileID: 0}
