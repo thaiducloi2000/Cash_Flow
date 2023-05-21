@@ -64,6 +64,8 @@ public class Market_Panel : MonoBehaviour
             }
         }
         this.gameObject.SetActive(false);
-        UI_Manager.instance.UpdateProfilePlayer();
+        //Player.Instance.GetComponent<Player>().UpdatePlayerTurn();
+        UI_Manager.instance.UpdateProfilePlayer(); 
+        //GameManager.Instance.RPC_nextTurn();
     }
 }

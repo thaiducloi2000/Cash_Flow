@@ -35913,6 +35913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2954f6f1a3e49d449cb8c31145a1aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   _image: {fileID: 8156758850154594903}
   Description: {fileID: 273943740246792260}
   Cost_Txt: {fileID: 6725322604210063103}
@@ -40403,7 +40404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &7878354628648601977
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -45509,6 +45510,7 @@ MonoBehaviour:
   - {fileID: 620100790}
   NetworkedBehaviours:
   - {fileID: 8285309848734210883}
+  - {fileID: 5270196836105428721}
   - {fileID: 2068226892}
   SimulationBehaviours: []
 --- !u!224 &8285309848741345362

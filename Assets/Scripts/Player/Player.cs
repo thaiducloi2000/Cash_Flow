@@ -43,6 +43,7 @@ public class Player : NetworkBehaviour
             Instance = this;
             user_data = Resources.Load<User_Data>("Items/User_Data");
             SelectJoB();
+            
             Debug.Log("Spawn local player");
         }
         else
@@ -77,9 +78,9 @@ public class Player : NetworkBehaviour
     {
         if (Object.HasInputAuthority)
         {
-            if (GameManager.Instance.isTurn != myTurn)
-                UI_Manager.instance.Roll_Button.SetActive(false);
-            else if (GameManager.Instance.isTurn == myTurn)
+            //if (GameManager.Instance.isTurn != myTurn)
+            //    UI_Manager.instance.Roll_Button.SetActive(false);
+            if (GameManager.Instance.isTurn == myTurn)
                 UI_Manager.instance.Roll_Button.SetActive(true);
         }
     }
@@ -91,6 +92,8 @@ public class Player : NetworkBehaviour
             RPC_HideDice(true);
             RPC_Random_Dice();
         }
+        GameManager.Instance.isTurn = Turn.None;
+        UI_Manager.instance.Roll_Button.SetActive(false);
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
@@ -202,7 +205,8 @@ public class Player : NetworkBehaviour
                 StartCoroutine(GetComponent<Step>().Move(this, step, BoardType.RatRace));
         }
         //if (Object.HasInputAuthority)
-            GameManager.Instance.RPC_nextTurn();
+        StartCoroutine("WaitForNextTurn");
+        
     }
 
     public void ShowResult()
@@ -212,5 +216,12 @@ public class Player : NetworkBehaviour
             FinishPanel.instance.RPC_Lose();
             FinishPanel.instance.Win();
         }
+    }
+
+    private IEnumerator WaitForNextTurn()
+    {
+        float time = (float) step/2 + 3;
+        yield return new WaitForSeconds(time);
+        GameManager.Instance.RPC_nextTurn(myTurn);
     }
 }

@@ -1,10 +1,11 @@
+using Fusion;
 using System;
 using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Doodad_Panel : MonoBehaviour
+public class Doodad_Panel : NetworkBehaviour
 {
     [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI Description;
@@ -27,6 +28,8 @@ public class Doodad_Panel : MonoBehaviour
     {
         //Player player = GetComponentInChildren<Player>();
         this.gameObject.SetActive(false);
+        //Player.Instance.GetComponent<Player>().UpdatePlayerTurn();
         UI_Manager.instance.UpdateProfilePlayer();
+        //GameManager.Instance.RPC_nextTurn();
     }
 }
