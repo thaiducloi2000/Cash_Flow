@@ -111,7 +111,9 @@ public class UI_Manager : NetworkBehaviour
                 Reset_Deal();
             }
         }
-		UpdateProfilePlayer();
+        //Player.Instance.GetComponent<Player>().UpdatePlayerTurn();
+        UpdateProfilePlayer();
+        //GameManager.Instance.RPC_nextTurn();
     }
 
 
@@ -138,7 +140,9 @@ public class UI_Manager : NetworkBehaviour
                 Reset_Deal();
             }
         }
+        //Player.Instance.GetComponent<Player>().UpdatePlayerTurn();
         UpdateProfilePlayer();
+        //GameManager.Instance.RPC_nextTurn();
     }
 
     private void ApplyBigDeal_FatRace(Big_Deal deal)

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Turn { A,B,C,D}
+public enum Turn { A,B,C,D,None}
 
 public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -142,11 +142,11 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         }
     }
 
-    //[Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_nextTurn()
+ 
+    public void RPC_nextTurn(Turn playerTurn)
     {
         // switch turn to next player
-        switch (isTurn)
+        switch (playerTurn)
         {
             case Turn.A:
                 if (totalPlayer == 1)
