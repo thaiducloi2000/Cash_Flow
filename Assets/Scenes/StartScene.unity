@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5084,7 +5084,7 @@ MonoBehaviour:
   user_inputfield: {fileID: 279297586}
   pass_inputfield: {fileID: 1442878861}
   email_inputfield: {fileID: 1079689241}
-  name_inputfield: {fileID: 339194442}
+  confirmpass_inputfield: {fileID: 0}
   attention: {fileID: 1921153848}
   attentionsuccess: {fileID: 707620550}
   loginpanel: {fileID: 459287}

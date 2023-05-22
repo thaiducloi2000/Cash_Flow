@@ -13,7 +13,7 @@ public class Register : MonoBehaviour
     public TMP_InputField user_inputfield;
     public TMP_InputField pass_inputfield;
     public TMP_InputField email_inputfield;
-    public TMP_InputField name_inputfield;
+    public TMP_InputField confirmpass_inputfield;
     public GameObject attention;
     public GameObject attentionsuccess;
     public GameObject loginpanel;
@@ -40,7 +40,7 @@ public class Register : MonoBehaviour
     }
     public bool Check()
     {
-        if (user_inputfield == null||pass_inputfield == null||email_inputfield==null || name_inputfield == null)
+        if (user_inputfield == null||pass_inputfield == null||email_inputfield==null || confirmpass_inputfield == null)
         {
             attention.SetActive(true);
             TextAttention.text = "Khong o nao duoc bo trong";
@@ -49,7 +49,7 @@ public class Register : MonoBehaviour
         if (user_inputfield.text.Length>30 && user_inputfield.text.Length<6)
         {
             attention.SetActive(true);
-            TextAttention.text = "Username khong duoc be hon 6 va lon hon 30";
+            TextAttention.text = "Ten dang nhap khong duoc be hon 6 va lon hon 30";
             return false;
         }
         //if (phone_inputfield.text.Length <= 11)
@@ -64,10 +64,10 @@ public class Register : MonoBehaviour
             TextAttention.text = "Mat khau khong duoc be hon 8";
             return false;
         }
-        if (name_inputfield.text.Length < 1)
+        if (confirmpass_inputfield.text != pass_inputfield.text)
         {
             attention.SetActive(true);
-            TextAttention.text = "Ten khong duoc be hon 1";
+            TextAttention.text = "Xac nhan mat khau khong trung khop";
             return false;
         }
         return true;
@@ -85,7 +85,7 @@ public class Register : MonoBehaviour
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("UserName", user_inputfield.text.ToString());
             data.Add("Password", pass_inputfield.text.ToString());
-            data.Add("ConfirmPassword", name_inputfield.text.ToString());
+            data.Add("ConfirmPassword", confirmpass_inputfield.text.ToString());
             data.Add("Email", email_inputfield.text.ToString());
             string bodydata = JsonConvert.SerializeObject(data);
             StartCoroutine(helper.PostAuthentication("users/register", form, bodydata, (request, process) =>
@@ -104,7 +104,7 @@ public class Register : MonoBehaviour
                         break;
                     case UnityWebRequest.Result.Success:
                         attentionsuccess.SetActive(true);
-                        TextAttentionsuccess.text = "Register Successfully !!";
+                        TextAttentionsuccess.text = "Tao tai khoan thanh cong";
                         break;
                     default:
                         break;

@@ -73,7 +73,7 @@ public class Login : MonoBehaviour
                     break;
                 case UnityWebRequest.Result.ProtocolError:
                     Attentionpanel.SetActive(true);
-                    TextAttention.text = "Error: Protocol Error";
+                    TextAttention.text = "Sai tên đăng nhập hoặc mật khẩu";
                     break;
                 case UnityWebRequest.Result.Success:
                     Users user = helper.ParseData<Users>(request);
