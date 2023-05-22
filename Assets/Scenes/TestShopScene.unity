@@ -17448,7 +17448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "B\u1EA1n c\xF3 mu\u1ED1n thay \u0111\u1ED5i t\xEAn c\u1EE7a m\xECnh kh\xF4ng"
+  m_text: "B\u1EA1n c\xF3 mu\u1ED1n thay \u0111\u1ED5i t\xEAn c\u1EE7a m\xECnh kh\xF4ng?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d0527251d7ac91b4988bf45f96f77d89, type: 2}
   m_sharedMaterial: {fileID: 5800950213096884893, guid: d0527251d7ac91b4988bf45f96f77d89, type: 2}

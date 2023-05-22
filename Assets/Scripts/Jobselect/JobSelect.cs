@@ -83,7 +83,7 @@ public class JobSelect : MonoBehaviour
         }else if(name_input.text.Length <= 2 || name_input.text.Length > 15)
         {
             attentionpanel.SetActive(true);
-            textAttention.text = "Độ dài tên không được để trống và nhỏ hơn 12";
+            textAttention.text = "Độ dài tên không được để trống và nhỏ hơn 15";
             return false;
         }
         return true;
