@@ -100,6 +100,17 @@ public class Server_Connection_Helper : MonoBehaviour
         }
     }
 
+    public IEnumerator Get_Parameter(string endpoint,string parameter,Action<UnityWebRequest, float> callback)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(BASE_URL + endpoint+"/"+parameter))
+        {
+            request.SetRequestHeader("Content-Type", Content_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
+            yield return request.SendWebRequest();
+            callback(request, request.downloadProgress);
+        }
+    }
+
 
     public List<T> ParseToList<T> (UnityWebRequest request)
     {

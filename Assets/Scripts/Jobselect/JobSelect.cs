@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.UI;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
-using Unity.VisualScripting;
-using System.Data.Common;
 
 public class JobSelect : MonoBehaviour
 {
