@@ -1,9 +1,11 @@
 using Fusion;
 using Fusion.Sockets;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public enum Turn { A,B,C,D,None}
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
     // To Defind Player Turn;
 
     public Turn isTurn;
+
+    public string matchID;
 
     [Networked]
     public int totalPlayer { get; set; }
@@ -60,11 +64,146 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         _runner.AddCallbacks(this);
 
         SpawnAllPlayers();
+        if(_runner.GameMode == GameMode.Host)
+        {
+            CreateMatch();
+        }
 
         this.isTurn = Turn.A;
         playerList = new List<Player>();
         FindAllPlayerInScene();
         //MoveToStartPoint();
+    }
+
+    public void CreateMatch()
+    {
+        Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
+        WWWForm form = new WWWForm();
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("MaxNumberPlayer", totalPlayer);
+        data.Add("WinnerId", Player.Instance.user_data.data.user.UserId); 
+        data.Add("LastHostId", Player.Instance.user_data.data.user.UserId); ;
+        data.Add("TotalRound", "1");
+        data.Add("gameModId", "1");
+        string bodydata = JsonConvert.SerializeObject(data);
+        StartCoroutine(helper.Post("gamematches", form, bodydata, (request, process) =>
+        {
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(request.downloadHandler.text);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    Debug.Log("Game match ID : " + request.downloadHandler.text);
+                    this.matchID = request.downloadHandler.text;
+                    break;
+                default:
+                    break;
+            }
+        }));
+    }
+
+    public void SaveFinancial(int childAmount,int totalStep,float totalMoney,bool isWin,int Score,float IncomePerMonth, float ExpensePerMonth,int coint,int point,int userID)
+    {
+        Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
+        WWWForm form = new WWWForm();
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("ChildrenAmount", childAmount);
+        data.Add("TotalStep", totalStep);
+        data.Add("TotalMoney", totalMoney); ;
+        data.Add("IsWin", isWin);
+        data.Add("Score", Score);
+        data.Add("IncomePerMonth", IncomePerMonth);
+        data.Add("ExpensePerMonth", ExpensePerMonth);
+        data.Add("MatchId", this.matchID);
+        string bodydata_1 = JsonConvert.SerializeObject(data);
+        StartCoroutine(helper.Post("gamereports", form, bodydata_1, (request, process) =>
+        {
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(request.downloadHandler.text);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    Debug.Log("Save Sucessfull : " + request.downloadHandler.text);
+                    break;
+                default:
+                    break;
+            }
+        }));
+        Dictionary<string, int> parameter = new Dictionary<string, int>();
+
+        Dictionary<string, object> data_1 = new Dictionary<string, object>();
+        parameter.Add("userId",userID);
+        data_1.Add("Coin",coint);
+        data_1.Add("Point",point);
+        string bodydata_2 = JsonConvert.SerializeObject(data_1);
+        StartCoroutine(helper.Put_Parameter("users/coin-point", parameter, bodydata_2, (request, process) =>
+        {
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(request.downloadHandler.text);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    Debug.Log("Save Sucessfull : " + request.downloadHandler.text);
+                    break;
+                default:
+                    break;
+            }
+        }));
+
+    }
+
+    // Call When have A winner
+    public void UpdateMatchWiner(int userID,int totalStep)
+    {
+        Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("MaxNumberPlayer", totalPlayer);
+        data.Add("WinnerId", userID);
+        data.Add("LastHostId", userID);
+        data.Add("TotalRound", totalStep);
+        data.Add("gameModId", "1");
+        string bodydata = JsonConvert.SerializeObject(data);
+        StartCoroutine(helper.Put_Parameter_Single("gamematches",this.matchID, bodydata, (request, process) =>
+        {
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(": Error: " + request.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(request.downloadHandler.text);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    Debug.Log("Winner ID : " + userID);
+                    break;
+                default:
+                    break;
+            }
+        }));
     }
 
     async void StartGame(GameMode mode)

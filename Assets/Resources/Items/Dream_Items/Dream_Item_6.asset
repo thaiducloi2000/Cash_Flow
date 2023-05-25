@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a05dacd2d4b5e4b8a067c6ccdd8527, type: 3}
   m_Name: Dream_Item_6
   m_EditorClassIdentifier: 
-  ID: 6460f2159c70b9cecef60314
+  ID: 646cb496ee02f64b7c9333ce
   Dream_Model: {fileID: 5489306281964597662, guid: 89d03e6d9f61238499a0a578772c2094, type: 3}

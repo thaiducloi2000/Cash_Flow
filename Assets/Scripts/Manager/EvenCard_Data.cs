@@ -41,7 +41,6 @@ public class EvenCard_Data : MonoBehaviour
         fat_race_oppoturnities = new List<Big_Deal>();
         StartCoroutine(helper.Get("eventcards/all", (request, process) => {
             List<Event_card_Entity> event_card = helper.ParseToList<Event_card_Entity>(request);
-            Debug.Log(request.downloadProgress);
             foreach (Event_card_Entity card in event_card)
             {
                 switch (card.Event_type)

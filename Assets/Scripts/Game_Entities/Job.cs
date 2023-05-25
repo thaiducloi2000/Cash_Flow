@@ -9,10 +9,6 @@ public class Job
     public string Job_card_name { get; set; }
     public int Children_cost { get; set; }
     public string Image_url { get; set; }
-    public DateTime Create_at { get; set; }
-    public int Create_by { get; set; }
-    public DateTime Update_at { get; set; }
-    public int Update_by { get; set; }
     public bool Status { get; set; }
     public List<Game_accounts> Game_accounts { get; set; }
 

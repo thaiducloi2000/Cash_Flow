@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
     {
         this.gameObject.transform.localScale *= GameBoard.Instance.size;
         SetMaterialTile(this.Type, default_material);
-        dream = new Dream("", "", "", 0);
+        dream = new Dream("", "", 0,false,1);
     }
 
 
@@ -63,7 +63,6 @@ public class Tile : MonoBehaviour
             case TileType.Dream:
                 foreach (Dream_Item dream in material.dream_Items)
                 {
-                    Debug.Log(this.dream.id);
                     if (dream.ID == this.dream.id)
                     {
                         GameObject model = Instantiate(dream.Dream_Model);

@@ -64,9 +64,11 @@ public class Financial_Panel : MonoBehaviour
                     break;
             }
         }
+        
         Total_Income.text = "Total Income : " + total_income + "$";
-        Debug.Log(fin.GetCash());
+        Player.Instance.financial_rp.income_per_month = total_income;
         Total_Expense.text = "Total Expense : " + total_expense + "$";
+        Player.Instance.financial_rp.expense_per_month = total_expense;
         Goal_Percent.value = ((total_income - salary) / total_expense);
         Income_Goal.text = Mathf.Round((total_income - salary) / total_expense * 100f) + "%";
     }

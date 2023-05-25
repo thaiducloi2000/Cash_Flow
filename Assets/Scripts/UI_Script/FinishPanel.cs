@@ -37,6 +37,11 @@ public class FinishPanel : NetworkBehaviour
         LosePanel.SetActive(true);
     }
 
+    public void OK_Btn()
+    {
+        Player.Instance.Save();
+    }
+
     public void BackToShop()
     {
         SceneManager.LoadSceneAsync("TestShopScene");
