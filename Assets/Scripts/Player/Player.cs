@@ -43,7 +43,6 @@ public class Player : NetworkBehaviour
             Instance = this;
             user_data = Resources.Load<User_Data>("Items/User_Data");
             SelectJoB();
-            
             Debug.Log("Spawn local player");
         }
         else
@@ -207,6 +206,19 @@ public class Player : NetworkBehaviour
         //if (Object.HasInputAuthority)
         StartCoroutine("WaitForNextTurn");
         
+    }
+
+    public void Save()
+    {
+        if (result)
+        {
+            GameManager.Instance.SaveFinancial(this.financial_rp.children_amount, this.totalStep, this.financial_rp.GetCash(), true, 200, this.financial_rp.income_per_month, this.financial_rp.expense_per_month,this.user_data.data.user.Coin + 50, this.user_data.data.user.Point + 200,this.user_data.data.user.UserId);
+            GameManager.Instance.UpdateMatchWiner(this.user_data.data.user.UserId, this.totalStep);
+        }
+        else
+        {
+            GameManager.Instance.SaveFinancial(this.financial_rp.children_amount, this.totalStep, this.financial_rp.GetCash(), false, 50, this.financial_rp.income_per_month, this.financial_rp.expense_per_month, this.user_data.data.user.Coin + 10, this.user_data.data.user.Point + 40,this.user_data.data.user.UserId);
+        }
     }
 
     public void ShowResult()

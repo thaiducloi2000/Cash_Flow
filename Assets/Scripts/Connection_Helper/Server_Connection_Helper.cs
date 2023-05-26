@@ -74,6 +74,21 @@ public class Server_Connection_Helper : MonoBehaviour
         }
     }
 
+    public IEnumerator Put_Parameter_Single(string endpoint,string parameters, string bodydata, Action<UnityWebRequest, float> callback)
+    {
+        string url = BASE_URL + endpoint + "/" + parameters;
+
+        using (UnityWebRequest request = UnityWebRequest.Put(url, bodydata))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodydata);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.SetRequestHeader("Content-Type", Content_Header);
+            request.SetRequestHeader("Authorization", Authorization_Header);
+            yield return request.SendWebRequest();
+            callback(request, request.downloadProgress);
+        }
+    }
+
     public IEnumerator Put(string endpoint, string bodydata, Action<UnityWebRequest, float> callback)
     {
         string url = BASE_URL + endpoint;
