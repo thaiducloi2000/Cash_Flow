@@ -9,4 +9,6 @@ public class Dream_Item : ScriptableObject
     public string ID;
     [Header("Model Dream")]
     public GameObject Dream_Model;
+    [Header("Image")]
+    public Sprite Dream_Sprite;
 }

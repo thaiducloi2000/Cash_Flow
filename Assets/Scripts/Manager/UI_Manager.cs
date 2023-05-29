@@ -7,6 +7,9 @@ public class UI_Manager : NetworkBehaviour
     public GameObject Deal_Panel;
     public GameObject Oppturnity_Panel;
     public GameObject Baby_Panel;
+    public GameObject Charity_Panel;
+    public GameObject DownSize_Panel;
+    public GameObject Dream_Panel;
     public GameObject Select_Deal_Type_Panel;
     public GameObject Job_Panel;
     public GameObject Financial_Panel;
@@ -111,8 +114,31 @@ public class UI_Manager : NetworkBehaviour
         //GameManager.Instance.RPC_nextTurn();
     }
 
+    public void PopupDownSize()
+    {
+        DownSize_Panel.SetActive(true);
+    }
+    public void PopupCharity()
+    {
+        Charity_Panel.SetActive(true);
+    }
 
-        
+    public void CloseDownSize()
+    {
+        DownSize_Panel.SetActive(false);
+    }
+
+    public void CloseCharity()
+    {
+        Charity_Panel.SetActive(false);
+    }
+
+
+    public void Popup_Dream_Panel(Tile tile)
+    {
+        Dream_Panel.SetActive(true);
+        Dream_Panel.GetComponent<Dream_Panel>().SetDream(tile);
+    }
     public void Accept_Oppotunity_Btn()
     {
         if (f_oppotunity >= 0)
