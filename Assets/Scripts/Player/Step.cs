@@ -177,18 +177,21 @@ public class Step : NetworkBehaviour
             case TileType.Baby:
                 Baby();
                 //player.UpdatePlayerTurn();
+                UI_Manager.instance.PopupBabyUI();
                 UI_Manager.instance.UpdateProfilePlayer();
                
                 break;
             case TileType.Charity:
                 //UI_Manager.Instance.PopUpDeal_UI();
                 Charity();
+                UI_Manager.instance.PopupCharity();
                 //player.UpdatePlayerTurn();
                 UI_Manager.instance.UpdateProfilePlayer();
                 
                 break;
             case TileType.DownSize:
                 //UI_Manager.Instance.PopUpDeal_UI();
+                UI_Manager.instance.PopupDownSize();
                 DownSize();
                 //player.UpdatePlayerTurn();
                 UI_Manager.instance.UpdateProfilePlayer();
@@ -204,38 +207,28 @@ public class Step : NetworkBehaviour
                 Divorce();
                 //player.UpdatePlayerTurn();
                 UI_Manager.instance.UpdateProfilePlayer();
-                
-                Debug.Log("Divorce");
                 break;
             case TileType.CashFlowDay:
                 CashFlowDay();
                 //player.UpdatePlayerTurn();
                 UI_Manager.instance.UpdateProfilePlayer();
-                
-                Debug.Log("CashFlowDay");
                 break;
             case TileType.Accused:
                 Accused();
                 //player.UpdatePlayerTurn();
                 UI_Manager.instance.UpdateProfilePlayer();
-                
-                Debug.Log("Accused");
                 break;
             case TileType.Taxes:
                 Taxes();
-                //player.UpdatePlayerTurn();
                 UI_Manager.instance.UpdateProfilePlayer();
                 
-                Debug.Log("Taxes");
                 break;
             case TileType.Dream:
                 Dream(currentPos);
                 //player.UpdatePlayerTurn();
-                
                 break;
             case TileType.PayCheck:
                 //player.UpdatePlayerTurn();
-                
                 break;
             default:
                 break;
@@ -244,12 +237,7 @@ public class Step : NetworkBehaviour
 
     private void Dream(int pos)
     {
-        if (isDreamTile(GameBoard.Instance.Tiles_Fat_Race[pos].GetComponent<Tile>()))
-        {
-            GameManager.Instance.EndGame = true;
-            Player.Instance.GetComponent<Player>().result = true;
-            GameManager.Instance.CheckPlayerWinner();
-        }
+        UI_Manager.instance.Popup_Dream_Panel(GameBoard.Instance.Tiles_Fat_Race[pos].GetComponent<Tile>());
     }
 
     private void Divorce()

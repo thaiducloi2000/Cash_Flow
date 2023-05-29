@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 646cb496ee02f64b7c9333c6
   Dream_Model: {fileID: 6048556248754644692, guid: 82477409ca95c96448c30398677459ef, type: 3}
+  Dream_Sprite: {fileID: 21300000, guid: c1c051dd6707d874fbba94a614196975, type: 3}
