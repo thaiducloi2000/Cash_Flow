@@ -202,7 +202,6 @@ public class Step : NetworkBehaviour
                 //UI_Manager.Instance.PopUpDeal_UI();
                 Doodad doodad = EvenCard_Data.instance.Doodads[Random.Range(0, EvenCard_Data.instance.Doodads.Count-1)];
                 UI_Manager.instance.Popup_Doodad_Panel(doodad);
-                Doodads(doodad);
                 break;
             case TileType.Divorce:
                 Divorce();
@@ -292,12 +291,6 @@ public class Step : NetworkBehaviour
         }
         player.financial_rp.SetCash(player.financial_rp.GetCash() + total_income - total_expense);
         UI_Manager.instance.UpdateProfilePlayer();
-
-    }
-
-    private void Doodads(Doodad doodad)
-    {
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - doodad.Cost);
 
     }
 

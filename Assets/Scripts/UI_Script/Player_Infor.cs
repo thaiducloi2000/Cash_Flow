@@ -22,4 +22,9 @@ public class Player_Infor : MonoBehaviour
         user_name.text = user.data.user.NickName.ToString();
         Money.text = user.data.user.Coin.ToString();
     }
+
+    private void Update()
+    {
+        Money.text = user.data.user.Coin.ToString();
+    }
 }

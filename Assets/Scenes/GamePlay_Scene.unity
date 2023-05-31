@@ -13956,6 +13956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   matchID: 
+  endGame: 0
 --- !u!1 &1591841416
 GameObject:
   m_ObjectHideFlags: 0

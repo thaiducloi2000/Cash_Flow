@@ -34,7 +34,6 @@ public class Login : MonoBehaviour
         {
             helper = GetComponentInParent<Server_Connection_Helper>();
         }
-        Debug.Log(Application.streamingAssetsPath);
     }
 
     private void Start()
