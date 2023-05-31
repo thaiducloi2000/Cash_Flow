@@ -28,7 +28,7 @@ public class Dice : NetworkBehaviour {
 
         // Assign Renderer component
         rend = GetComponent<Image>();
-
+        rend.gameObject.SetActive(false);
 	}
 	
     

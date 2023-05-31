@@ -40,6 +40,8 @@ public class FinishPanel : NetworkBehaviour
     public void OK_Btn()
     {
         Player.Instance.Save();
+        WinPanel.SetActive(false);
+        LosePanel.SetActive(false);
     }
 
     public void BackToShop()

@@ -168,6 +168,7 @@ public class Step : NetworkBehaviour
                 {
                     UI_Manager.instance.PopUpDeal_UI();
                 }
+
                 break;
             case TileType.Market:
                 //UI_Manager.Instance.PopUpDeal_UI();
@@ -193,7 +194,7 @@ public class Step : NetworkBehaviour
                 //UI_Manager.Instance.PopUpDeal_UI();
                 UI_Manager.instance.PopupDownSize();
                 DownSize();
-                //player.UpdatePlayerTurn();
+                
                 UI_Manager.instance.UpdateProfilePlayer();
                 
                 break;
@@ -291,11 +292,13 @@ public class Step : NetworkBehaviour
         }
         player.financial_rp.SetCash(player.financial_rp.GetCash() + total_income - total_expense);
         UI_Manager.instance.UpdateProfilePlayer();
+
     }
 
     private void Doodads(Doodad doodad)
     {
         player.financial_rp.SetCash(player.financial_rp.GetCash() - doodad.Cost);
+
     }
 
     private void DownSize()
@@ -310,7 +313,8 @@ public class Step : NetworkBehaviour
         }
         player.financial_rp.SetCash(player.financial_rp.GetCash() + - total_expense);
         // Add Code to missing 2 turn
-
+        if(Object.HasInputAuthority)
+            player.RPC_LostTurn(true);
     }
 
     private void Charity()
