@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Networking;
 
 public class Player : NetworkBehaviour
 {
@@ -31,10 +29,16 @@ public class Player : NetworkBehaviour
     public int totalStep { get; set; }
     [Networked]
     public int infoNumber { get; set; }
+    
+    
     [Networked]
     public NetworkBool result { get; set; }
 
     public User_Data user_data;
+
+    [Networked]
+    public bool lostTurn { get; set; }
+    public int noOfTurn;
 
     public override void Spawned()
     {
@@ -43,6 +47,8 @@ public class Player : NetworkBehaviour
             Instance = this;
             user_data = Resources.Load<User_Data>("Items/User_Data");
             SelectJoB();
+            //endGame = false;
+            //RPC_LostTurn(false);
             Debug.Log("Spawn local player");
         }
         else
@@ -62,8 +68,9 @@ public class Player : NetworkBehaviour
         Camera.main.transform.position = offset;
         Camera.main.transform.LookAt(root);
         dice = Dice.Instance;
-        RPC_HideDice(false);
-        //LoadAllJob();
+        //if(Object.HasInputAuthority)
+        //    RPC_HideDice(false);
+
     }
 
 
@@ -81,7 +88,14 @@ public class Player : NetworkBehaviour
             //    UI_Manager.instance.Roll_Button.SetActive(false);
             if (GameManager.Instance.isTurn == myTurn)
                 UI_Manager.instance.Roll_Button.SetActive(true);
+            
         }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    public void RPC_LostTurn(bool lostTurn, RpcInfo info = default)
+    {
+        this.lostTurn = lostTurn;
     }
 
     public void OnRollDice()
@@ -144,7 +158,7 @@ public class Player : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_HideDice(NetworkBool isHide, RpcInfo info = default)
     {
-        dice.rend.enabled = isHide;
+        dice.rend.gameObject.SetActive(isHide);
     }
 
     public void SelectJoB()
@@ -190,6 +204,7 @@ public class Player : NetworkBehaviour
     {
         changed.Behaviour.OnStepChanged();
     }
+    
 
     private void OnStepChanged()
     {
@@ -209,31 +224,74 @@ public class Player : NetworkBehaviour
     }
 
     public void Save()
-    {
+    { 
         if (result)
         {
-            GameManager.Instance.SaveFinancial(this.financial_rp.children_amount, this.totalStep, this.financial_rp.GetCash(), true, 200, this.financial_rp.income_per_month, this.financial_rp.expense_per_month,this.user_data.data.user.Coin + 50, this.user_data.data.user.Point + 200,this.user_data.data.user.UserId);
-            GameManager.Instance.UpdateMatchWiner(this.user_data.data.user.UserId, this.totalStep);
+            Debug.Log("Saving ");
+            if (Object.HasInputAuthority)
+            {
+                GameManager.Instance.SaveFinancial(this.financial_rp.children_amount, this.totalStep, this.financial_rp.GetCash(),
+                true, 200, this.financial_rp.income_per_month, this.financial_rp.expense_per_month, this.user_data.data.user.Coin + 50,
+                this.user_data.data.user.Point + 200, this.user_data.data.user.UserId);
+                GameManager.Instance.UpdateMatchWiner(this.user_data.data.user.UserId, this.totalStep);
+            }
+                
+            Debug.Log("Saved ");
         }
         else
         {
-            GameManager.Instance.SaveFinancial(this.financial_rp.children_amount, this.totalStep, this.financial_rp.GetCash(), false, 50, this.financial_rp.income_per_month, this.financial_rp.expense_per_month, this.user_data.data.user.Coin + 10, this.user_data.data.user.Point + 40,this.user_data.data.user.UserId);
+            Debug.Log("Saving ");
+            if (Object.HasInputAuthority)
+            {
+                GameManager.Instance.SaveFinancial(this.financial_rp.children_amount, this.totalStep, this.financial_rp.GetCash(),
+                false, 50, this.financial_rp.income_per_month, this.financial_rp.expense_per_month, this.user_data.data.user.Coin + 10,
+                this.user_data.data.user.Point + 40, this.user_data.data.user.UserId);
+            }
+            Debug.Log("Saved ");
         }
     }
 
     public void ShowResult()
     {
-        if (result)
-        {
-            FinishPanel.instance.RPC_Lose();
-            FinishPanel.instance.Win();
-        }
+        FinishPanel.instance.RPC_Lose();
     }
 
     private IEnumerator WaitForNextTurn()
     {
-        float time = (float) step/2 + 3;
+        float time = (float) step/2 + 1;
         yield return new WaitForSeconds(time);
-        GameManager.Instance.RPC_nextTurn(myTurn);
+        GameManager.Instance.RPC_nextTurn(CheckLostTurn());
     }
+
+    public void EndGame()
+    {
+        if (Object.HasInputAuthority)
+            RPC_Result(true);
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    void RPC_Result(bool result, RpcInfo info = default)
+    {
+        this.result = result;
+    }
+
+    private Turn CheckLostTurn()
+    {
+        Turn turn = myTurn;
+        GameObject[] gameObjectsToTransfer = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in gameObjectsToTransfer)
+        {
+            if (player.GetComponent<Player>().lostTurn)
+            {
+                turn = player.GetComponent<Player>().myTurn;
+                if (Object.HasInputAuthority)
+                    RPC_LostTurn(false);
+                Debug.Log("TurnLost: " + turn);
+                return turn;
+            }
+            Debug.Log("TurnLost: " + player.GetComponent<Player>().lostTurn);
+        }
+        return turn;
+    }
+
 }

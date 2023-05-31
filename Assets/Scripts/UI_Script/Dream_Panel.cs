@@ -29,8 +29,9 @@ public class Dream_Panel : MonoBehaviour
         {
             if (this.dream.id == dream.id)
             {
-                GameManager.Instance.EndGame = true;
-                Player.Instance.GetComponent<Player>().result = true;
+                //GameManager.Instance.EndGame = true;
+                GameMatchID.Instance.RPC_EndGame(true);
+                Player.Instance.GetComponent<Player>().EndGame();
                 GameManager.Instance.CheckPlayerWinner();
             }
         }

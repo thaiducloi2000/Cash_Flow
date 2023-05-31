@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public List<Player> playerList;
     public bool isPlayerMoving;
-    public bool EndGame;
+
     // To Defind Player Turn;
 
     public Turn isTurn;
@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     [Networked]
     public int totalPlayer { get; set; }
+
+    public GameMatchID gameMatchID;
 
     private void Awake()
     {
@@ -50,7 +52,6 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         //{
             //Instantiate(PlayerPrefabs);
         //}
-        EndGame = false;
     }
 
     private void Start()
@@ -64,15 +65,15 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         _runner.AddCallbacks(this);
 
         SpawnAllPlayers();
-        if(_runner.GameMode == GameMode.Host)
-        {
+
+        if (_runner.GameMode == GameMode.Host)
             CreateMatch();
-        }
 
         this.isTurn = Turn.A;
         playerList = new List<Player>();
         FindAllPlayerInScene();
         //MoveToStartPoint();
+        
     }
 
     public void CreateMatch()
@@ -81,8 +82,8 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
         WWWForm form = new WWWForm();
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("MaxNumberPlayer", totalPlayer);
-        data.Add("WinnerId", Player.Instance.user_data.data.user.UserId); 
-        data.Add("LastHostId", Player.Instance.user_data.data.user.UserId); ;
+        data.Add("WinnerId", null); 
+        data.Add("LastHostId", null); ;
         data.Add("TotalRound", "1");
         data.Add("gameModId", "1");
         string bodydata = JsonConvert.SerializeObject(data);
@@ -100,8 +101,8 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
                     Debug.LogError(request.downloadHandler.text);
                     break;
                 case UnityWebRequest.Result.Success:
-                    Debug.Log("Game match ID : " + request.downloadHandler.text);
-                    this.matchID = request.downloadHandler.text;
+                    this.matchID = request.downloadHandler.text;        
+                    gameMatchID.RPC_MatchID(this.matchID);
                     break;
                 default:
                     break;
@@ -111,6 +112,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void SaveFinancial(int childAmount,int totalStep,float totalMoney,bool isWin,int Score,float IncomePerMonth, float ExpensePerMonth,int coint,int point,int userID)
     {
+        this.matchID = gameMatchID.matchID;
         Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
         WWWForm form = new WWWForm();
         Dictionary<string, object> data = new Dictionary<string, object>();
@@ -176,6 +178,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
     // Call When have A winner
     public void UpdateMatchWiner(int userID,int totalStep)
     {
+        this.matchID = gameMatchID.matchID;
         Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("MaxNumberPlayer", totalPlayer);
@@ -316,7 +319,9 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void CheckPlayerWinner()
     {
-        Player.Instance.GetComponent<Player>().ShowResult();
+        //Player.Instance.GetComponent<Player>().ShowResult();
+        FinishPanel.instance.RPC_Lose();
+        FinishPanel.instance.Win();
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)

@@ -153,8 +153,9 @@ public class UI_Manager : NetworkBehaviour
                 ApplyBigDeal_FatRace(EvenCard_Data.instance.fat_race_oppoturnities[f_oppotunity]);
                 if (Player.Instance.financial_rp_fat_race.GetPassiveIncome()-Player.Instance.financial_rp.GetPassiveIncome()*100 >= 50000)
                 {
-                    GameManager.Instance.EndGame = true;
-                    Player.Instance.GetComponent<Player>().result = true;
+                    //GameManager.Instance.EndGame = true;
+                    GameMatchID.Instance.RPC_EndGame(true);
+                    Player.Instance.GetComponent<Player>().EndGame();
                     GameManager.Instance.CheckPlayerWinner();
                 }
                 Oppturnity_Panel.SetActive(false);
