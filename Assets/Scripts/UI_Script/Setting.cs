@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+
 public class Setting : MonoBehaviour
 {
     public GameObject Settingpanel;
@@ -29,5 +31,11 @@ public class Setting : MonoBehaviour
     public void closeexitattention()
     {
         AttentionExitpanel.SetActive(false);
+    }
+    public void ExitGame()
+    {
+        SceneManager.LoadSceneAsync("TestShopScene");
+        RunnerManager.Instance.LeaveSession();
+        LobbyManager.instance.LeaveSession();
     }
 }

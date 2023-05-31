@@ -17,7 +17,7 @@ public enum PairState
 
 public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
 {
-    
+    public static LobbyManager instance;
     public PairState pairState = PairState.Lobby;
 
     private RunnerManager gameManager = null;
@@ -32,6 +32,11 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
         if (sessions == null)
             sessions = new List<SessionInfo>();
     }
@@ -167,10 +172,61 @@ public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         
     }
-
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+    private NetworkRunner _runner = null;
+    public async void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
     {
-        
+        Debug.Log("OnHostMigration");
+
+        await runner.Shutdown(shutdownReason: ShutdownReason.HostMigration);
+
+        // Step 2.2
+        // Create a new Runner.
+        if (_runner == null)
+        {
+            GameObject rm = new GameObject("session");
+            _runner = rm.AddComponent<NetworkRunner>();
+
+            _runner.ProvideInput = true;
+        }
+
+        //var newRunner = Instantiate(_runner);
+        ////_runner.ProvideInput = true;
+        //var sceneManager = GetSceneManager(runner);
+        // setup the new runner...
+
+        // Start the new Runner using the "HostMigrationToken" and pass a callback ref in "HostMigrationResume".
+        StartGameResult result = await _runner.StartGame(new StartGameArgs()
+        {
+            // SessionName = SessionName,              // ignored, peer never disconnects from the Photon Cloud
+            // GameMode = gameMode,                    // ignored, Game Mode comes with the HostMigrationToken
+            SceneManager = gameManager.gameObject.AddComponent<NetworkSceneManagerDefault>(),
+            HostMigrationToken = hostMigrationToken,   // contains all necessary info to restart the Runner
+            HostMigrationResume = HostMigrationResume, // this will be invoked to resume the simulation
+                                                       // other args
+        });
+
+        // Check StartGameResult as usual
+        if (result.Ok == false)
+        {
+            Debug.LogWarning(result.ShutdownReason);
+        }
+        else
+        {
+            Debug.Log("Done");
+        }
+    }
+
+    void HostMigrationResume(NetworkRunner runner)
+    {
+
+    }
+
+    public void LeaveSession()
+    {
+        if(_runner != null)
+        {
+            _runner.Shutdown();
+        }
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
