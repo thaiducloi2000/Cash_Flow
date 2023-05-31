@@ -1,8 +1,6 @@
 using TMPro;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class Dream_Panel : MonoBehaviour
 {
