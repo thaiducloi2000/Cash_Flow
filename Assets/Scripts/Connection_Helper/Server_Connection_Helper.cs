@@ -37,7 +37,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Content-Type", context);
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
-            callback(request, request.downloadProgress);
+            callback?.Invoke(request, request.downloadProgress);
         }
     }
 
@@ -50,7 +50,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.SetRequestHeader("Content-Type", Content_Header);
             yield return request.SendWebRequest();
-            callback(request, request.downloadProgress);
+            callback?.Invoke(request, request.downloadProgress);
         }
     }
 
@@ -70,7 +70,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Content-Type", Content_Header);
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
-            callback(request, request.downloadProgress);
+            callback?.Invoke(request, request.downloadProgress);
         }
     }
 
@@ -85,7 +85,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Content-Type", Content_Header);
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
-            callback(request, request.downloadProgress);
+            callback?.Invoke(request, request.downloadProgress);
         }
     }
 
@@ -100,7 +100,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Content-Type", Content_Header);
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
-            callback(request, request.downloadProgress);
+            callback?.Invoke(request, request.downloadProgress);
         }
     }
 
@@ -111,7 +111,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Content-Type", Content_Header);
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
-            callback(request,request.downloadProgress);
+            callback?.Invoke(request,request.downloadProgress);
         }
     }
 
@@ -122,7 +122,7 @@ public class Server_Connection_Helper : MonoBehaviour
             request.SetRequestHeader("Content-Type", Content_Header);
             request.SetRequestHeader("Authorization", Authorization_Header);
             yield return request.SendWebRequest();
-            callback(request, request.downloadProgress);
+            callback?.Invoke(request, request.downloadProgress);
         }
     }
 
@@ -182,7 +182,8 @@ public class Server_Connection_Helper : MonoBehaviour
                 {
                     //Texture2D resize = ResizeTexture(texture, 1024, 756);
                     Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0f, 0f));
-                    callback(sprite);
+                    //callback(sprite);
+                    callback?.Invoke(sprite);
                 }
             }
             else
@@ -191,5 +192,6 @@ public class Server_Connection_Helper : MonoBehaviour
             }
         }
     }
+
 }
 
