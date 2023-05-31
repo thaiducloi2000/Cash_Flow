@@ -41,6 +41,7 @@ public class ShopTemplate : MonoBehaviour
                         break;
                     case UnityWebRequest.Result.Success:
                         //Debug.Log(request.downloadHandler.text);
+                        this.user.data.user.Coin -= this.item.AssetPrice;
                         this.gameObject.SetActive(false);
                         break;
                     default:

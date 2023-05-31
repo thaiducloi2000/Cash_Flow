@@ -109,9 +109,7 @@ public class UI_Manager : NetworkBehaviour
                 Reset_Deal();
             }
         }
-        //Player.Instance.GetComponent<Player>().UpdatePlayerTurn();
         UpdateProfilePlayer();
-        //GameManager.Instance.RPC_nextTurn();
     }
 
     public void PopupDownSize()
@@ -230,10 +228,10 @@ public class UI_Manager : NetworkBehaviour
         //{
         //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(market.Image, (Sprite) => {
         Market_Panel.SetActive(true);
-
+        Sprite image = Resources.Load<Sprite>("Sprite/Market/"+ GetImageName(market.Image));
         Market_Panel panel = Market_Panel.GetComponent<Market_Panel>();
-       // panel.SetMarketPanel(market, Sprite);
-        panel.SetMarketPanel(market);
+        panel.SetMarketPanel(market, image);
+        //panel.SetMarketPanel(market);
         //    }));
         //}
     }
@@ -244,10 +242,10 @@ public class UI_Manager : NetworkBehaviour
         //{
         //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(doodad.Image, (Sprite) => {
         Doodad_Panel.SetActive(true);
-
+        Sprite image = Resources.Load<Sprite>("Sprite/Doodad/" + GetImageName(doodad.Image));
         Doodad_Panel panel = Doodad_Panel.GetComponent<Doodad_Panel>();
-        //panel.SetDoodadPanel(doodad, Sprite);
-        panel.SetDoodadPanel(doodad);
+        panel.SetDoodadPanel(doodad, image);
+        //panel.SetDoodadPanel(doodad);
         //    }));
         //}
     }
@@ -263,10 +261,11 @@ public class UI_Manager : NetworkBehaviour
         //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
         Deal_Panel.SetActive(true);
 
+        Sprite image = Resources.Load<Sprite>("Sprite/BigDeal/" + GetImageName(deal.Image));
         // Get BIg Deal From Instance
         Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
-        //panel.SetBigDeal(deal, Sprite);
-        panel.SetBigDeal(deal);
+        panel.SetBigDeal(deal, image);
+        //panel.SetBigDeal(deal);
         //    }));
         //}
         b_deal = deal_num;
@@ -346,11 +345,10 @@ public class UI_Manager : NetworkBehaviour
         //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
         Oppturnity_Panel.SetActive(true);
 
-        // Get BIg Deal From Instance
-        Debug.Log(deal.Title);
+        Sprite image = Resources.Load<Sprite>("Sprite/Optunity/" + GetImageName(deal.Image));
         Oppturnity_Panel panel = Oppturnity_Panel.GetComponent<Oppturnity_Panel>();
-        //panel.SetBigDeal(deal, Sprite);
-        panel.SetBigDeal(deal);
+        panel.SetBigDeal(deal, image);
+        //panel.SetBigDeal(deal);
         //    }));
         //}
         f_oppotunity = deal_num;
@@ -472,17 +470,17 @@ public class UI_Manager : NetworkBehaviour
         
         int deal_num = Random.Range(0, EvenCard_Data.instance.Small_Deal_List.Count - 1);
         Small_Deal deal = EvenCard_Data.instance.Small_Deal_List[deal_num];
-        if (deal.Image != null)
-        {
-            StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
+        //if (deal.Image != null)
+        //{
+        //    StartCoroutine(EvenCard_Data.instance.helper.DownloadImage(deal.Image, (Sprite) => {
                 Deal_Panel.SetActive(true);
-
+                Sprite image = Resources.Load<Sprite>("Sprite/SmallDeal/" + GetImageName(deal.Image));
 
                 // Get Small Deal From Instance
                 Deal_Panel panel = Deal_Panel.GetComponent<Deal_Panel>();
-                panel.SetSmallDeal(deal, Sprite);
-            }));
-        }
+                panel.SetSmallDeal(deal, image);
+        //    }));
+        //}
         s_deal = deal_num;
 
     }
@@ -503,4 +501,10 @@ public class UI_Manager : NetworkBehaviour
             Player.Instance.financial_rp.children_amount);
     }
 
+    private string GetImageName(string imagename)
+    {
+        int dotIndex = imagename.LastIndexOf(".");
+        string nameWithoutExtension = imagename.Substring(0, dotIndex);
+        return nameWithoutExtension;
+    }
 }

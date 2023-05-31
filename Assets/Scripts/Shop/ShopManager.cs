@@ -34,7 +34,7 @@ public class ShopManager : MonoBehaviour
     }
     void Update()
     {
-
+        coinUI.text = shop_data.user_data.data.user.Coin.ToString();
     }
 
     public void PopupShop()
