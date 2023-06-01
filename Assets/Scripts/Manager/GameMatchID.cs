@@ -7,7 +7,8 @@ public class GameMatchID : NetworkBehaviour
 {
     public static GameMatchID Instance;
 
-    public string matchID;
+    [Networked]
+    public NetworkString<_128> matchID { get; set; }
 
     public bool endGame;
 
