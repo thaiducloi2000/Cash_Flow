@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void SaveFinancial(int childAmount,int totalStep,float totalMoney,bool isWin,int Score,float IncomePerMonth, float ExpensePerMonth,int coint,int point,int userID)
     {
-        this.matchID = gameMatchID.matchID;
+        this.matchID = gameMatchID.matchID.ToString();
         Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
         WWWForm form = new WWWForm();
         Dictionary<string, object> data = new Dictionary<string, object>();
@@ -167,6 +167,8 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
                     break;
                 case UnityWebRequest.Result.Success:
                     Debug.Log("Save Sucessfull : " + request.downloadHandler.text);
+                    Player.Instance.user_data.data.user.Coin = coint;
+                    Player.Instance.user_data.data.user.Point = point;
                     break;
                 default:
                     break;
@@ -178,7 +180,7 @@ public class GameManager : MonoBehaviour, INetworkRunnerCallbacks
     // Call When have A winner
     public void UpdateMatchWiner(int userID,int totalStep)
     {
-        this.matchID = gameMatchID.matchID;
+        this.matchID = gameMatchID.matchID.ToString();
         Server_Connection_Helper helper = this.gameObject.GetComponent<Server_Connection_Helper>();
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("MaxNumberPlayer", totalPlayer);

@@ -74,7 +74,8 @@ public class Step : NetworkBehaviour
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     void RPC_MovingToFatRace(RpcInfo info = default)
     {
-        currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
+        //currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
+        currentPos = 0;
         Vector3 nextPos = GameBoard.Instance.Tiles_Fat_Race[0].transform.position;
         nextPos.y = 0.05f;
         MoveToNextTiles(nextPos);
@@ -87,7 +88,7 @@ public class Step : NetworkBehaviour
             yield break;
         }
         GameManager.Instance.isPlayerMoving = true;
-        int count = 4;
+        int count = 5;
         //currentPos++;
         //currentPos %= GameBoard.Instance.Tiles_Fat_Race.Count;
         //Vector3 nextPos = GameBoard.Instance.Tiles_Fat_Race[0].transform.position;
@@ -97,7 +98,6 @@ public class Step : NetworkBehaviour
         while (count > 0)
         {
             RPC_MovingToFatRace();
-            if (this.moveToNextTile) { yield return null; }
             yield return new WaitForSeconds(.2f);
             count--;
         }
