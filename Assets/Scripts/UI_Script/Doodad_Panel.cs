@@ -36,5 +36,6 @@ public class Doodad_Panel : NetworkBehaviour
             Rental_Panel rent_panel = UI_Manager.instance.Rental_Panel.GetComponent<Rental_Panel>();
             rent_panel.Show_Penel();
         }
+        UI_Manager.instance.UpdateProfilePlayer();
     }
 }

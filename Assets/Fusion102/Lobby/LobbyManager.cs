@@ -15,6 +15,12 @@ public enum PairState
     InRoom
 }
 
+public enum StatusRoom 
+{
+    Available,
+    IsPlaying
+}
+
 public class LobbyManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     public static LobbyManager instance;
