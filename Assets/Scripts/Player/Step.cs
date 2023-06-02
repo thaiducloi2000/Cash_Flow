@@ -46,6 +46,11 @@ public class Step : NetworkBehaviour
         while (step > 0)
         {
             RPC_Moving(boardType);
+            if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
+            {
+                if (Object.HasInputAuthority)
+                    Paycheck();
+            }
             if (this.moveToNextTile) { yield return null; }
             yield return new WaitForSeconds(.5f);
             step--;
@@ -119,11 +124,11 @@ public class Step : NetworkBehaviour
         currentPos++;
         currentPos %= race.Count;
         Vector3 nextPos = race[this.currentPos].transform.position;
-        if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
-        {
-            if (Object.HasInputAuthority)
-                Paycheck();
-        }
+        //if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
+        //{
+        //    if (Object.HasInputAuthority)
+        //        Paycheck();
+        //}
         nextPos.y = 0.05f;
         MoveToNextTiles(nextPos);
 
@@ -184,11 +189,8 @@ public class Step : NetworkBehaviour
                 break;
             case TileType.Charity:
                 //UI_Manager.Instance.PopUpDeal_UI();
-                Charity();
                 UI_Manager.instance.PopupCharity();
                 //player.UpdatePlayerTurn();
-                UI_Manager.instance.UpdateProfilePlayer();
-                
                 break;
             case TileType.DownSize:
                 //UI_Manager.Instance.PopUpDeal_UI();
@@ -296,31 +298,19 @@ public class Step : NetworkBehaviour
 
     private void DownSize()
     {
-        float total_expense = 0;
-        foreach (Game_accounts account in player.financial_rp.game_accounts)
-        {
-            if (account.Game_account_type == AccountType.Expense)
-            {
-                total_expense += account.Game_account_value;
-            }
-        }
-        player.financial_rp.SetCash(player.financial_rp.GetCash() + - total_expense);
+        //float total_expense = 0;
+        //foreach (Game_accounts account in player.financial_rp.game_accounts)
+        //{
+        //    if (account.Game_account_type == AccountType.Expense)
+        //    {
+        //        total_expense += account.Game_account_value;
+        //    }
+        //}
+        //player.financial_rp.SetCash(player.financial_rp.GetCash() + - total_expense);
+
         // Add Code to missing 2 turn
         if(Object.HasInputAuthority)
             player.RPC_LostTurn(true);
-    }
-
-    private void Charity()
-    {
-        float total_income = 0;
-        foreach (Game_accounts account in player.financial_rp.game_accounts)
-        {
-            if (account.Game_account_type == AccountType.Income)
-            {
-                total_income += account.Game_account_value;
-            }
-        }
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (total_income/10));
     }
 
     private void Baby()

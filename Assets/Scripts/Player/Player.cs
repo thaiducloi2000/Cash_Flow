@@ -92,7 +92,7 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_LostTurn(bool lostTurn, RpcInfo info = default)
     {
         this.lostTurn = lostTurn;
@@ -285,7 +285,7 @@ public class Player : NetworkBehaviour
             {
                 turn = player.GetComponent<Player>().myTurn;
                 if (Object.HasInputAuthority)
-                    RPC_LostTurn(false);
+                    player.GetComponent<Player>().RPC_LostTurn(false);
                 Debug.Log("TurnLost: " + turn);
                 return turn;
             }

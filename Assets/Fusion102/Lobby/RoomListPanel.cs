@@ -2,6 +2,7 @@ using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class RoomListPanel : MonoBehaviour, Ipanel
@@ -86,8 +87,9 @@ public class RoomListPanel : MonoBehaviour, Ipanel
         }
     }
 
-    private void Update()
+    public void ExitLobby()
     {
-        //Debug.Log("TestSessionList: " + lobbyManager.sessions.Count);
+        SceneManager.LoadSceneAsync("TestShopScene");
+        RunnerManager.Instance.LeaveSession();
     }
 }

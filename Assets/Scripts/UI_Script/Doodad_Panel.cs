@@ -17,7 +17,7 @@ public class Doodad_Panel : NetworkBehaviour
         this._image.sprite = image;
         this.doodad = doodad;
 
-        byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(doodad.Description);
+        byte[] decodedBytes_Description = Encoding.UTF8.GetBytes(doodad.Title);
         this.Description.text = Encoding.UTF8.GetString(decodedBytes_Description);
         this.Cost_Txt.text = "Chi Phí: " + doodad.Cost + " $";
 
@@ -36,5 +36,6 @@ public class Doodad_Panel : NetworkBehaviour
             Rental_Panel rent_panel = UI_Manager.instance.Rental_Panel.GetComponent<Rental_Panel>();
             rent_panel.Show_Penel();
         }
+        UI_Manager.instance.UpdateProfilePlayer();
     }
 }
