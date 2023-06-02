@@ -189,11 +189,8 @@ public class Step : NetworkBehaviour
                 break;
             case TileType.Charity:
                 //UI_Manager.Instance.PopUpDeal_UI();
-                Charity();
                 UI_Manager.instance.PopupCharity();
                 //player.UpdatePlayerTurn();
-                UI_Manager.instance.UpdateProfilePlayer();
-                
                 break;
             case TileType.DownSize:
                 //UI_Manager.Instance.PopUpDeal_UI();
@@ -314,19 +311,6 @@ public class Step : NetworkBehaviour
         // Add Code to missing 2 turn
         if(Object.HasInputAuthority)
             player.RPC_LostTurn(true);
-    }
-
-    private void Charity()
-    {
-        float total_income = 0;
-        foreach (Game_accounts account in player.financial_rp.game_accounts)
-        {
-            if (account.Game_account_type == AccountType.Income)
-            {
-                total_income += account.Game_account_value;
-            }
-        }
-        player.financial_rp.SetCash(player.financial_rp.GetCash() - (total_income/10));
     }
 
     private void Baby()

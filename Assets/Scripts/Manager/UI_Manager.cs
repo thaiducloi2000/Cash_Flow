@@ -131,6 +131,28 @@ public class UI_Manager : NetworkBehaviour
         Charity_Panel.SetActive(false);
     }
 
+    public void AcceptCharity()
+    {
+        float total_income = 0;
+        foreach (Game_accounts account in Player.Instance.financial_rp.game_accounts)
+        {
+            if (account.Game_account_type == AccountType.Income)
+            {
+                total_income += account.Game_account_value;
+            }
+        }
+        if (Player.Instance.financial_rp.GetCash() >= (total_income / 10))
+        {
+            Player.Instance.financial_rp.SetCash(Player.Instance.financial_rp.GetCash() - (total_income / 10));
+            Charity_Panel.SetActive(false);
+        }
+        else
+        {
+            Rental_Panel rent_panel = UI_Manager.instance.Rental_Panel.GetComponent<Rental_Panel>();
+            rent_panel.Show_Penel();
+        }
+        UpdateProfilePlayer();
+    }
 
     public void Popup_Dream_Panel(Tile tile)
     {
