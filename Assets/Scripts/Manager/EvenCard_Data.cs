@@ -39,7 +39,8 @@ public class EvenCard_Data : MonoBehaviour
         Doodads = new List<Doodad>();
         Markets = new List<Market>();
         fat_race_oppoturnities = new List<Big_Deal>();
-        StartCoroutine(helper.Get("eventcards/all", (request, process) => {
+        string mod_id = "1";
+        StartCoroutine(helper.Get_Parameter("eventcards/mod-id", mod_id,(request, process) => {
             List<Event_card_Entity> event_card = helper.ParseToList<Event_card_Entity>(request);
             foreach (Event_card_Entity card in event_card)
             {
