@@ -101,7 +101,8 @@ public class GameBoard : MonoBehaviour
 
     public void Load_Dream()
     {
-        StartCoroutine(EvenCard_Data.instance.helper.Get("dreams/all", (request, process) =>
+        string mod_id = "1";
+        StartCoroutine(EvenCard_Data.instance.helper.Get_Parameter("dreams/mod-id", mod_id, (request, process) =>
         {
             //Debug.Log(request.downloadHandler.text);
             if (dreams == null)
