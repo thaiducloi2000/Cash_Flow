@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,4 +16,6 @@ public class HistoryDTO
     public string NickName { get; set; }
     public string MatchId { get; set; }
     public string MatchTime { get; set; }
+    public DateTime StartTime { get; set; }
+
 }

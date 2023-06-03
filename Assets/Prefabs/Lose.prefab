@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: {fileID: 9143227341161633112}
   Match_Time: {fileID: 9143227339998301344}
+  Match_Date: {fileID: 9143227340600075927}
 --- !u!1 &9143227340451347822
 GameObject:
   m_ObjectHideFlags: 0

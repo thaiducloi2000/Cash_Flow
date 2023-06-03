@@ -40,6 +40,7 @@ public class Inventory_Item_UI : MonoBehaviour
                     break;
                 case UnityWebRequest.Result.Success:
                     Debug.Log(request.downloadHandler.text);
+                    _data.data.user.lastCharacterSelected = Item.name;
                     break;
                 default:
                     break;
