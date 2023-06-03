@@ -48,8 +48,7 @@ public class Step : NetworkBehaviour
             RPC_Moving(boardType);
             if (race[this.currentPos].GetComponent<Tile>().Type == TileType.PayCheck)
             {
-                if (Object.HasInputAuthority)
-                    Paycheck();
+                 Paycheck();
             }
             if (this.moveToNextTile) { yield return null; }
             yield return new WaitForSeconds(.5f);
