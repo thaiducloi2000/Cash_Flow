@@ -40,7 +40,7 @@ public class Register : MonoBehaviour
     }
     public bool Check()
     {
-        if (user_inputfield == null||pass_inputfield == null||email_inputfield==null || confirmpass_inputfield == null)
+        if (user_inputfield.text == null||pass_inputfield.text == null||email_inputfield.text == null || confirmpass_inputfield.text == null)
         {
             attention.SetActive(true);
             TextAttention.text = "Khong o nao duoc bo trong";

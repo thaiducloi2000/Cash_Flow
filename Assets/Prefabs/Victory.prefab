@@ -503,6 +503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: {fileID: 126862126377012236}
   Match_Time: {fileID: 126862126631597286}
+  Match_Date: {fileID: 126862127134367194}
 --- !u!1 &126862126945816554
 GameObject:
   m_ObjectHideFlags: 0

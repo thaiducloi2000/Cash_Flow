@@ -8,12 +8,16 @@ public class History_Prefabs : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI Money;
     [SerializeField] private TextMeshProUGUI Match_Time;
+    [SerializeField] private TextMeshProUGUI Match_Date;
 
     public void SetText(HistoryDTO history)
     {
         Money.text = history.TotalMoney.ToString();
         //TimeSpan parsedTime = TimeSpan.Parse(history.MatchTime);
         TimeSpan parsedTime;
+        string[] substrings = history.StartTime.ToString().Split(' ');
+        string date = substrings[0];
+        Match_Date.text = date;
 
         if (TimeSpan.TryParse(history.MatchTime, out parsedTime))
         {

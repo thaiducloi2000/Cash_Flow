@@ -118,6 +118,7 @@ public class Login : MonoBehaviour
             {
                 this.game_data.Jobs.Add(job);
             }
+            Debug.Log("Jobs : " + this.game_data.Jobs.Count);
             if (this.game_data.Jobs.Count > 0)
             {
                 isDownloading = false;
